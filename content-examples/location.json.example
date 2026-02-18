@@ -1,0 +1,34 @@
+{
+  "address": {
+    "full": "[NEEDS INPUT] 전체 주소",
+    "detail": "[NEEDS INPUT] 상세 주소 (선택)"
+  },
+  "coordinates": {
+    "lat": "[NEEDS INPUT] 위도",
+    "lng": "[NEEDS INPUT] 경도"
+  },
+  "subway": [
+    {
+      "line": "[NEEDS INPUT] 예: 2호선",
+      "station": "[NEEDS INPUT] 예: 강남역",
+      "exit": "[NEEDS INPUT] 예: 3번 출구",
+      "walkingTime": "[NEEDS INPUT] 예: 도보 5분"
+    }
+  ],
+  "bus": [
+    {
+      "number": "[NEEDS INPUT] 예: 146번",
+      "stop": "[NEEDS INPUT] 정류장 이름",
+      "walkingTime": "[NEEDS INPUT] 도보 시간"
+    }
+  ],
+  "parking": {
+    "available": true,
+    "description": "[NEEDS INPUT] 주차 안내 문구",
+    "capacity": "[NEEDS INPUT] 주차 가능 대수 (선택)"
+  },
+  "mapEmbed": {
+    "provider": "[NEEDS INPUT] 예: google, naver, kakao",
+    "embedCode": "[NEEDS INPUT] 지도 임베드 코드 (선택)"
+  }
+}

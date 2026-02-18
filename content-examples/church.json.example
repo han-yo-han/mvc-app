@@ -1,0 +1,55 @@
+{
+  "name": "선교비전교회",
+  "slogan": "하나님의 사랑을 세상에 전하는 교회",
+  "intro": "선교와 말씀 위에 세워진 공동체",
+  "yearTheme": "[NEEDS INPUT] 올해의 표어/말씀을 입력하세요",
+  "coreValues": [
+    {
+      "title": "말씀 중심",
+      "description": "성경 말씀을 기반으로 한 교회",
+      "icon": "[NEEDS INPUT] 아이콘 경로 또는 이름"
+    },
+    {
+      "title": "선교 중심",
+      "description": "열방을 향한 선교 공동체",
+      "icon": "[NEEDS INPUT]"
+    },
+    {
+      "title": "사랑으로 하나",
+      "description": "서로 사랑하며 하나 되는 가족",
+      "icon": "[NEEDS INPUT]"
+    }
+  ],
+  "vision": "[NEEDS INPUT] 교회 비전을 입력하세요",
+  "mission": "[NEEDS INPUT] 교회 사명을 입력하세요",
+  "pastor": {
+    "name": "[NEEDS INPUT] 담임목사님 성함",
+    "title": "담임목사",
+    "greeting": "[NEEDS INPUT] 담임목사님 인사말",
+    "photo": "[NEEDS INPUT] 사진 경로 (선택)"
+  },
+  "history": [
+    {
+      "year": "2005",
+      "event": "교회 개척",
+      "description": "[NEEDS INPUT]"
+    },
+    {
+      "year": "2010",
+      "event": "성전 이전",
+      "description": "[NEEDS INPUT]"
+    },
+    {
+      "year": "2020",
+      "event": "선교센터 설립",
+      "description": "[NEEDS INPUT]"
+    }
+  ],
+  "images": {
+    "hero": "[NEEDS INPUT] 메인 히어로 이미지 경로",
+    "gallery": [
+      "[NEEDS INPUT] 갤러리 이미지 경로 1",
+      "[NEEDS INPUT] 갤러리 이미지 경로 2"
+    ]
+  }
+}

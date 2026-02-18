@@ -1,0 +1,16 @@
+{
+  "address": {
+    "full": "[NEEDS INPUT]",
+    "detail": "[NEEDS INPUT]"
+  },
+  "coordinates": {
+    "lat": 0,
+    "lng": 0
+  },
+  "subway": [],
+  "bus": [],
+  "parking": {
+    "available": true,
+    "description": "[NEEDS INPUT]"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "phone": {
+    "main": "[NEEDS INPUT] 대표 전화번호",
+    "office": "[NEEDS INPUT] 교회 사무실 (선택)",
+    "display": "[NEEDS INPUT] 표시할 형식 (예: 02-1234-5678)"
+  },
+  "email": {
+    "main": "[NEEDS INPUT] 대표 이메일",
+    "display": "[NEEDS INPUT] 표시할 형식"
+  },
+  "social": {
+    "kakaoChannel": "[NEEDS INPUT] 카카오 채널 링크 (선택)",
+    "instagram": "[NEEDS INPUT] 인스타그램 링크 (선택)",
+    "facebook": "[NEEDS INPUT] 페이스북 링크 (선택)",
+    "youtube": "[NEEDS INPUT] 유튜브 채널 링크 (선택)"
+  },
+  "officeHours": {
+    "weekday": "[NEEDS INPUT] 예: 평일 오전 9시 - 오후 6시",
+    "weekend": "[NEEDS INPUT] 예: 주일 오전 8시 - 오후 2시"
+  }
+}

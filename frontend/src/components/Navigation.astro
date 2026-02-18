@@ -1,0 +1,33 @@
+---
+const navItems = [
+  { href: '/', label: '홈' },
+  { href: '/about', label: '교회소개' },
+  { href: '/worship', label: '예배안내' },
+  { href: '/sermons', label: '설교' },
+  { href: '/news', label: '교회소식' },
+  { href: '/location', label: '오시는길' },
+  { href: '/newcomer', label: '새가족' },
+];
+---
+
+<nav class="bg-white shadow-md">
+  <div class="container mx-auto px-4">
+    <div class="flex justify-between items-center py-4">
+      <a href="/" class="text-xl font-bold text-gray-800">
+        선교비전교회
+      </a>
+      <ul class="flex space-x-6">
+        {navItems.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class="text-gray-600 hover:text-gray-900 transition-colors"
+            >
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</nav>

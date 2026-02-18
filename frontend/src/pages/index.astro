@@ -1,0 +1,267 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getChurch, getWorship, getAllSermons, getContact, getLocation } from '../lib/content.js';
+import MenuDrawer from '../components/MenuDrawer.astro';
+
+const church = getChurch();
+const worship = getWorship();
+const sermons = getAllSermons();
+const contact = getContact();
+const location = getLocation();
+---
+
+<Layout title={church?.name || 'Mission Vision Church'}>
+  <div class="bg-background-light dark:bg-background-dark font-display text-text-main dark:text-white antialiased selection:bg-primary/20">
+    <!-- Sticky Navigation Bar -->
+    <nav class="sticky top-0 z-50 w-full bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-sm border-b border-primary/5 dark:border-white/5">
+      <div class="flex items-center justify-between px-4 py-3">
+        <button onclick="window.openMenu?.()" class="p-2 -ml-2 rounded-full hover:bg-primary/5 dark:hover:bg-white/5 transition-colors">
+          <span class="material-symbols-outlined text-text-main dark:text-white">menu</span>
+        </button>
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">church</span>
+          <span class="font-bold text-lg tracking-tight hidden xs:block">{church?.name || 'MVC'}</span>
+        </div>
+        <button class="p-2 -mr-2 rounded-full hover:bg-primary/5 dark:hover:bg-white/5 transition-colors">
+          <span class="material-symbols-outlined text-text-main dark:text-white">person</span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Main Content Wrapper -->
+    <main class="flex flex-col w-full overflow-x-hidden pb-12">
+      <!-- Cinematic Hero Section -->
+      <section class="relative w-full h-[80vh] min-h-[500px] flex items-center justify-center">
+        <!-- Background Image with Gradient Overlay -->
+        <div class="absolute inset-0 z-0">
+          <div class="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/60 z-10"></div>
+          <div class="w-full h-full bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuACTFWvcSCumToGQ4Kg1CJEqUOr2lDDwQgRI2Lk2ltk57-J8LYLOgftMKsNAlWuYVhypvM-BF7TZbh8xEkGGYbqxOMb46IfvnFFu5Uo32YJN_yP3NjjtFAVqojK5fgjpMqpa-1Eb0g8TYOgfs-qOPnew33jxQWDI-xrwxN5o4SVd5ZOwe_8o0RLVafRFqNFsHa3yMVUJyttL_FcAHM1L3sUlHPOoltKlIIhBcEBZ0PLFEXKYeUQpd8Har5dXJG5TfJ7AVU6W2g5SQlG');"></div>
+        </div>
+        <!-- Content -->
+        <div class="relative z-20 flex flex-col items-center text-center px-6 max-w-lg mx-auto gap-4 mt-12">
+          <h1 class="font-serif text-5xl sm:text-6xl text-white font-medium tracking-tight drop-shadow-md leading-tight">
+            {church?.name ? (
+              church.name.split(' ').map((word, i, arr) => (
+                <>
+                  {word}
+                  {i < arr.length - 1 && <br />}
+                </>
+              ))
+            ) : (
+              <>
+                Mission<br/>Vision<br/>Church
+              </>
+            )}
+          </h1>
+          <div class="h-1 w-16 bg-white/80 rounded-full my-2"></div>
+          <p class="text-white/90 text-lg sm:text-xl font-medium tracking-wide drop-shadow-sm max-w-[280px]">
+            {church?.slogan || 'A home for your soul in the city.'}
+          </p>
+          <a
+            href={worship?.onlineLink || '/worship'}
+            target={worship?.onlineLink ? '_blank' : undefined}
+            rel={worship?.onlineLink ? 'noopener noreferrer' : undefined}
+            class="mt-6 bg-white text-primary hover:bg-gray-100 active:bg-gray-200 transition-colors px-8 py-3.5 rounded-full font-bold text-sm uppercase tracking-wider shadow-lg"
+          >
+            Watch Live
+          </a>
+        </div>
+      </section>
+
+      <!-- Core Values Section -->
+      <section class="py-16 px-4 bg-background-light dark:bg-background-dark">
+        <div class="text-center mb-10">
+          <span class="text-primary text-xs font-bold uppercase tracking-[0.2em] mb-2 block">Our DNA</span>
+          <h2 class="text-3xl font-serif text-text-main dark:text-white">Core Values</h2>
+        </div>
+        <div class="flex flex-col gap-6 max-w-md mx-auto">
+          {church?.coreValues && church.coreValues.length > 0 ? (
+            church.coreValues.map((value, index) => {
+              const icons = ['menu_book', 'volunteer_activism', 'favorite'];
+              const icon = icons[index] || 'favorite';
+              return (
+                <div class="group flex items-start gap-5 p-6 rounded-2xl bg-background-beige dark:bg-white/5 border border-primary/5 dark:border-white/5 shadow-sm hover:shadow-md transition-all duration-300">
+                  <div class="flex-shrink-0 w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors duration-300">
+                    <span class="material-symbols-outlined">{icon}</span>
+                  </div>
+                  <div class="flex flex-col gap-1">
+                    <h3 class="text-lg font-bold text-text-main dark:text-white">{value.title}</h3>
+                    <p class="text-text-muted dark:text-gray-400 text-sm leading-relaxed">{value.description}</p>
+                  </div>
+                </div>
+              );
+            })
+          ) : (
+            <>
+              <div class="group flex items-start gap-5 p-6 rounded-2xl bg-background-beige dark:bg-white/5 border border-primary/5 dark:border-white/5 shadow-sm hover:shadow-md transition-all duration-300">
+                <div class="flex-shrink-0 w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors duration-300">
+                  <span class="material-symbols-outlined">menu_book</span>
+                </div>
+                <div class="flex flex-col gap-1">
+                  <h3 class="text-lg font-bold text-text-main dark:text-white">Word</h3>
+                  <p class="text-text-muted dark:text-gray-400 text-sm leading-relaxed">Rooted deeply in scripture and truth, guiding our every step.</p>
+                </div>
+              </div>
+              <div class="group flex items-start gap-5 p-6 rounded-2xl bg-background-beige dark:bg-white/5 border border-primary/5 dark:border-white/5 shadow-sm hover:shadow-md transition-all duration-300">
+                <div class="flex-shrink-0 w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors duration-300">
+                  <span class="material-symbols-outlined">volunteer_activism</span>
+                </div>
+                <div class="flex flex-col gap-1">
+                  <h3 class="text-lg font-bold text-text-main dark:text-white">Mission</h3>
+                  <p class="text-text-muted dark:text-gray-400 text-sm leading-relaxed">Serving our neighbors with grace and extending a helping hand.</p>
+                </div>
+              </div>
+              <div class="group flex items-start gap-5 p-6 rounded-2xl bg-background-beige dark:bg-white/5 border border-primary/5 dark:border-white/5 shadow-sm hover:shadow-md transition-all duration-300">
+                <div class="flex-shrink-0 w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors duration-300">
+                  <span class="material-symbols-outlined">favorite</span>
+                </div>
+                <div class="flex flex-col gap-1">
+                  <h3 class="text-lg font-bold text-text-main dark:text-white">Love</h3>
+                  <p class="text-text-muted dark:text-gray-400 text-sm leading-relaxed">Welcoming everyone into the family with open hearts and arms.</p>
+                </div>
+              </div>
+            </>
+          )}
+        </div>
+      </section>
+
+      <!-- Worship Schedule Section -->
+      <section class="px-4 pb-16">
+        <div class="bg-primary rounded-3xl overflow-hidden shadow-xl max-w-md mx-auto relative isolate">
+          <!-- Decorative background elements -->
+          <div class="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 rounded-full bg-white/5 blur-3xl z-[-1]"></div>
+          <div class="absolute bottom-0 left-0 -ml-16 -mb-16 w-48 h-48 rounded-full bg-black/10 blur-2xl z-[-1]"></div>
+          <div class="p-8 text-center sm:text-left flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
+            <div class="flex flex-col gap-4">
+              <div class="space-y-1">
+                <h2 class="text-white text-2xl font-bold font-serif">Join us this Sunday</h2>
+                <p class="text-primary-100 dark:text-blue-100 text-sm font-medium opacity-90">Every week at our main campus</p>
+              </div>
+              <div class="space-y-3 pt-2">
+                {worship?.schedules && worship.schedules.length > 0 ? (
+                  <>
+                    <div class="flex items-center gap-3 justify-center sm:justify-start">
+                      <span class="material-symbols-outlined text-white/80 text-[20px]">schedule</span>
+                      <span class="text-white text-base font-semibold">{worship.schedules[0]?.time || '10:00 AM'} — Worship Service</span>
+                    </div>
+                    {worship.schedules.length > 1 ? (
+                      <div class="flex items-center gap-3 justify-center sm:justify-start">
+                        <span class="material-symbols-outlined text-white/80 text-[20px]">coffee</span>
+                        <span class="text-white text-base font-semibold">{worship.schedules[1]?.time || '11:30 AM'} — Coffee & Fellowship</span>
+                      </div>
+                    ) : (
+                      <div class="flex items-center gap-3 justify-center sm:justify-start">
+                        <span class="material-symbols-outlined text-white/80 text-[20px]">coffee</span>
+                        <span class="text-white text-base font-semibold">11:30 AM — Coffee & Fellowship</span>
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  <>
+                    <div class="flex items-center gap-3 justify-center sm:justify-start">
+                      <span class="material-symbols-outlined text-white/80 text-[20px]">schedule</span>
+                      <span class="text-white text-base font-semibold">10:00 AM — Worship Service</span>
+                    </div>
+                    <div class="flex items-center gap-3 justify-center sm:justify-start">
+                      <span class="material-symbols-outlined text-white/80 text-[20px]">coffee</span>
+                      <span class="text-white text-base font-semibold">11:30 AM — Coffee & Fellowship</span>
+                    </div>
+                  </>
+                )}
+              </div>
+            </div>
+            <a
+              href="/location"
+              class="bg-white text-primary hover:bg-gray-50 active:bg-gray-100 w-full sm:w-auto px-6 py-3 rounded-xl font-bold text-sm shadow-md transition-all transform active:scale-95 flex items-center justify-center gap-2"
+            >
+              <span>Plan Your Visit</span>
+              <span class="material-symbols-outlined text-sm font-bold">arrow_forward</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Image Banner Break -->
+      <div class="w-full h-48 sm:h-64 bg-background-light dark:bg-background-dark px-4 pb-16">
+        <div class="w-full h-full rounded-2xl bg-cover bg-center shadow-inner relative overflow-hidden max-w-4xl mx-auto" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBSfar1nEXbuqsxzp4IG1RRKi-BWQe_zr_B5yJ0MDuoRZ0TaSUBYU8b_Hm2cyJsmtSJzPuPqzpTBkhLlMzmncJ8cX-20n0MIHEs2izFxiiI43DoVuLejTGHybb4UwyNzDw3023K5vJim7j9v6RhliLK2MansYWge2dcH5fuNmTi4vtjDwvI489HoUt8Y4WAZ3S_fAqHqt7yp2s0Cd_1d34AJq77nHnF1hcGccJeZe3l5I1mnGKJiZnCZrRqFS-U5hZt2gqFFk86mzax');">
+          <div class="absolute inset-0 bg-primary/20 mix-blend-multiply"></div>
+          <div class="absolute inset-0 flex items-center justify-center">
+            <p class="text-white font-serif text-2xl italic px-4 text-center drop-shadow-md">
+              "By this everyone will know that you are my disciples, if you love one another."
+            </p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-background-dark text-white py-12 px-6">
+      <div class="max-w-md mx-auto flex flex-col gap-8">
+        <div class="flex flex-col gap-4 text-center">
+          <div class="flex items-center justify-center gap-2 mb-2">
+            <span class="material-symbols-outlined text-white/80" style="font-variation-settings: 'FILL' 1;">church</span>
+            <span class="font-serif text-2xl tracking-wide">{church?.name || 'MVC'}</span>
+          </div>
+          <p class="text-gray-400 text-sm leading-relaxed max-w-xs mx-auto">
+            {church?.intro || 'Transforming lives through the message of hope, grace, and love. Come as you are.'}
+          </p>
+        </div>
+        <div class="h-px w-full bg-white/10"></div>
+        <div class="flex flex-col gap-4 text-center">
+          {location?.address && (
+            <div class="flex flex-col gap-1">
+              <span class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-1">Visit Us</span>
+              <p class="text-white">{location.address.full}</p>
+              {location.address.detail && (
+                <p class="text-white">{location.address.detail}</p>
+              )}
+            </div>
+          )}
+          {contact && (
+            <div class="flex flex-col gap-1 mt-2">
+              <span class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-1">Contact</span>
+              {contact.email && (
+                <a class="text-primary hover:text-white transition-colors" href={`mailto:${contact.email.main}`}>
+                  {contact.email.display || contact.email.main}
+                </a>
+              )}
+              {contact.phone && (
+                <a class="text-white hover:text-primary transition-colors" href={`tel:${contact.phone.main}`}>
+                  {contact.phone.display || contact.phone.main}
+                </a>
+              )}
+            </div>
+          )}
+        </div>
+        <div class="flex justify-center gap-6 mt-4">
+          {contact?.social?.instagram && (
+            <a class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary transition-colors text-white" href={contact.social.instagram} target="_blank" rel="noopener noreferrer">
+              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"></path>
+              </svg>
+            </a>
+          )}
+          {contact?.social?.facebook && (
+            <a class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary transition-colors text-white" href={contact.social.facebook} target="_blank" rel="noopener noreferrer">
+              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"></path>
+              </svg>
+            </a>
+          )}
+          {worship?.youtubeChannel && (
+            <a class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary transition-colors text-white" href={worship.youtubeChannel} target="_blank" rel="noopener noreferrer">
+              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"></path>
+              </svg>
+            </a>
+          )}
+        </div>
+        <div class="text-center text-xs text-gray-600 mt-6">
+          © {new Date().getFullYear()} {church?.name || 'Mission Vision Church'}. All rights reserved.
+        </div>
+      </div>
+    </footer>
+    
+    <MenuDrawer />
+  </div>
+</Layout>

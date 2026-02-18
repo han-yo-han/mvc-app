@@ -1,0 +1,175 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getNewcomer, getContact, getChurch } from '../lib/content.js';
+
+const newcomer = getNewcomer();
+const contact = getContact();
+const church = getChurch();
+---
+
+<Layout title="새가족 - 선교비전교회">
+  <div class="relative flex h-full w-full max-w-md flex-col bg-[#f8f9fc] shadow-2xl overflow-hidden mx-auto">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 flex items-center justify-between bg-[#f8f9fc]/90 px-5 py-4 backdrop-blur-md">
+      <a href="/" class="flex items-center gap-2">
+        <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 text-primary">
+          <span class="material-symbols-outlined text-[20px]">church</span>
+        </div>
+        <span class="text-lg font-bold tracking-tight text-[#0d121b]">{church?.name || 'Mission Vision'}</span>
+      </a>
+      <button class="flex h-10 w-10 items-center justify-center rounded-full text-[#0d121b] hover:bg-black/5">
+        <span class="material-symbols-outlined">menu</span>
+      </button>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-1 overflow-y-auto no-scrollbar pb-24">
+      <!-- Hero Section -->
+      <section class="relative h-56 bg-gradient-to-br from-primary/20 to-accent-gold/20 flex items-center justify-center">
+        <div class="absolute inset-0 bg-cover bg-center opacity-20" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA5OCkllHeGe0OzntY3DRDwMAyJDjYbaTk_2OZ4cF3I7smAPCq-e3Nwt1XVYHYtkwbZ_oz5OcgHbhPpiSwfN-GsFwVKPm07ohtc5IvZwlB9nWd08BXE3Lw-0j-UTGIq_owH_UeazzugFyebRlGlcyD4xDWfAJGyflaNXgpqHLUOFVHxompxJ1r_YwKBdcxYxv7SmMJa4gSoz0HimgmD29XorDM0YY0jxIXJI9-99_zaCMx20In6UGniyfUjv6fGf3TkjumcjvXQHiQO');"></div>
+        <div class="relative z-10 text-center px-6">
+          <div class="h-16 w-16 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center mx-auto mb-4 shadow-lg">
+            <span class="material-symbols-outlined text-primary text-3xl">waving_hand</span>
+          </div>
+          <h1 class="serif-heading text-3xl font-bold text-[#0d121b] mb-2">Welcome!</h1>
+          {newcomer?.welcomeMessage ? (
+            <p class="text-text-muted">{newcomer.welcomeMessage}</p>
+          ) : (
+            <p class="text-text-muted">We're so glad you're here</p>
+          )}
+        </div>
+      </section>
+
+      <!-- Welcome Message -->
+      {newcomer?.welcomeMessage && (
+        <section class="px-5 pt-6 pb-4">
+          <div class="rounded-2xl bg-gradient-to-br from-primary/10 to-accent-gold/10 p-6 border border-primary/20 text-center">
+            <p class="text-lg text-[#0d121b] leading-relaxed">{newcomer.welcomeMessage}</p>
+          </div>
+        </section>
+      )}
+
+      <!-- Registration Steps -->
+      {newcomer?.registrationSteps && newcomer.registrationSteps.length > 0 && (
+        <section class="px-5 pb-4">
+          <h2 class="text-lg font-bold text-[#0d121b] mb-4 px-1">Getting Started</h2>
+          <div class="space-y-3">
+            {newcomer.registrationSteps.map((step) => (
+              <div class="group relative overflow-hidden rounded-2xl bg-white p-5 shadow-soft transition-all hover:shadow-lg">
+                <div class="absolute right-0 top-0 -mr-6 -mt-6 h-24 w-24 rounded-full bg-primary/5 transition-transform group-hover:scale-150"></div>
+                <div class="relative z-10 flex items-start gap-4">
+                  <div class="flex-shrink-0 flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white font-bold shadow-md">
+                    {step.step}
+                  </div>
+                  <div class="flex-1">
+                    <h3 class="text-lg font-bold text-[#0d121b] mb-1">{step.title}</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed">{step.description}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      <!-- Contact Channels -->
+      {newcomer?.contactChannels && newcomer.contactChannels.length > 0 && (
+        <section class="px-5 pb-4">
+          <h2 class="text-lg font-bold text-[#0d121b] mb-4 px-1">Get in Touch</h2>
+          <div class="space-y-3">
+            {newcomer.contactChannels
+              .filter(channel => channel.available)
+              .map((channel) => (
+                <a
+                  href={
+                    channel.type === 'phone' ? `tel:${channel.value}` :
+                    channel.type === 'email' ? `mailto:${channel.value}` :
+                    channel.value
+                  }
+                  target={channel.type !== 'phone' && channel.type !== 'email' ? '_blank' : undefined}
+                  rel={channel.type !== 'phone' && channel.type !== 'email' ? 'noopener noreferrer' : undefined}
+                  class="group relative overflow-hidden rounded-2xl bg-white p-5 shadow-soft transition-all hover:shadow-lg border border-gray-100"
+                >
+                  <div class="absolute right-0 top-0 -mr-6 -mt-6 h-24 w-24 rounded-full bg-primary/5 transition-transform group-hover:scale-150"></div>
+                  <div class="relative z-10 flex items-center gap-4">
+                    <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                      {channel.type === 'phone' && <span class="material-symbols-outlined">phone</span>}
+                      {channel.type === 'email' && <span class="material-symbols-outlined">mail</span>}
+                      {channel.type === 'kakao' && <span class="material-symbols-outlined">chat</span>}
+                      {channel.type === 'other' && <span class="material-symbols-outlined">link</span>}
+                    </div>
+                    <div class="flex-1">
+                      <h3 class="font-bold text-[#0d121b] mb-1">{channel.label}</h3>
+                      <p class="text-sm text-text-muted">{channel.value}</p>
+                    </div>
+                    <span class="material-symbols-outlined text-text-muted">chevron_right</span>
+                  </div>
+                </a>
+              ))}
+          </div>
+        </section>
+      )}
+
+      <!-- Meeting Information -->
+      {newcomer?.meetingInfo && newcomer.meetingInfo.hasMeeting && (
+        <section class="px-5 pb-6">
+          <div class="rounded-2xl bg-gradient-to-br from-green-50 to-green-100/50 p-6 border border-green-200">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-green-500 text-white">
+                <span class="material-symbols-outlined">groups</span>
+              </div>
+              <h2 class="text-xl font-bold text-[#0d121b]">Newcomer Meeting</h2>
+            </div>
+            <div class="space-y-3">
+              {newcomer.meetingInfo.schedule && (
+                <div class="flex items-center gap-3">
+                  <span class="material-symbols-outlined text-green-600">schedule</span>
+                  <span class="text-sm font-medium text-[#0d121b]">{newcomer.meetingInfo.schedule}</span>
+                </div>
+              )}
+              {newcomer.meetingInfo.location && (
+                <div class="flex items-center gap-3">
+                  <span class="material-symbols-outlined text-green-600">location_on</span>
+                  <span class="text-sm font-medium text-[#0d121b]">{newcomer.meetingInfo.location}</span>
+                </div>
+              )}
+              {newcomer.meetingInfo.description && (
+                <p class="text-sm text-gray-700 mt-3 leading-relaxed">{newcomer.meetingInfo.description}</p>
+              )}
+            </div>
+          </div>
+        </section>
+      )}
+    </main>
+
+    <!-- Bottom Navigation -->
+    <div class="absolute bottom-0 left-0 right-0 border-t border-[#e7ebf3] bg-[#f8f9fc] px-4 pb-6 pt-3">
+      <div class="flex justify-between gap-2">
+        <a class="flex flex-1 flex-col items-center justify-end gap-1 text-[#4c669a] hover:text-primary transition-colors" href="/">
+          <div class="flex h-8 items-center justify-center">
+            <span class="material-symbols-outlined text-[24px]">home</span>
+          </div>
+          <p class="text-xs font-medium">Home</p>
+        </a>
+        <a class="flex flex-1 flex-col items-center justify-end gap-1 text-[#4c669a] hover:text-primary transition-colors" href="/about">
+          <div class="flex h-8 items-center justify-center">
+            <span class="material-symbols-outlined text-[24px]">info</span>
+          </div>
+          <p class="text-xs font-medium">About</p>
+        </a>
+        <a class="flex flex-1 flex-col items-center justify-end gap-1 text-[#4c669a] hover:text-primary transition-colors" href="/worship">
+          <div class="flex h-8 items-center justify-center">
+            <span class="material-symbols-outlined text-[24px]">calendar_today</span>
+          </div>
+          <p class="text-xs font-medium">Worship</p>
+        </a>
+        <a class="flex flex-1 flex-col items-center justify-end gap-1 text-[#4c669a] hover:text-primary transition-colors" href="/sermons">
+          <div class="flex h-8 items-center justify-center">
+            <span class="material-symbols-outlined text-[24px]">play_circle</span>
+          </div>
+          <p class="text-xs font-medium">Sermons</p>
+        </a>
+      </div>
+    </div>
+  </div>
+</Layout>

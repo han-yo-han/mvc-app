@@ -1,0 +1,35 @@
+{
+  "welcomeMessage": "선교비전교회에 오신 것을 환영합니다!",
+  "registrationSteps": [
+    {
+      "step": 1,
+      "title": "방문",
+      "description": "교회에 방문하여 예배에 참석하세요"
+    },
+    {
+      "step": 2,
+      "title": "등록",
+      "description": "새가족 등록을 진행하세요"
+    }
+  ],
+  "contactChannels": [
+    {
+      "type": "phone",
+      "label": "전화",
+      "value": "[NEEDS INPUT]",
+      "available": true
+    },
+    {
+      "type": "email",
+      "label": "이메일",
+      "value": "[NEEDS INPUT]",
+      "available": true
+    }
+  ],
+  "meetingInfo": {
+    "hasMeeting": true,
+    "schedule": "[NEEDS INPUT]",
+    "location": "[NEEDS INPUT]",
+    "description": "[NEEDS INPUT]"
+  }
+}

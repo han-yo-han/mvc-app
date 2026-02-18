@@ -1,0 +1,32 @@
+---
+import { getContact } from '../lib/content.js';
+
+const contact = getContact();
+---
+
+<footer class="bg-gray-800 text-white py-8 mt-16">
+  <div class="container mx-auto px-4">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div>
+        <h3 class="text-lg font-bold mb-4">선교비전교회</h3>
+        <p class="text-gray-400">하나님의 사랑을 세상에 전하는 교회</p>
+      </div>
+      <div>
+        <h3 class="text-lg font-bold mb-4">연락처</h3>
+        {contact && (
+          <div class="text-gray-400 space-y-2">
+            <p>전화: {contact.phone?.display || contact.phone?.main}</p>
+            <p>이메일: {contact.email?.display || contact.email?.main}</p>
+          </div>
+        )}
+      </div>
+      <div>
+        <h3 class="text-lg font-bold mb-4">주소</h3>
+        <p class="text-gray-400">[NEEDS INPUT]</p>
+      </div>
+    </div>
+    <div class="border-t border-gray-700 mt-8 pt-4 text-center text-gray-400">
+      <p>&copy; {new Date().getFullYear()} 선교비전교회. All rights reserved.</p>
+    </div>
+  </div>
+</footer>

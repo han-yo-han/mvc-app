@@ -1,0 +1,14 @@
+{
+  "phone": {
+    "main": "[NEEDS INPUT]",
+    "display": "[NEEDS INPUT]"
+  },
+  "email": {
+    "main": "[NEEDS INPUT]",
+    "display": "[NEEDS INPUT]"
+  },
+  "social": {
+    "kakaoChannel": "[NEEDS INPUT]",
+    "youtube": "[NEEDS INPUT]"
+  }
+}

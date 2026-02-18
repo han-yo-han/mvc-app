@@ -1,0 +1,46 @@
+{
+  "welcomeMessage": "[NEEDS INPUT] 새가족 환영 문구",
+  "registrationSteps": [
+    {
+      "step": 1,
+      "title": "[NEEDS INPUT] 예: 예배 참석",
+      "description": "[NEEDS INPUT] 예: 주일예배에 참석하세요"
+    },
+    {
+      "step": 2,
+      "title": "[NEEDS INPUT] 예: 안내데스크 방문",
+      "description": "[NEEDS INPUT] 예: 예배 후 안내데스크로 오세요"
+    },
+    {
+      "step": 3,
+      "title": "[NEEDS INPUT] 예: 등록서 작성",
+      "description": "[NEEDS INPUT] 예: 새가족 등록서를 작성해주세요"
+    }
+  ],
+  "contactChannels": [
+    {
+      "type": "phone",
+      "label": "전화",
+      "value": "[NEEDS INPUT] 전화번호",
+      "available": true
+    },
+    {
+      "type": "email",
+      "label": "이메일",
+      "value": "[NEEDS INPUT] 이메일 주소",
+      "available": true
+    },
+    {
+      "type": "kakao",
+      "label": "카카오채널",
+      "value": "[NEEDS INPUT] 카카오 채널 링크",
+      "available": false
+    }
+  ],
+  "meetingInfo": {
+    "hasMeeting": true,
+    "schedule": "[NEEDS INPUT] 예: 매주 주일 오후 2시",
+    "location": "[NEEDS INPUT] 예: 교육관 2층",
+    "description": "[NEEDS INPUT] 새가족 모임 안내"
+  }
+}

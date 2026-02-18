@@ -1,0 +1,23 @@
+{
+  "name": "선교비전교회",
+  "slogan": "하나님의 사랑을 세상에 전하는 교회",
+  "intro": "선교와 말씀 위에 세워진 공동체",
+  "yearTheme": "[NEEDS INPUT]",
+  "coreValues": [
+    {
+      "title": "말씀 중심",
+      "description": "성경 말씀을 기반으로 한 교회"
+    },
+    {
+      "title": "선교 중심",
+      "description": "열방을 향한 선교 공동체"
+    }
+  ],
+  "vision": "[NEEDS INPUT]",
+  "mission": "[NEEDS INPUT]",
+  "pastor": {
+    "name": "[NEEDS INPUT]",
+    "title": "담임목사",
+    "greeting": "[NEEDS INPUT]"
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "schedules": [
+    {
+      "type": "주일예배",
+      "time": "[NEEDS INPUT] 예: 오전 11시",
+      "location": "[NEEDS INPUT] 예: 본당",
+      "description": "[NEEDS INPUT] 선택사항",
+      "onlineAvailable": true
+    },
+    {
+      "type": "수요예배",
+      "time": "[NEEDS INPUT] 예: 오후 7시",
+      "location": "[NEEDS INPUT]",
+      "description": "[NEEDS INPUT]",
+      "onlineAvailable": true
+    },
+    {
+      "type": "새벽기도",
+      "time": "[NEEDS INPUT] 예: 오전 5시",
+      "location": "[NEEDS INPUT]",
+      "description": "[NEEDS INPUT]",
+      "onlineAvailable": false
+    }
+  ],
+  "onlineLink": "[NEEDS INPUT] 온라인 예배 링크 (유튜브 등)",
+  "youtubeChannel": "[NEEDS INPUT] 유튜브 채널 URL",
+  "firstTimeVisitorGuide": {
+    "description": "[NEEDS INPUT] 처음 방문자를 위한 안내 문구",
+    "infoDeskLocation": "[NEEDS INPUT] 안내데스크 위치"
+  }
+}

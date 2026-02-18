@@ -1,0 +1,98 @@
+---
+const navItems = [
+  { href: '/', label: '홈', icon: 'home' },
+  { href: '/about', label: '교회소개', icon: 'info' },
+  { href: '/worship', label: '예배안내', icon: 'calendar_month' },
+  { href: '/sermons', label: '설교', icon: 'library_books' },
+  { href: '/news', label: '교회소식', icon: 'newspaper' },
+  { href: '/location', label: '오시는길', icon: 'location_on' },
+  { href: '/newcomer', label: '새가족', icon: 'person_add' },
+];
+---
+
+<div id="menu-drawer" class="fixed inset-0 z-[100] hidden">
+  <!-- Backdrop -->
+  <div id="menu-backdrop" class="absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity"></div>
+  
+  <!-- Drawer -->
+  <div id="menu-content" class="absolute left-0 top-0 h-full w-80 max-w-[85vw] bg-background-light dark:bg-background-dark shadow-2xl transform -translate-x-full transition-transform duration-300 ease-out">
+    <div class="flex flex-col h-full">
+      <!-- Header -->
+      <div class="flex items-center justify-between p-4 border-b border-neutral-light dark:border-neutral-dark">
+        <h2 class="text-xl font-bold text-text-main dark:text-white">메뉴</h2>
+        <button id="menu-close" class="p-2 rounded-full hover:bg-neutral-light dark:hover:bg-neutral-dark transition-colors">
+          <span class="material-symbols-outlined text-text-main dark:text-white">close</span>
+        </button>
+      </div>
+      
+      <!-- Navigation Items -->
+      <nav class="flex-1 overflow-y-auto p-4">
+        <ul class="space-y-2">
+          {navItems.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                class="flex items-center gap-4 p-4 rounded-xl hover:bg-neutral-light dark:hover:bg-neutral-dark transition-colors group"
+              >
+                <span class="material-symbols-outlined text-text-secondary dark:text-gray-400 group-hover:text-primary transition-colors">
+                  {item.icon}
+                </span>
+                <span class="text-base font-medium text-text-main dark:text-white">{item.label}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+      
+      <!-- Footer -->
+      <div class="p-4 border-t border-neutral-light dark:border-neutral-dark">
+        <div class="text-sm text-text-secondary dark:text-gray-400 text-center">
+          Mission Vision Church
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const drawer = document.getElementById('menu-drawer');
+  const backdrop = document.getElementById('menu-backdrop');
+  const content = document.getElementById('menu-content');
+  const closeBtn = document.getElementById('menu-close');
+  
+  function openMenu() {
+    if (drawer) {
+      drawer.classList.remove('hidden');
+      // Force reflow to ensure transition works
+      drawer.offsetHeight;
+      content?.classList.remove('-translate-x-full');
+      document.body.style.overflow = 'hidden';
+    }
+  }
+  
+  function closeMenu() {
+    if (content) {
+      content.classList.add('-translate-x-full');
+      setTimeout(() => {
+        drawer?.classList.add('hidden');
+        document.body.style.overflow = '';
+      }, 300);
+    }
+  }
+  
+  // Close on backdrop click
+  backdrop?.addEventListener('click', closeMenu);
+  
+  // Close on close button click
+  closeBtn?.addEventListener('click', closeMenu);
+  
+  // Close on escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !drawer?.classList.contains('hidden')) {
+      closeMenu();
+    }
+  });
+  
+  // Export openMenu function to window for use by menu buttons
+  window.openMenu = openMenu;
+</script>

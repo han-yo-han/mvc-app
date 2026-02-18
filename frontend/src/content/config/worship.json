@@ -1,0 +1,18 @@
+{
+  "schedules": [
+    {
+      "type": "주일예배",
+      "time": "[NEEDS INPUT]",
+      "location": "[NEEDS INPUT]",
+      "onlineAvailable": true
+    },
+    {
+      "type": "수요예배",
+      "time": "[NEEDS INPUT]",
+      "location": "[NEEDS INPUT]",
+      "onlineAvailable": true
+    }
+  ],
+  "onlineLink": "[NEEDS INPUT]",
+  "youtubeChannel": "[NEEDS INPUT]"
+}
