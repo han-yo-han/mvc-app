@@ -51,7 +51,7 @@ const location = getLocation();
         <div class="flex flex-col gap-6 max-w-xl mx-auto">
           {church?.coreValues && church.coreValues.length > 0 ? (
             church.coreValues.map((value, index) => {
-              const icons = ['menu_book', 'volunteer_activism', 'favorite'];
+              const icons = ['group', 'local_fire_department', 'public', 'menu_book'];
               const icon = icons[index] || 'favorite';
               return (
                 <div class="group flex items-start gap-5 p-6 rounded-2xl bg-[#f8f9fc] border border-primary/5 shadow-sm hover:shadow-md transition-all duration-300">
@@ -112,9 +112,9 @@ const location = getLocation();
               </div>
               <div class="space-y-3 pt-2">
                 {worship?.schedules && worship.schedules.length > 0 ? (
-                  worship.schedules.map((schedule, i) => (
+                  worship.schedules.slice(0, 2).map((schedule, i) => (
                     <div class="flex items-center gap-3 justify-center sm:justify-start">
-                      <span class="material-symbols-outlined text-white/80 text-[20px]">{i === 0 ? 'schedule' : 'coffee'}</span>
+                      <span class="material-symbols-outlined text-white/80 text-[20px]">{i === 0 ? 'schedule' : 'schedule'}</span>
                       <span class="text-white text-base font-semibold">{schedule.time || '오전 10시'} — {schedule.type || '예배'}</span>
                     </div>
                   ))
@@ -149,7 +149,12 @@ const location = getLocation();
           <div class="absolute inset-0 bg-primary/20 mix-blend-multiply"></div>
           <div class="absolute inset-0 flex items-center justify-center">
             <p class="text-white font-serif text-xl sm:text-2xl italic px-6 text-center drop-shadow-md leading-relaxed">
-              "너희가 서로 사랑하면 이로써 모든 사람이<br class="hidden sm:block" /> 너희가 내 제자인 줄 알리라"
+              {church?.scripture?.text
+                ? `"${church.scripture.text}"`
+                : '"일어나라 빛을 발하라 이는 네 빛이 이르렀고 여호와의 영광이 네 위에 임하였음이니라"'}
+            </p>
+            <p class="text-white/70 text-sm mt-3">
+              {church?.scripture?.reference || '이사야 60:1'}
             </p>
           </div>
         </div>
@@ -182,16 +187,35 @@ const location = getLocation();
           {contact && (
             <div class="flex flex-col gap-1 mt-2">
               <span class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-1">연락처</span>
-              {contact.email && (
-                <a class="text-primary hover:text-white transition-colors" href={`mailto:${contact.email.main}`}>
-                  {contact.email.display || contact.email.main}
-                </a>
-              )}
               {contact.phone && (
                 <a class="text-white hover:text-primary transition-colors" href={`tel:${contact.phone.main}`}>
                   {contact.phone.display || contact.phone.main}
                 </a>
               )}
+              {contact.mobile && (
+                <a class="text-white hover:text-primary transition-colors" href={`tel:${contact.mobile.main}`}>
+                  {contact.mobile.display || contact.mobile.main}
+                </a>
+              )}
+              {contact.email?.main && (
+                <a class="text-primary hover:text-white transition-colors" href={`mailto:${contact.email.main}`}>
+                  {contact.email.display || contact.email.main}
+                </a>
+              )}
+            </div>
+          )}
+          {contact?.offering && (
+            <div class="flex flex-col gap-2 mt-4">
+              <span class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-1">헌금 안내</span>
+              <div class="text-sm">
+                <p class="text-gray-300">{contact.offering.general.bank} {contact.offering.general.account}</p>
+                <p class="text-gray-500 text-xs">{contact.offering.general.purpose}</p>
+              </div>
+              <div class="text-sm">
+                <p class="text-gray-300">{contact.offering.special.bank} {contact.offering.special.account}</p>
+                <p class="text-gray-500 text-xs">{contact.offering.special.purpose}</p>
+              </div>
+              <p class="text-xs text-gray-600 mt-1">예금주: {contact.offering.general.holder}</p>
             </div>
           )}
         </div>

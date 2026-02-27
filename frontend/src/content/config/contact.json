@@ -1,14 +1,28 @@
 {
   "phone": {
-    "main": "[NEEDS INPUT]",
-    "display": "[NEEDS INPUT]"
+    "main": "0263960691",
+    "display": "(02) 6396-0691"
+  },
+  "mobile": {
+    "main": "01063369790",
+    "display": "010-6336-9790"
   },
   "email": {
-    "main": "[NEEDS INPUT]",
-    "display": "[NEEDS INPUT]"
+    "main": "",
+    "display": ""
   },
-  "social": {
-    "kakaoChannel": "[NEEDS INPUT]",
-    "youtube": "[NEEDS INPUT]"
+  "offering": {
+    "general": {
+      "bank": "기업은행",
+      "account": "026-396-0691",
+      "holder": "대한예수교장로회 합동총회선교비전교회",
+      "purpose": "십일조 헌금, 감사헌금 등"
+    },
+    "special": {
+      "bank": "국민은행",
+      "account": "694701-01-449240",
+      "holder": "대한예수교장로회 합동총회선교비전교회",
+      "purpose": "성전건축헌금, 선교헌금 등"
+    }
   }
 }

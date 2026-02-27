@@ -128,6 +128,29 @@ const church = getChurch();
         </section>
       )}
 
+      <!-- Training & Discipleship -->
+      {worship?.training && worship.training.length > 0 && (
+        <section class="px-4 pb-4">
+          <h2 class="text-lg font-bold text-[#0d121b] mb-4 px-1">훈련 및 양육</h2>
+          <div class="space-y-3">
+            {worship.training.map((item) => (
+              <div class="group relative overflow-hidden rounded-2xl bg-white p-5 shadow-soft transition-all hover:shadow-lg">
+                <div class="absolute right-0 top-0 -mr-6 -mt-6 h-24 w-24 rounded-full bg-accent-gold/5 transition-transform group-hover:scale-150"></div>
+                <div class="relative z-10 flex items-center gap-4">
+                  <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-accent-gold/20 text-[#b39226]">
+                    <span class="material-symbols-outlined">school</span>
+                  </div>
+                  <div>
+                    <h3 class="font-bold text-[#0d121b]">{item.name}</h3>
+                    <p class="text-sm text-text-muted">{item.time}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
       <!-- First Time Visitor Guide -->
       {worship?.firstTimeVisitorGuide && (
         <section class="px-4 pb-8">

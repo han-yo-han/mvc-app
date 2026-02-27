@@ -1,16 +1,29 @@
 {
   "address": {
-    "full": "[NEEDS INPUT]",
-    "detail": "[NEEDS INPUT]"
+    "full": "서울 동대문구 사가정로 190",
+    "detail": "우성종합상가 4층(401호)"
   },
   "coordinates": {
-    "lat": 0,
-    "lng": 0
+    "lat": "37.5724",
+    "lng": "127.0656"
   },
-  "subway": [],
-  "bus": [],
+  "subway": [
+    {
+      "line": "5",
+      "station": "사가정역",
+      "exit": "출구",
+      "walkingTime": "도보 약 5분"
+    }
+  ],
+  "bus": [
+    { "number": "2015", "stop": "우성상가 앞" },
+    { "number": "2013", "stop": "우성상가 앞" },
+    { "number": "2233", "stop": "우성상가 앞" },
+    { "number": "1218", "stop": "우성상가 앞" },
+    { "number": "145", "stop": "우성상가 앞" }
+  ],
   "parking": {
-    "available": true,
-    "description": "[NEEDS INPUT]"
+    "description": "건물 내 주차 가능 (자세한 사항은 교회로 문의해주세요)",
+    "overflow": ""
   }
 }
