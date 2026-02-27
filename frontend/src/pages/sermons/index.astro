@@ -1,114 +1,75 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import BottomNav from '../../components/BottomNav.astro';
+import MenuDrawer from '../../components/MenuDrawer.astro';
 import { getAllSermons, getChurch } from '../../lib/content.js';
 import SermonCard from '../../components/SermonCard.astro';
-import MenuDrawer from '../../components/MenuDrawer.astro';
 
 const sermons = getAllSermons();
 const church = getChurch();
 ---
 
-<Layout title="Sermon Archive - Mission Vision Church">
-  <div class="bg-background-light dark:bg-background-dark font-display antialiased text-[#0d121b] dark:text-white pb-20">
-    <!-- Header & Search Sticky Container -->
-    <div class="sticky top-0 z-50 bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-sm border-b border-[#e7ebf3] dark:border-white/10">
-      <!-- Top Header -->
-      <div class="flex items-center justify-between px-4 h-16">
-        <a href="/" class="flex items-center gap-2">
-          <div class="flex items-center justify-center w-8 h-8 rounded-lg bg-primary/10 text-primary">
-            <span class="material-symbols-outlined text-[20px]">church</span>
-          </div>
-          <span class="font-serif text-xl font-bold tracking-tight text-[#0d121b] dark:text-white">{church?.name || 'Mission Vision'}</span>
-        </a>
-        <button onclick="window.openMenu?.()" class="flex items-center justify-center w-10 h-10 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors">
-          <span class="material-symbols-outlined text-[#0d121b] dark:text-white">menu</span>
-        </button>
-      </div>
-      <!-- Search & Filter Area -->
-      <div class="pb-3 px-4 flex flex-col gap-3">
-        <!-- Search Input -->
+<Layout title="설교 - 선교비전교회">
+  <div class="flex flex-col min-h-screen bg-white text-text-main antialiased">
+    <PageHeader currentPath="/sermons" />
+
+    <!-- Sticky Search & Filter (below header) -->
+    <div class="sticky top-16 z-40 bg-white/95 backdrop-blur-sm border-b border-border">
+      <div class="max-w-5xl mx-auto px-4 lg:px-8 py-3 flex flex-col gap-3">
         <div class="relative w-full">
           <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-[#4c669a]">
             <span class="material-symbols-outlined text-[20px]">search</span>
           </div>
-          <input class="block w-full pl-10 pr-3 py-2.5 border-none rounded-lg bg-white dark:bg-white/5 text-sm ring-1 ring-black/5 dark:ring-white/10 focus:ring-2 focus:ring-primary placeholder:text-[#4c669a] shadow-sm" placeholder="Search sermons, scripture, or topic" type="text"/>
+          <input class="block w-full pl-10 pr-3 py-2.5 border-none rounded-xl bg-white text-sm ring-1 ring-black/5 focus:ring-2 focus:ring-primary placeholder:text-[#4c669a] shadow-sm" placeholder="설교, 성경 구절, 주제 검색" type="text"/>
         </div>
-        <!-- Horizontal Scroll Filters -->
         <div class="flex gap-2 overflow-x-auto no-scrollbar pb-1 -mx-4 px-4">
           <button class="whitespace-nowrap px-4 py-1.5 rounded-full bg-[#0d121b] text-white text-sm font-medium border border-[#0d121b]">
-            All Years
+            전체
           </button>
-          <button class="whitespace-nowrap px-4 py-1.5 rounded-full bg-white dark:bg-white/5 text-[#0d121b] dark:text-white text-sm font-medium border border-[#e7ebf3] dark:border-white/10 hover:border-primary/50 transition-colors">
+          <button class="whitespace-nowrap px-4 py-1.5 rounded-full bg-white text-[#0d121b] text-sm font-medium border border-gray-200 hover:border-primary/50 transition-colors">
             2023
           </button>
-          <button class="whitespace-nowrap px-4 py-1.5 rounded-full bg-white dark:bg-white/5 text-[#0d121b] dark:text-white text-sm font-medium border border-[#e7ebf3] dark:border-white/10 hover:border-primary/50 transition-colors">
+          <button class="whitespace-nowrap px-4 py-1.5 rounded-full bg-white text-[#0d121b] text-sm font-medium border border-gray-200 hover:border-primary/50 transition-colors">
             2022
           </button>
-          <button class="whitespace-nowrap px-4 py-1.5 rounded-full bg-white dark:bg-white/5 text-[#0d121b] dark:text-white text-sm font-medium border border-[#e7ebf3] dark:border-white/10 hover:border-primary/50 transition-colors">
-            Genesis Series
+          <button class="whitespace-nowrap px-4 py-1.5 rounded-full bg-white text-[#0d121b] text-sm font-medium border border-gray-200 hover:border-primary/50 transition-colors">
+            창세기 시리즈
           </button>
-          <button class="whitespace-nowrap px-4 py-1.5 rounded-full bg-white dark:bg-white/5 text-[#0d121b] dark:text-white text-sm font-medium border border-[#e7ebf3] dark:border-white/10 hover:border-primary/50 transition-colors">
-            Guest Speakers
+          <button class="whitespace-nowrap px-4 py-1.5 rounded-full bg-white text-[#0d121b] text-sm font-medium border border-gray-200 hover:border-primary/50 transition-colors">
+            초청 강사
           </button>
         </div>
       </div>
     </div>
 
-    <!-- Main Content: Sermon List -->
-    <main class="flex flex-col p-4 gap-6">
-      <!-- Section Title -->
-      <div class="flex items-end justify-between">
-        <h1 class="font-serif text-3xl font-bold text-[#0d121b] dark:text-white">Latest Sermons</h1>
-        <span class="text-sm text-[#4c669a] font-medium mb-1">{sermons?.length || 0} results</span>
+    <!-- Sermon List -->
+    <main class="flex-1 w-full max-w-5xl mx-auto px-4 lg:px-8 py-6 pb-24 lg:pb-12">
+      <div class="flex items-end justify-between mb-6">
+        <h1 class="font-serif text-2xl font-bold text-[#0d121b]">최근 설교</h1>
+        <span class="text-sm text-[#4c669a] font-medium">{sermons?.length || 0}개</span>
       </div>
 
-      <!-- Sermon Cards -->
-      {sermons && sermons.length > 0 ? (
-        <>
-          {sermons.map((sermon) => (
-            <SermonCard sermon={sermon} />
-          ))}
-          <!-- Load More Button -->
-          <button class="w-full py-3 rounded-lg border border-[#e7ebf3] dark:border-white/10 text-sm font-bold text-[#4c669a] hover:bg-[#e7ebf3] dark:hover:bg-white/5 transition-colors mb-4">
-            Load More Sermons
-          </button>
-        </>
-      ) : (
-        <div class="text-center py-16">
-          <span class="material-symbols-outlined text-6xl text-gray-300 mb-4">video_library</span>
-          <p class="text-[#4c669a] text-lg">No sermons available yet.</p>
-        </div>
-      )}
+      <div class="flex flex-col gap-6">
+        {sermons && sermons.length > 0 ? (
+          <>
+            {sermons.map((sermon) => (
+              <SermonCard sermon={sermon} />
+            ))}
+            <button class="w-full py-3 rounded-xl border border-gray-200 text-sm font-bold text-[#4c669a] hover:bg-gray-100 transition-colors">
+              더 보기
+            </button>
+          </>
+        ) : (
+          <div class="text-center py-16">
+            <span class="material-symbols-outlined text-6xl text-gray-300 mb-4">video_library</span>
+            <p class="text-[#4c669a] text-lg">아직 등록된 설교가 없습니다.</p>
+          </div>
+        )}
+      </div>
     </main>
 
-    <!-- Bottom Nav Bar -->
-    <div class="fixed bottom-0 left-0 right-0 z-50 flex gap-2 border-t border-[#e7ebf3] dark:border-white/10 bg-background-light dark:bg-background-dark px-4 pb-safe pt-2 backdrop-blur-lg">
-      <a class="flex flex-1 flex-col items-center justify-center gap-1 pb-3 text-[#4c669a] hover:text-primary transition-colors" href="/">
-        <div class="flex h-6 items-center justify-center">
-          <span class="material-symbols-outlined text-[24px]">home</span>
-        </div>
-        <p class="text-xs font-medium leading-normal tracking-[0.015em]">Home</p>
-      </a>
-      <a class="flex flex-1 flex-col items-center justify-center gap-1 pb-3 text-primary" href="/sermons">
-        <div class="flex h-6 items-center justify-center">
-          <span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">library_books</span>
-        </div>
-        <p class="text-xs font-medium leading-normal tracking-[0.015em]">Archive</p>
-      </a>
-      <a class="flex flex-1 flex-col items-center justify-center gap-1 pb-3 text-[#4c669a] hover:text-primary transition-colors" href="/worship">
-        <div class="flex h-6 items-center justify-center">
-          <span class="material-symbols-outlined text-[24px]">calendar_month</span>
-        </div>
-        <p class="text-xs font-medium leading-normal tracking-[0.015em]">Events</p>
-      </a>
-      <a class="flex flex-1 flex-col items-center justify-center gap-1 pb-3 text-[#4c669a] hover:text-primary transition-colors" href="#">
-        <div class="flex h-6 items-center justify-center">
-          <span class="material-symbols-outlined text-[24px]">volunteer_activism</span>
-        </div>
-        <p class="text-xs font-medium leading-normal tracking-[0.015em]">Give</p>
-      </a>
-    </div>
-    
+    <BottomNav currentPath="/sermons" />
     <MenuDrawer />
   </div>
 </Layout>

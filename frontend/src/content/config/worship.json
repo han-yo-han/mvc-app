@@ -1,18 +1,51 @@
 {
   "schedules": [
     {
-      "type": "주일예배",
-      "time": "[NEEDS INPUT]",
-      "location": "[NEEDS INPUT]",
-      "onlineAvailable": true
+      "type": "주일 오전 예배",
+      "time": "주일 오전 11시",
+      "location": "본당 (우성종합상가 4층)",
+      "onlineAvailable": true,
+      "description": ""
     },
     {
-      "type": "수요예배",
-      "time": "[NEEDS INPUT]",
-      "location": "[NEEDS INPUT]",
-      "onlineAvailable": true
+      "type": "주일 오후 예배",
+      "time": "주일 오후 2시",
+      "location": "본당",
+      "onlineAvailable": false,
+      "description": ""
+    },
+    {
+      "type": "금요 성령 집회",
+      "time": "금요일 저녁 9시",
+      "location": "본당",
+      "onlineAvailable": false,
+      "description": ""
+    },
+    {
+      "type": "새벽 기도회",
+      "time": "월~금 새벽 6시",
+      "location": "본당",
+      "onlineAvailable": false,
+      "description": ""
+    },
+    {
+      "type": "소그룹 셀 예배",
+      "time": "각 셀별",
+      "location": "각 셀별",
+      "onlineAvailable": false,
+      "description": "소그룹으로 모여 예배하고 교제합니다"
     }
   ],
-  "onlineLink": "[NEEDS INPUT]",
-  "youtubeChannel": "[NEEDS INPUT]"
+  "training": [
+    {
+      "name": "일대일 제자훈련 (장년반)",
+      "time": "화요일 오전 11시"
+    },
+    {
+      "name": "제자훈련반 (믿음반)",
+      "time": "토요일 오후 2시"
+    }
+  ],
+  "onlineLink": "https://www.youtube.com/@mvc8494/live",
+  "youtubeChannel": "https://www.youtube.com/@mvc8494"
 }

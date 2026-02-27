@@ -1,0 +1,51 @@
+---
+interface Props {
+  currentPath: string;
+}
+
+const { currentPath } = Astro.props;
+
+const tabs = [
+  { href: '/', label: '홈', icon: 'home' },
+  { href: '/worship', label: '예배', icon: 'calendar_month' },
+  { href: '/sermons', label: '설교', icon: 'play_circle' },
+  { href: '/news', label: '소식', icon: 'newspaper' },
+];
+---
+
+<!-- Mobile only bottom nav -->
+<nav class="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-t border-border" aria-label="하단 네비게이션">
+  <div class="flex items-center justify-around h-14" style="padding-bottom: env(safe-area-inset-bottom);">
+    {tabs.map((tab) => {
+      const active = tab.href === '/' ? currentPath === '/' : currentPath.startsWith(tab.href);
+      return (
+        <a
+          href={tab.href}
+          class:list={[
+            "flex flex-1 flex-col items-center justify-center gap-0.5 py-1 transition-colors",
+            active ? "text-primary" : "text-text-muted hover:text-primary"
+          ]}
+          aria-current={active ? "page" : undefined}
+        >
+          <span
+            class="material-symbols-outlined text-[22px]"
+            style={active ? "font-variation-settings: 'FILL' 1;" : ""}
+          >
+            {tab.icon}
+          </span>
+          <span class:list={["text-[10px] tracking-wide", active ? "font-bold" : "font-medium"]}>
+            {tab.label}
+          </span>
+        </a>
+      );
+    })}
+    <button
+      onclick="window.openMenu?.()"
+      class="flex flex-1 flex-col items-center justify-center gap-0.5 py-1 text-text-muted hover:text-primary transition-colors"
+      aria-label="더보기 메뉴"
+    >
+      <span class="material-symbols-outlined text-[22px]">more_horiz</span>
+      <span class="text-[10px] font-medium tracking-wide">더보기</span>
+    </button>
+  </div>
+</nav>

@@ -1,35 +1,46 @@
 {
-  "welcomeMessage": "선교비전교회에 오신 것을 환영합니다!",
+  "welcomeMessage": "선교비전교회에 오신 것을 진심으로 환영합니다!",
+  "vipMessage": "당신은 'VIP'가 있습니까? 당신은 '양육자'가 있습니까? 당신은 '제자'가 있습니까?",
   "registrationSteps": [
     {
       "step": 1,
       "title": "방문",
-      "description": "교회에 방문하여 예배에 참석하세요"
+      "description": "주일 오전 11시 예배에 참석해 주세요. 동대문구 사가정로 190 우성종합상가 4층입니다."
     },
     {
       "step": 2,
       "title": "등록",
-      "description": "새가족 등록을 진행하세요"
+      "description": "등록카드를 작성하시고 헌금함에 넣어 주시기 바랍니다."
+    },
+    {
+      "step": 3,
+      "title": "양육",
+      "description": "새가족 양육을 통해 교회 가족이 되어갑니다."
+    },
+    {
+      "step": 4,
+      "title": "제자훈련",
+      "description": "말씀으로 제자 삼아 동역자로 세우는 훈련에 참여합니다."
     }
   ],
   "contactChannels": [
     {
       "type": "phone",
-      "label": "전화",
-      "value": "[NEEDS INPUT]",
+      "label": "교회 전화",
+      "value": "(02) 6396-0691",
       "available": true
     },
     {
-      "type": "email",
-      "label": "이메일",
-      "value": "[NEEDS INPUT]",
+      "type": "phone",
+      "label": "휴대폰",
+      "value": "010-6336-9790",
       "available": true
     }
   ],
   "meetingInfo": {
     "hasMeeting": true,
-    "schedule": "[NEEDS INPUT]",
-    "location": "[NEEDS INPUT]",
-    "description": "[NEEDS INPUT]"
+    "schedule": "새가족 양육 과정 수시 진행",
+    "location": "본당 (우성종합상가 4층)",
+    "description": "새가족 등록 후 양육 과정을 통해 교회 공동체의 일원이 됩니다."
   }
 }

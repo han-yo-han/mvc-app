@@ -1,36 +1,30 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import BottomNav from '../../components/BottomNav.astro';
+import MenuDrawer from '../../components/MenuDrawer.astro';
 import { getAllNews, getChurch } from '../../lib/content.js';
 import NewsCard from '../../components/NewsCard.astro';
-import MenuDrawer from '../../components/MenuDrawer.astro';
 
 const news = getAllNews();
 const church = getChurch();
 
-// Featured news (first one or marked as featured)
 const featuredNews = news && news.length > 0 ? news.find(n => n.featured) || news[0] : null;
 const latestNews = news && news.length > 0 ? news.filter(n => !n.featured || n !== featuredNews).slice(0, 4) : [];
 ---
 
-<Layout title="Church News & Announcements - Mission Vision Church">
-  <div class="relative flex h-full min-h-screen w-full flex-col overflow-x-hidden max-w-md mx-auto bg-white dark:bg-slate-900 shadow-xl" style="font-family: 'Work Sans', sans-serif;">
-    <!-- Header -->
-    <header class="sticky top-0 z-20 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-100 dark:border-slate-800 px-4 py-3 flex items-center justify-between">
-      <h1 class="text-xl font-bold tracking-tight text-slate-900 dark:text-white">News & Updates</h1>
-      <button class="p-2 text-slate-500 hover:text-primary transition-colors rounded-full hover:bg-slate-50 dark:hover:bg-slate-800">
-        <span class="material-symbols-outlined text-2xl">search</span>
-      </button>
-    </header>
+<Layout title="교회소식 - 선교비전교회">
+  <div class="flex flex-col min-h-screen bg-white text-text-main antialiased">
+    <PageHeader currentPath="/news" />
 
-    <!-- Main Content -->
-    <main class="flex-1 px-4 py-6 space-y-8 pb-24">
+    <main class="flex-1 w-full max-w-5xl mx-auto px-4 lg:px-8 py-6 pb-24 lg:pb-12 space-y-8">
       <!-- Featured Section -->
       {featuredNews && (
         <section>
           <div class="flex items-center justify-between mb-3 px-1">
-            <h2 class="text-xs font-bold text-primary uppercase tracking-wider">Featured</h2>
-            <span class="text-xs text-slate-400">
-              {new Date(featuredNews.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+            <h2 class="text-xs font-bold text-primary uppercase tracking-wider">주요 소식</h2>
+            <span class="text-xs text-gray-400">
+              {new Date(featuredNews.date).toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' })}
             </span>
           </div>
           <NewsCard news={featuredNews} featured={true} />
@@ -40,8 +34,7 @@ const latestNews = news && news.length > 0 ? news.filter(n => !n.featured || n !
       <!-- Latest Updates List -->
       <section>
         <div class="flex items-center justify-between mb-4 px-1">
-          <h2 class="text-lg font-bold text-slate-900 dark:text-white">Latest Updates</h2>
-          <button class="text-xs font-medium text-primary hover:underline">View All</button>
+          <h2 class="text-lg font-bold text-[#0d121b]">최근 소식</h2>
         </div>
         <div class="space-y-4">
           {latestNews.length > 0 ? (
@@ -51,37 +44,14 @@ const latestNews = news && news.length > 0 ? news.filter(n => !n.featured || n !
           ) : (
             <div class="text-center py-16">
               <span class="material-symbols-outlined text-6xl text-gray-300 mb-4">newspaper</span>
-              <p class="text-slate-500 dark:text-slate-400 text-lg">No news available yet.</p>
+              <p class="text-text-muted text-lg">더 많은 소식이 곧 업데이트됩니다.</p>
             </div>
           )}
         </div>
       </section>
     </main>
 
-    <!-- Bottom Navigation -->
-    <nav class="fixed bottom-0 left-0 right-0 z-50 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 pb-safe pt-2 max-w-md mx-auto">
-      <div class="flex items-end justify-between px-2 pb-2">
-        <a class="flex flex-1 flex-col items-center gap-1 text-slate-400 hover:text-primary transition-colors group" href="/">
-          <span class="material-symbols-outlined text-[24px] group-hover:-translate-y-0.5 transition-transform">home</span>
-          <span class="text-[10px] font-medium tracking-wide">Home</span>
-        </a>
-        <a class="flex flex-1 flex-col items-center gap-1 text-primary group" href="/news">
-          <span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">newspaper</span>
-          <span class="text-[10px] font-medium tracking-wide">News</span>
-        </a>
-        <a class="flex flex-1 flex-col items-center gap-1 text-slate-400 hover:text-primary transition-colors group" href="#">
-          <span class="material-symbols-outlined text-[24px] group-hover:-translate-y-0.5 transition-transform">volunteer_activism</span>
-          <span class="text-[10px] font-medium tracking-wide">Give</span>
-        </a>
-        <a class="flex flex-1 flex-col items-center gap-1 text-slate-400 hover:text-primary transition-colors group" href="#">
-          <span class="material-symbols-outlined text-[24px] group-hover:-translate-y-0.5 transition-transform">menu</span>
-          <span class="text-[10px] font-medium tracking-wide">More</span>
-        </a>
-      </div>
-      <!-- Safe Area Spacer for iOS Home Indicator -->
-      <div class="h-4 w-full"></div>
-    </nav>
-    
+    <BottomNav currentPath="/news" />
     <MenuDrawer />
   </div>
 </Layout>
