@@ -95,6 +95,16 @@ const hasRichContent = popup?.questions?.length || popup?.benefits?.length;
               {popup.linkText || '자세히 보기'}
             </a>
           )}
+
+          <div class="mt-6 pt-4 border-t border-border flex items-center justify-center gap-4">
+            <button type="button" id="popup-close-only" class="text-sm text-muted hover:text-charcoal transition-colors">
+              닫기
+            </button>
+            <span class="text-border">|</span>
+            <button type="button" id="popup-hide-today" class="text-sm text-muted hover:text-charcoal transition-colors">
+              오늘 그만 보기
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -107,7 +117,14 @@ const hasRichContent = popup?.questions?.length || popup?.benefits?.length;
     if (!container) return;
 
     const closeBtn = document.getElementById('popup-close');
+    const closeOnlyBtn = document.getElementById('popup-close-only');
+    const hideTodayBtn = document.getElementById('popup-hide-today');
     const backdrop = document.getElementById('popup-backdrop');
+
+    function hide() {
+      container.classList.add('hidden');
+      container.setAttribute('aria-hidden', 'true');
+    }
 
     function shouldShow() {
       try {
@@ -121,9 +138,12 @@ const hasRichContent = popup?.questions?.length || popup?.benefits?.length;
       }
     }
 
-    function close() {
-      container.classList.add('hidden');
-      container.setAttribute('aria-hidden', 'true');
+    function closeOnly() {
+      hide();
+    }
+
+    function hideToday() {
+      hide();
       try {
         localStorage.setItem(storageKey, JSON.stringify({ date: new Date().toISOString() }));
       } catch (_) {}
@@ -137,10 +157,12 @@ const hasRichContent = popup?.questions?.length || popup?.benefits?.length;
 
     setTimeout(show, 1500);
 
-    closeBtn?.addEventListener('click', close);
-    backdrop?.addEventListener('click', close);
+    closeBtn?.addEventListener('click', closeOnly);
+    closeOnlyBtn?.addEventListener('click', closeOnly);
+    hideTodayBtn?.addEventListener('click', hideToday);
+    backdrop?.addEventListener('click', closeOnly);
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && !container.classList.contains('hidden')) close();
+      if (e.key === 'Escape' && !container.classList.contains('hidden')) closeOnly();
     });
   })();
 </script>
