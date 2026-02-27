@@ -1,5 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import BottomNav from '../components/BottomNav.astro';
+import MenuDrawer from '../components/MenuDrawer.astro';
 import { getWorship, getChurch } from '../lib/content.js';
 
 const worship = getWorship();
@@ -7,41 +10,29 @@ const church = getChurch();
 ---
 
 <Layout title="예배안내 - 선교비전교회">
-  <div class="relative flex h-full w-full max-w-md flex-col bg-[#f8f9fc] shadow-2xl overflow-hidden mx-auto">
-    <!-- Header -->
-    <header class="sticky top-0 z-50 flex items-center justify-between bg-[#f8f9fc]/90 px-5 py-4 backdrop-blur-md">
-      <a href="/" class="flex items-center gap-2">
-        <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 text-primary">
-          <span class="material-symbols-outlined text-[20px]">church</span>
-        </div>
-        <span class="text-lg font-bold tracking-tight text-[#0d121b]">{church?.name || 'Mission Vision'}</span>
-      </a>
-      <button class="flex h-10 w-10 items-center justify-center rounded-full text-[#0d121b] hover:bg-black/5">
-        <span class="material-symbols-outlined">menu</span>
-      </button>
-    </header>
+  <div class="flex flex-col min-h-screen bg-[#f8f9fc] font-display text-[#0d121b] antialiased">
+    <PageHeader />
 
-    <!-- Main Content -->
-    <main class="flex-1 overflow-y-auto no-scrollbar pb-24">
+    <main class="flex-1 w-full max-w-xl mx-auto pb-24">
       <!-- Hero Section -->
-      <section class="relative h-64 bg-gradient-to-br from-primary/20 to-accent-gold/20 flex items-center justify-center">
+      <section class="relative h-48 bg-gradient-to-br from-primary/20 to-accent-gold/20 flex items-center justify-center mx-4 mt-4 rounded-2xl overflow-hidden">
         <div class="absolute inset-0 bg-cover bg-center opacity-20" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCHtMcwwt4Ufo6L1bcWdC4t7WnNt9NUJZu4yyeX-txTXNiv90FJlETGmtgVnM0coe45FY0CsXhJs9iPiPvwukgegJ5a8o3iO94uKXsuuhcQ4V4XYE7FaSFC7HKafsWWirbcQ7IRjr8cC6TFe3VeDrsCz8-Rg5VIoZXSCHxgsf658R9XocW3MBk6YgLsUX9C_EcIp8du3gXom3s6mH77MbOf3-iuYKePwarCG4ueRMN7q2nrJof-uRs6scMA4NhCCTKbQkByQyOmHr5i');"></div>
         <div class="relative z-10 text-center px-6">
-          <div class="h-16 w-16 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center mx-auto mb-4 shadow-lg">
-            <span class="material-symbols-outlined text-primary text-3xl">schedule</span>
+          <div class="h-14 w-14 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center mx-auto mb-3 shadow-lg">
+            <span class="material-symbols-outlined text-primary text-2xl">schedule</span>
           </div>
-          <h1 class="serif-heading text-3xl font-bold text-[#0d121b] mb-2">Worship Schedule</h1>
-          <p class="text-text-muted">Join us every week for worship and fellowship</p>
+          <h1 class="font-serif text-2xl font-bold text-[#0d121b] mb-1">예배 안내</h1>
+          <p class="text-text-muted text-sm">매주 함께 예배하고 교제해요</p>
         </div>
       </section>
 
       <!-- Worship Schedules -->
-      <section class="px-5 py-8 space-y-4">
+      <section class="px-4 py-6 space-y-4">
         {worship?.schedules && worship.schedules.length > 0 ? (
           worship.schedules.map((schedule) => (
             <div class="group relative overflow-hidden rounded-2xl bg-white p-6 shadow-soft transition-all hover:shadow-lg">
               <div class="absolute right-0 top-0 -mr-6 -mt-6 h-24 w-24 rounded-full bg-primary/5 transition-transform group-hover:scale-150"></div>
-              <div class="relative z-10 flex items-start justify-between gap-4">
+              <div class="relative z-10 flex items-start gap-4">
                 <div class="flex-1">
                   <div class="flex items-center gap-3 mb-3">
                     <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
@@ -83,7 +74,7 @@ const church = getChurch();
 
       <!-- Online Worship -->
       {worship?.onlineLink && (
-        <section class="px-5 pb-6">
+        <section class="px-4 pb-4">
           <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary/10 to-primary/5 p-6 border border-primary/20">
             <div class="absolute right-0 top-0 -mr-8 -mt-8 h-32 w-32 rounded-full bg-primary/10 blur-2xl"></div>
             <div class="relative z-10">
@@ -93,7 +84,7 @@ const church = getChurch();
                 </div>
                 <div>
                   <h2 class="text-xl font-bold text-[#0d121b]">온라인 예배</h2>
-                  <p class="text-sm text-text-muted">Live streaming available</p>
+                  <p class="text-sm text-text-muted">실시간 스트리밍</p>
                 </div>
               </div>
               <a
@@ -102,7 +93,7 @@ const church = getChurch();
                 rel="noopener noreferrer"
                 class="block w-full rounded-xl bg-primary px-6 py-4 text-base font-bold text-white text-center shadow-lg shadow-primary/30 transition-transform active:scale-95"
               >
-                Watch Online Now
+                온라인으로 시청하기
               </a>
             </div>
           </div>
@@ -111,7 +102,7 @@ const church = getChurch();
 
       <!-- YouTube Channel -->
       {worship?.youtubeChannel && (
-        <section class="px-5 pb-6">
+        <section class="px-4 pb-4">
           <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-red-50 to-red-100/50 p-6 border border-red-200">
             <div class="absolute right-0 top-0 -mr-8 -mt-8 h-32 w-32 rounded-full bg-red-200/50 blur-2xl"></div>
             <div class="relative z-10">
@@ -120,8 +111,8 @@ const church = getChurch();
                   <span class="material-symbols-outlined">smart_display</span>
                 </div>
                 <div>
-                  <h2 class="text-xl font-bold text-[#0d121b]">YouTube Channel</h2>
-                  <p class="text-sm text-text-muted">Subscribe for weekly sermons</p>
+                  <h2 class="text-xl font-bold text-[#0d121b]">YouTube 채널</h2>
+                  <p class="text-sm text-text-muted">매주 설교 업로드</p>
                 </div>
               </div>
               <a
@@ -130,7 +121,7 @@ const church = getChurch();
                 rel="noopener noreferrer"
                 class="block w-full rounded-xl bg-red-600 px-6 py-4 text-base font-bold text-white text-center shadow-lg shadow-red-600/30 transition-transform active:scale-95"
               >
-                Subscribe on YouTube
+                YouTube 구독하기
               </a>
             </div>
           </div>
@@ -139,8 +130,8 @@ const church = getChurch();
 
       <!-- First Time Visitor Guide -->
       {worship?.firstTimeVisitorGuide && (
-        <section class="px-5 pb-8">
-          <div class="rounded-2xl bg-background-warm p-6 border border-gray-200">
+        <section class="px-4 pb-8">
+          <div class="rounded-2xl bg-white p-6 border border-gray-200 shadow-soft">
             <div class="flex items-start gap-4">
               <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-accent-gold/20 text-accent-gold">
                 <span class="material-symbols-outlined">info</span>
@@ -161,34 +152,7 @@ const church = getChurch();
       )}
     </main>
 
-    <!-- Bottom Navigation -->
-    <div class="absolute bottom-0 left-0 right-0 border-t border-[#e7ebf3] bg-[#f8f9fc] px-4 pb-6 pt-3">
-      <div class="flex justify-between gap-2">
-        <a class="flex flex-1 flex-col items-center justify-end gap-1 text-[#4c669a] hover:text-primary transition-colors" href="/">
-          <div class="flex h-8 items-center justify-center">
-            <span class="material-symbols-outlined text-[24px]">home</span>
-          </div>
-          <p class="text-xs font-medium">Home</p>
-        </a>
-        <a class="flex flex-1 flex-col items-center justify-end gap-1 text-[#4c669a] hover:text-primary transition-colors" href="/about">
-          <div class="flex h-8 items-center justify-center">
-            <span class="material-symbols-outlined text-[24px]">info</span>
-          </div>
-          <p class="text-xs font-medium">About</p>
-        </a>
-        <a class="flex flex-1 flex-col items-center justify-end gap-1 rounded-full text-primary" href="/worship">
-          <div class="flex h-8 items-center justify-center">
-            <span class="material-symbols-outlined text-[24px] font-variation-settings-'FILL'1">calendar_today</span>
-          </div>
-          <p class="text-xs font-bold">Worship</p>
-        </a>
-        <a class="flex flex-1 flex-col items-center justify-end gap-1 text-[#4c669a] hover:text-primary transition-colors" href="/sermons">
-          <div class="flex h-8 items-center justify-center">
-            <span class="material-symbols-outlined text-[24px]">play_circle</span>
-          </div>
-          <p class="text-xs font-medium">Sermons</p>
-        </a>
-      </div>
-    </div>
+    <BottomNav currentPath="/worship" />
+    <MenuDrawer />
   </div>
 </Layout>

@@ -1,0 +1,25 @@
+---
+interface Props {
+  churchName?: string;
+}
+
+const { churchName = '선교비전교회' } = Astro.props;
+---
+
+<header class="sticky top-0 z-50 h-14 bg-white/95 backdrop-blur-md border-b border-gray-100">
+  <div class="flex items-center justify-between h-full px-4 max-w-3xl mx-auto">
+    <a href="/" class="flex items-center gap-2">
+      <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 text-primary">
+        <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">church</span>
+      </div>
+      <span class="text-lg font-bold tracking-tight text-[#0d121b]">{churchName}</span>
+    </a>
+    <button
+      onclick="window.openMenu?.()"
+      class="flex h-10 w-10 items-center justify-center rounded-full hover:bg-gray-100 transition-colors"
+      aria-label="메뉴 열기"
+    >
+      <span class="material-symbols-outlined text-[#0d121b]">menu</span>
+    </button>
+  </div>
+</header>
