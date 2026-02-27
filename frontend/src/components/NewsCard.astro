@@ -10,29 +10,29 @@ interface Props {
     featured?: boolean;
     category?: string;
     image?: string;
+    slug?: string;
   };
   featured?: boolean;
 }
 
 const { news, featured = false } = Astro.props;
 const dateObj = new Date(news.date);
-const formattedDate = dateObj.toLocaleDateString('en-US', {
-  month: 'short',
+const formattedDate = dateObj.toLocaleDateString('ko-KR', {
+  month: 'long',
   day: 'numeric',
   year: 'numeric',
 });
-const monthShort = dateObj.toLocaleDateString('en-US', { month: 'short' });
+const monthShort = dateObj.toLocaleDateString('ko-KR', { month: 'short' });
 const day = dateObj.getDate();
 
 const htmlContent = await marked(news.content || '');
 
-// Category color mapping
-const categoryColors: Record<string, { bg: string; text: string; darkBg: string; darkText: string }> = {
-  'Youth': { bg: 'bg-purple-100', text: 'text-purple-700', darkBg: 'dark:bg-purple-900/30', darkText: 'dark:text-purple-300' },
-  'Building': { bg: 'bg-amber-100', text: 'text-amber-700', darkBg: 'dark:bg-amber-900/30', darkText: 'dark:text-amber-300' },
-  'Community': { bg: 'bg-green-100', text: 'text-green-700', darkBg: 'dark:bg-green-900/30', darkText: 'dark:text-green-300' },
-  'Service': { bg: 'bg-blue-100', text: 'text-blue-700', darkBg: 'dark:bg-blue-900/30', darkText: 'dark:text-blue-300' },
-  'Event': { bg: 'bg-primary/90', text: 'text-white', darkBg: 'dark:bg-primary/90', darkText: 'dark:text-white' },
+const categoryColors: Record<string, { bg: string; text: string }> = {
+  'Youth': { bg: 'bg-amber/20', text: 'text-amber-dark' },
+  'Building': { bg: 'bg-amber/20', text: 'text-amber-dark' },
+  'Community': { bg: 'bg-forest/20', text: 'text-forest' },
+  'Service': { bg: 'bg-forest/20', text: 'text-forest' },
+  'Event': { bg: 'bg-forest', text: 'text-cream' },
 };
 
 const categoryColor = news.category ? categoryColors[news.category] || categoryColors['Event'] : categoryColors['Event'];
@@ -40,54 +40,52 @@ const defaultImage = 'https://lh3.googleusercontent.com/aida-public/AB6AXuDwVFwc
 ---
 
 {featured ? (
-  <!-- Featured Card -->
-  <div class="group relative overflow-hidden rounded-xl bg-white dark:bg-slate-800 shadow-md transition-all hover:shadow-lg border border-slate-100 dark:border-slate-700">
-    <div class="aspect-[16/9] w-full bg-slate-200 relative overflow-hidden">
+  <div class="group relative overflow-hidden rounded-2xl bg-cream shadow-soft transition-all hover:shadow-card border border-border/60">
+    <div class="aspect-[16/9] w-full bg-surface relative overflow-hidden">
       <img 
         alt={news.title} 
         class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" 
         src={news.image || defaultImage}
       />
-      <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-charcoal/70 to-transparent"></div>
       {news.category && (
-        <span class={`absolute top-3 left-3 ${categoryColor.bg} ${categoryColor.text} ${categoryColor.darkBg} ${categoryColor.darkText} backdrop-blur-sm text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wide`}>
+        <span class={`absolute top-4 left-4 ${categoryColor.bg} ${categoryColor.text} text-xs font-bold px-3 py-1.5 rounded-lg uppercase tracking-wide`}>
           {news.category}
         </span>
       )}
     </div>
-    <div class="p-5">
-      <h3 class="text-xl font-bold text-slate-900 dark:text-white leading-tight mb-2">{news.title}</h3>
-      <div class="prose prose-sm max-w-none text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-4 line-clamp-3" set:html={htmlContent}></div>
+    <div class="p-8">
+      <h3 class="font-display text-2xl font-semibold text-charcoal leading-tight mb-3">{news.title}</h3>
+      <div class="prose prose-sm max-w-none text-ink text-sm leading-relaxed mb-6 line-clamp-3" set:html={htmlContent}></div>
       <a 
         href={`/news/${news.slug || '#'}`}
-        class="inline-flex items-center text-sm font-semibold text-primary hover:text-primary/80 transition-colors"
+        class="inline-flex items-center text-sm font-bold text-teal hover:text-teal/80 transition-colors"
       >
-        Read Details 
+        자세히 보기 
         <span class="material-symbols-outlined ml-1 text-lg">arrow_forward</span>
       </a>
     </div>
   </div>
 ) : (
-  <!-- List Item Card -->
-  <article class="flex gap-4 p-4 rounded-xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-md transition-shadow cursor-pointer">
-    <div class={`shrink-0 flex flex-col items-center justify-center w-14 h-14 rounded-lg ${
+  <a href={`/news/${news.slug || '#'}`} class="flex gap-6 p-6 rounded-2xl bg-cream border border-border/60 shadow-soft hover:shadow-card hover:border-forest/20 transition-all cursor-pointer block">
+    <div class={`shrink-0 flex flex-col items-center justify-center w-16 h-16 rounded-xl ${
       news.category === 'Youth' || news.important 
-        ? 'bg-primary/10 dark:bg-primary/20 text-primary border border-primary/20' 
-        : 'bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-600'
+        ? 'bg-teal-100 text-teal border border-teal-200' 
+        : 'bg-violet-50 text-violet border border-violet-200'
     }`}>
       <span class="text-xs font-bold uppercase">{monthShort}</span>
-      <span class="text-xl font-bold leading-none">{day}</span>
+      <span class="font-display text-2xl font-semibold leading-none">{day}</span>
     </div>
     <div class="flex-1 min-w-0">
       {news.category && (
-        <div class="flex items-center gap-2 mb-1">
-          <span class={`px-2 py-0.5 rounded text-[10px] font-bold ${categoryColor.bg} ${categoryColor.text} ${categoryColor.darkBg} ${categoryColor.darkText} uppercase tracking-wide`}>
+        <div class="flex items-center gap-2 mb-2">
+          <span class={`px-2.5 py-1 rounded-lg text-xs font-bold ${categoryColor.bg} ${categoryColor.text} uppercase tracking-wide`}>
             {news.category}
           </span>
         </div>
       )}
-      <h3 class="text-base font-semibold text-slate-900 dark:text-white truncate">{news.title}</h3>
-      <div class="prose prose-sm max-w-none text-slate-500 dark:text-slate-400 text-sm mt-1 line-clamp-2" set:html={htmlContent}></div>
+      <h3 class="font-display text-xl font-semibold text-charcoal truncate">{news.title}</h3>
+      <div class="prose prose-sm max-w-none text-muted text-sm mt-1 line-clamp-2" set:html={htmlContent}></div>
     </div>
-  </article>
+  </a>
 )}

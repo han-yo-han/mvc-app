@@ -1,63 +1,57 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import PageHeader from '../components/PageHeader.astro';
+import Footer from '../components/Footer.astro';
 import BottomNav from '../components/BottomNav.astro';
 import MenuDrawer from '../components/MenuDrawer.astro';
-import { getWorship, getChurch } from '../lib/content.js';
+import { getWorship, getChurch, getContact, getLocation } from '../lib/content.js';
 
 const worship = getWorship();
 const church = getChurch();
+const contact = getContact();
+const location = getLocation();
 ---
 
 <Layout title="예배안내 - 선교비전교회">
-  <div class="flex flex-col min-h-screen bg-white text-text-main antialiased">
+  <div class="flex flex-col min-h-screen bg-gradient-to-b from-cream to-sand text-charcoal antialiased">
     <PageHeader currentPath="/worship" />
 
-    <main class="flex-1 w-full max-w-5xl mx-auto px-4 lg:px-8 pb-24 lg:pb-12">
-      <!-- Hero Section -->
-      <section class="relative h-48 bg-gradient-to-br from-primary/20 to-accent-gold/20 flex items-center justify-center mx-4 mt-4 rounded-2xl overflow-hidden">
-        <div class="absolute inset-0 bg-cover bg-center opacity-20" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCHtMcwwt4Ufo6L1bcWdC4t7WnNt9NUJZu4yyeX-txTXNiv90FJlETGmtgVnM0coe45FY0CsXhJs9iPiPvwukgegJ5a8o3iO94uKXsuuhcQ4V4XYE7FaSFC7HKafsWWirbcQ7IRjr8cC6TFe3VeDrsCz8-Rg5VIoZXSCHxgsf658R9XocW3MBk6YgLsUX9C_EcIp8du3gXom3s6mH77MbOf3-iuYKePwarCG4ueRMN7q2nrJof-uRs6scMA4NhCCTKbQkByQyOmHr5i');"></div>
-        <div class="relative z-10 text-center px-6">
-          <div class="h-14 w-14 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center mx-auto mb-3 shadow-lg">
-            <span class="material-symbols-outlined text-primary text-2xl">schedule</span>
-          </div>
-          <h1 class="font-serif text-2xl font-bold text-[#0d121b] mb-1">예배 안내</h1>
-          <p class="text-text-muted text-sm">매주 함께 예배하고 교제해요</p>
-        </div>
+    <main class="flex-1 w-full max-w-page mx-auto px-4 lg:px-8 pt-6 lg:pt-8 pb-24 lg:pb-12">
+      <section class="mt-6 lg:mt-8 pb-8">
+        <span class="section-label block mb-4">함께 예배해요</span>
+        <h1 class="font-display text-3xl lg:text-4xl font-semibold text-charcoal tracking-tight mb-2">예배 안내</h1>
+        <p class="text-muted mb-6">매주 함께 예배하고 교제해요</p>
+        <hr class="h-px border-0 bg-forest/25 max-w-3xl" aria-hidden="true" />
       </section>
 
-      <!-- Worship Schedules -->
-      <section class="px-4 py-6 space-y-4">
+      <section class="py-10 space-y-6 scroll-reveal">
         {worship?.schedules && worship.schedules.length > 0 ? (
           worship.schedules.map((schedule) => (
-            <div class="group relative overflow-hidden rounded-2xl bg-white p-6 shadow-soft transition-all hover:shadow-lg">
-              <div class="absolute right-0 top-0 -mr-6 -mt-6 h-24 w-24 rounded-full bg-primary/5 transition-transform group-hover:scale-150"></div>
-              <div class="relative z-10 flex items-start gap-4">
+            <div class="group relative overflow-hidden rounded-2xl bg-white/90 p-8 border border-teal-200/50 shadow-soft transition-all hover:border-teal-300 hover:shadow-card">
+              <div class="flex items-start gap-6">
+                <div class="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-teal-100 text-teal">
+                  <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">event</span>
+                </div>
                 <div class="flex-1">
                   <div class="flex items-center gap-3 mb-3">
-                    <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                      <span class="material-symbols-outlined">event</span>
-                    </div>
-                    <div>
-                      <h2 class="text-xl font-bold text-[#0d121b]">{schedule.type}</h2>
-                      {schedule.onlineAvailable && (
-                        <span class="inline-block mt-1 px-2 py-0.5 bg-green-100 text-green-700 text-xs font-semibold rounded-full">
-                          온라인 가능
-                        </span>
-                      )}
-                    </div>
+                    <h2 class="font-display text-2xl font-semibold text-charcoal">{schedule.type}</h2>
+                    {schedule.onlineAvailable && (
+                      <span class="inline-block px-3 py-1 bg-forest/10 text-forest text-xs font-semibold rounded-full">
+                        온라인 가능
+                      </span>
+                    )}
                   </div>
-                  <div class="space-y-2 ml-16">
-                    <div class="flex items-center gap-2 text-text-muted">
-                      <span class="material-symbols-outlined text-[18px]">schedule</span>
+                  <div class="space-y-2">
+                    <div class="flex items-center gap-2 text-muted">
+                      <span class="material-symbols-outlined text-lg">schedule</span>
                       <span class="font-medium">{schedule.time}</span>
                     </div>
-                    <div class="flex items-center gap-2 text-text-muted">
-                      <span class="material-symbols-outlined text-[18px]">location_on</span>
+                    <div class="flex items-center gap-2 text-muted">
+                      <span class="material-symbols-outlined text-lg">location_on</span>
                       <span>{schedule.location}</span>
                     </div>
                     {schedule.description && (
-                      <p class="text-sm text-gray-600 mt-2">{schedule.description}</p>
+                      <p class="text-sm text-ink mt-2">{schedule.description}</p>
                     )}
                   </div>
                 </div>
@@ -65,85 +59,73 @@ const church = getChurch();
             </div>
           ))
         ) : (
-          <div class="text-center py-12">
-            <span class="material-symbols-outlined text-6xl text-gray-300 mb-4">event_busy</span>
-            <p class="text-text-muted">예배 시간 정보를 준비 중입니다.</p>
+          <div class="text-center py-16">
+            <span class="material-symbols-outlined text-7xl text-muted-light mb-4">event_busy</span>
+            <p class="text-muted">예배 시간 정보를 준비 중입니다.</p>
           </div>
         )}
       </section>
 
-      <!-- Online Worship -->
       {worship?.onlineLink && (
-        <section class="px-4 pb-4">
-          <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary/10 to-primary/5 p-6 border border-primary/20">
-            <div class="absolute right-0 top-0 -mr-8 -mt-8 h-32 w-32 rounded-full bg-primary/10 blur-2xl"></div>
-            <div class="relative z-10">
-              <div class="flex items-center gap-3 mb-4">
-                <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-primary text-white">
-                  <span class="material-symbols-outlined">smart_display</span>
-                </div>
-                <div>
-                  <h2 class="text-xl font-bold text-[#0d121b]">온라인 예배</h2>
-                  <p class="text-sm text-text-muted">실시간 스트리밍</p>
-                </div>
+        <section class="pb-6">
+          <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-forest to-forest-light p-8 border border-forest/30 shadow-elevated">
+            <div class="flex items-center gap-4 mb-6">
+              <div class="flex h-16 w-16 items-center justify-center rounded-2xl bg-amber text-charcoal">
+                <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">smart_display</span>
               </div>
-              <a
-                href={worship.onlineLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="block w-full rounded-xl bg-primary px-6 py-4 text-base font-bold text-white text-center shadow-lg shadow-primary/30 transition-transform active:scale-95"
-              >
-                온라인으로 시청하기
-              </a>
+              <div>
+                <h2 class="font-display text-2xl font-semibold text-charcoal">온라인 예배</h2>
+                <p class="text-sm text-muted">실시간 스트리밍</p>
+              </div>
             </div>
+            <a
+              href={worship.onlineLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="block w-full rounded-lg bg-forest px-6 py-4 text-base font-bold text-cream text-center shadow-card hover:bg-forest-light transition-all"
+            >
+              온라인으로 시청하기
+            </a>
           </div>
         </section>
       )}
 
-      <!-- YouTube Channel -->
       {worship?.youtubeChannel && (
-        <section class="px-4 pb-4">
-          <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-red-50 to-red-100/50 p-6 border border-red-200">
-            <div class="absolute right-0 top-0 -mr-8 -mt-8 h-32 w-32 rounded-full bg-red-200/50 blur-2xl"></div>
-            <div class="relative z-10">
-              <div class="flex items-center gap-3 mb-4">
-                <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-red-600 text-white">
-                  <span class="material-symbols-outlined">smart_display</span>
-                </div>
-                <div>
-                  <h2 class="text-xl font-bold text-[#0d121b]">YouTube 채널</h2>
-                  <p class="text-sm text-text-muted">매주 설교 업로드</p>
-                </div>
+        <section class="pb-6">
+          <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-red-50 to-red-100 p-8 border border-red-300/60 shadow-soft">
+            <div class="flex items-center gap-4 mb-6">
+              <div class="flex h-16 w-16 items-center justify-center rounded-2xl bg-red-500 text-white">
+                <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">smart_display</span>
               </div>
-              <a
-                href={worship.youtubeChannel}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="block w-full rounded-xl bg-red-600 px-6 py-4 text-base font-bold text-white text-center shadow-lg shadow-red-600/30 transition-transform active:scale-95"
-              >
-                YouTube 구독하기
-              </a>
+              <div>
+                <h2 class="font-display text-2xl font-semibold text-charcoal">YouTube 채널</h2>
+                <p class="text-sm text-muted">매주 설교 업로드</p>
+              </div>
             </div>
+            <a
+              href={worship.youtubeChannel}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="block w-full rounded-lg bg-red-600 px-6 py-4 text-base font-bold text-white text-center shadow-card hover:bg-red-700 transition-all"
+            >
+              YouTube 구독하기
+            </a>
           </div>
         </section>
       )}
 
-      <!-- Training & Discipleship -->
       {worship?.training && worship.training.length > 0 && (
-        <section class="px-4 pb-4">
-          <h2 class="text-lg font-bold text-[#0d121b] mb-4 px-1">훈련 및 양육</h2>
-          <div class="space-y-3">
+        <section class="pb-6">
+          <h2 class="font-display text-xl font-semibold text-charcoal mb-4 px-1">훈련 및 양육</h2>
+          <div class="space-y-4">
             {worship.training.map((item) => (
-              <div class="group relative overflow-hidden rounded-2xl bg-white p-5 shadow-soft transition-all hover:shadow-lg">
-                <div class="absolute right-0 top-0 -mr-6 -mt-6 h-24 w-24 rounded-full bg-accent-gold/5 transition-transform group-hover:scale-150"></div>
-                <div class="relative z-10 flex items-center gap-4">
-                  <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-accent-gold/20 text-[#b39226]">
-                    <span class="material-symbols-outlined">school</span>
-                  </div>
-                  <div>
-                    <h3 class="font-bold text-[#0d121b]">{item.name}</h3>
-                    <p class="text-sm text-text-muted">{item.time}</p>
-                  </div>
+              <div class="rounded-2xl bg-white/90 p-6 border border-amber-200/50 shadow-soft flex items-center gap-4">
+                <div class="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-amber-100 text-amber-dark">
+                  <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">school</span>
+                </div>
+                <div>
+                  <h3 class="font-display text-lg font-semibold text-charcoal">{item.name}</h3>
+                  <p class="text-sm text-muted">{item.time}</p>
                 </div>
               </div>
             ))}
@@ -151,20 +133,19 @@ const church = getChurch();
         </section>
       )}
 
-      <!-- First Time Visitor Guide -->
       {worship?.firstTimeVisitorGuide && (
-        <section class="px-4 pb-8">
-          <div class="rounded-2xl bg-white p-6 border border-gray-200 shadow-soft">
-            <div class="flex items-start gap-4">
-              <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-accent-gold/20 text-accent-gold">
-                <span class="material-symbols-outlined">info</span>
+        <section class="pb-8">
+          <div class="rounded-2xl bg-white/90 p-8 border border-violet-200/50 shadow-soft">
+            <div class="flex items-start gap-6">
+              <div class="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-violet-100 text-violet">
+                <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">info</span>
               </div>
               <div class="flex-1">
-                <h2 class="text-lg font-bold text-[#0d121b] mb-2">처음 방문하시나요?</h2>
-                <p class="text-sm text-gray-600 leading-relaxed mb-3">{worship.firstTimeVisitorGuide.description}</p>
+                <h2 class="font-display text-xl font-semibold text-charcoal mb-2">처음 방문하시나요?</h2>
+                <p class="text-sm text-ink leading-relaxed mb-3">{worship.firstTimeVisitorGuide.description}</p>
                 {worship.firstTimeVisitorGuide.infoDeskLocation && (
-                  <div class="flex items-center gap-2 text-sm text-text-muted">
-                    <span class="material-symbols-outlined text-[18px]">place</span>
+                  <div class="flex items-center gap-2 text-sm text-muted">
+                    <span class="material-symbols-outlined text-lg">place</span>
                     <span>안내 데스크: {worship.firstTimeVisitorGuide.infoDeskLocation}</span>
                   </div>
                 )}
@@ -175,6 +156,7 @@ const church = getChurch();
       )}
     </main>
 
+    <Footer church={church} contact={contact} location={location} worship={worship} />
     <BottomNav currentPath="/worship" />
     <MenuDrawer />
   </div>

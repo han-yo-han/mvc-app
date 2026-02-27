@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import ScrollReveal from '../components/ScrollReveal.astro';
 
 interface Props {
   title: string;
@@ -19,7 +20,8 @@ const { title, description = '선교비전교회 - 일어나 빛을 발하라' }
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
   </head>
-  <body class="bg-white text-text-main antialiased selection:bg-primary/20 selection:text-primary-dark">
+  <body class="grain-overlay bg-cream text-charcoal antialiased selection:bg-amber/20 selection:text-charcoal">
     <slot />
+    <ScrollReveal />
   </body>
 </html>

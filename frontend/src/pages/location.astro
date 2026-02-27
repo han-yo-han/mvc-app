@@ -1,49 +1,63 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import PageHeader from '../components/PageHeader.astro';
+import Footer from '../components/Footer.astro';
 import BottomNav from '../components/BottomNav.astro';
 import MenuDrawer from '../components/MenuDrawer.astro';
-import { getLocation, getContact, getChurch } from '../lib/content.js';
+import MapViewer from '../components/MapViewer.astro';
+import { getLocation, getContact, getChurch, getWorship } from '../lib/content.js';
 
 const location = getLocation();
 const contact = getContact();
 const church = getChurch();
+const worship = getWorship();
 ---
 
 <Layout title="오시는길 - 선교비전교회">
-  <div class="flex flex-col min-h-screen bg-white text-text-main antialiased">
+  <div class="flex flex-col min-h-screen bg-gradient-to-b from-cream to-sand text-charcoal antialiased">
     <PageHeader currentPath="/location" />
 
-    <main class="flex-1 w-full pb-24 lg:pb-12">
-      <!-- Map Section -->
-      <section class="relative w-full h-[35vh] min-h-[250px] bg-gray-200">
-        <div class="absolute inset-0 w-full h-full bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD56pzvI80_uUC_Himmxt1IDeKPPcX7jn6o0ODWzMi1MDFxvz6VZaTtid2DG77jeAKXG6L4BMHeSRP1IGZd2L2Ugefk3vw2BeOdDO6_vImagTwhGHdlOok338PzeTvQs_adSpVSobXWoEoilourthLhJ3EcoQoSO5W9hoBM1l2a8lFF_-Xcq7_5WTpqQTvHyu_u_tUpaVnPrz7jz1G27qR5GSGT2ITVHv2_hcY1fm3b0_A05wUSNQDhIlFyhRg0xh1mzOH2wES-QcsL');">
-          <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-        </div>
-        <div class="absolute bottom-6 right-6 z-10">
-          <button
-            onclick={location?.coordinates ? `window.open('https://www.google.com/maps/dir/?api=1&destination=${location.coordinates.lat},${location.coordinates.lng}', '_blank')` : undefined}
-            class="flex items-center justify-center size-14 rounded-full bg-primary text-white shadow-lg shadow-primary/30 hover:scale-105 active:scale-95 transition-all"
-          >
-            <span class="material-symbols-outlined" style="font-size: 28px;">directions</span>
-          </button>
+    <main class="flex-1 w-full max-w-page mx-auto px-4 lg:px-8 pt-6 lg:pt-8 pb-24 lg:pb-12">
+      <section class="w-full">
+        <div class="relative">
+          {location?.coordinates ? (
+            <MapViewer
+              lat={location.coordinates.lat}
+              lng={location.coordinates.lng}
+              title={church?.name || '선교비전교회'}
+              height="35vh"
+              zoom={16}
+              address={location?.address?.full}
+            />
+          ) : (
+            <div class="w-full h-[35vh] min-h-[280px] rounded-2xl bg-muted/20 flex items-center justify-center">
+              <p class="text-muted">위치 정보를 불러올 수 없습니다.</p>
+            </div>
+          )}
+          {location?.coordinates && (
+            <a
+              href={`https://map.naver.com/p/search/${encodeURIComponent(location.address?.full || '서울 동대문구 사가정로 190')}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="absolute bottom-4 right-4 z-[1000] flex items-center gap-2 px-5 py-3 rounded-xl bg-teal text-white font-semibold shadow-elevated hover:bg-teal/90 transition-all"
+            >
+              <span class="material-symbols-outlined text-xl">directions</span>
+              길찾기
+            </a>
+          )}
         </div>
       </section>
 
-      <!-- Content Container -->
-      <div class="max-w-5xl mx-auto px-4 lg:px-8 py-6 space-y-8 -mt-4 bg-white rounded-t-3xl relative z-10 shadow-[0_-4px_20px_rgba(0,0,0,0.05)]">
-        <!-- Address Card -->
+      <div class="py-8 space-y-10 -mt-8 bg-white/95 rounded-t-3xl relative z-10 shadow-[0_-8px_30px_rgba(26,22,20,0.08)] px-4 lg:px-8">
         <section>
-          <div class="flex items-start justify-between mb-2">
-            <div>
-              <h2 class="text-2xl font-bold text-[#0d121b] tracking-tight">{church?.name || '선교비전교회'}</h2>
-              <p class="text-sm text-text-muted mt-1">본당</p>
-            </div>
+          <div class="mb-4">
+            <h2 class="font-display text-3xl font-semibold text-charcoal tracking-tight">{church?.name || '선교비전교회'}</h2>
+            <p class="text-sm text-muted mt-1">본당</p>
           </div>
-          <div class="mt-4 p-4 rounded-xl bg-white flex items-center justify-between gap-3 shadow-soft">
-            <div class="flex items-start gap-3 flex-1">
-              <span class="material-symbols-outlined text-primary mt-0.5" style="font-size: 22px;">location_on</span>
-              <div class="text-sm font-medium text-[#0d121b] leading-relaxed">
+          <div class="mt-4 p-6 rounded-2xl bg-teal-50 flex items-center justify-between gap-4 border border-teal-200/60">
+            <div class="flex items-start gap-4 flex-1">
+              <span class="material-symbols-outlined text-teal mt-0.5 text-3xl" style="font-variation-settings: 'FILL' 1;">location_on</span>
+              <div class="text-base font-medium text-charcoal leading-relaxed">
                 {location?.address?.full || '주소 정보 준비 중'}
                 {location?.address?.detail && (
                   <><br/>{location.address.detail}</>
@@ -52,107 +66,105 @@ const church = getChurch();
             </div>
             <button
               aria-label="주소 복사"
-              class="p-2 text-primary hover:bg-primary/10 rounded-lg transition-colors flex-shrink-0"
+              class="p-3 text-teal hover:bg-teal/10 rounded-lg transition-colors flex-shrink-0"
               onclick={`navigator.clipboard.writeText('${location?.address?.full || ''} ${location?.address?.detail || ''}')`}
             >
-              <span class="material-symbols-outlined" style="font-size: 20px;">content_copy</span>
+              <span class="material-symbols-outlined text-xl">content_copy</span>
             </button>
           </div>
         </section>
 
-        <!-- Public Transport -->
         <section>
-          <h3 class="text-lg font-bold text-[#0d121b] mb-4 flex items-center gap-2">
-            <span class="material-symbols-outlined text-text-muted" style="font-size: 20px;">commute</span>
+          <h3 class="font-display text-xl font-semibold text-charcoal mb-6 flex items-center gap-2">
+            <span class="material-symbols-outlined text-teal text-2xl" style="font-variation-settings: 'FILL' 1;">commute</span>
             대중교통
           </h3>
-          <div class="space-y-3">
+          <div class="space-y-4">
             {location?.subway && location.subway.length > 0 ? (
-              location.subway.map((subway, index) => (
-                <div class="flex gap-4 p-4 bg-white rounded-xl shadow-soft">
-                  <div class="size-10 rounded-lg bg-[#009D3E]/10 flex items-center justify-center text-[#009D3E] flex-shrink-0">
-                    <span class="material-symbols-outlined" style="font-size: 24px;">subway</span>
+              location.subway.map((subway) => (
+                <div class="flex gap-4 p-6 bg-emerald-50 rounded-2xl border border-emerald-200/60">
+                  <div class="size-14 rounded-2xl bg-emerald-100 flex items-center justify-center text-emerald-600 flex-shrink-0">
+                    <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">subway</span>
                   </div>
                   <div>
-                    <p class="font-bold text-[#0d121b]">지하철 {subway.line || '2'}호선</p>
-                    <p class="text-sm text-text-muted mt-0.5">
+                    <p class="font-display text-lg font-semibold text-charcoal">지하철 {subway.line || '2'}호선</p>
+                    <p class="text-sm text-muted mt-1">
                       {subway.station || '역이름'}, {subway.exit || '출구'} ({subway.walkingTime || '도보 5분'})
                     </p>
                   </div>
                 </div>
               ))
             ) : (
-              <div class="flex gap-4 p-4 bg-white rounded-xl shadow-soft">
-                <div class="size-10 rounded-lg bg-[#009D3E]/10 flex items-center justify-center text-[#009D3E] flex-shrink-0">
-                  <span class="material-symbols-outlined" style="font-size: 24px;">subway</span>
+              <div class="flex gap-4 p-6 bg-emerald-50 rounded-2xl border border-emerald-200/60">
+                <div class="size-14 rounded-2xl bg-emerald-100 flex items-center justify-center text-emerald-600 flex-shrink-0">
+                  <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">subway</span>
                 </div>
                 <div>
-                  <p class="font-bold text-[#0d121b]">지하철 2호선</p>
-                  <p class="text-sm text-text-muted mt-0.5">Green Station, Exit 4 (도보 5분)</p>
+                  <p class="font-display text-lg font-semibold text-charcoal">지하철 2호선</p>
+                  <p class="text-sm text-muted mt-1">사가정역, 4번 출구 (도보 5분)</p>
                 </div>
               </div>
             )}
 
             {location?.bus && location.bus.length > 0 ? (
-              <div class="flex gap-4 p-4 bg-white rounded-xl shadow-soft">
-                <div class="size-10 rounded-lg bg-[#3D5CFF]/10 flex items-center justify-center text-[#3D5CFF] flex-shrink-0">
-                  <span class="material-symbols-outlined" style="font-size: 24px;">directions_bus</span>
+              <div class="flex gap-4 p-6 bg-blue-50 rounded-2xl border border-blue-200/60">
+                <div class="size-14 rounded-2xl bg-blue-100 flex items-center justify-center text-blue-600 flex-shrink-0">
+                  <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">directions_bus</span>
                 </div>
                 <div>
-                  <p class="font-bold text-[#0d121b]">버스</p>
-                  <div class="flex flex-wrap gap-2 mt-1.5">
-                    {location.bus.map((bus, index) => (
-                      <span class="px-2 py-0.5 rounded bg-gray-100 text-xs font-semibold text-gray-600">
+                  <p class="font-display text-lg font-semibold text-charcoal">버스</p>
+                  <div class="flex flex-wrap gap-2 mt-2">
+                    {location.bus.map((bus) => (
+                      <span class="px-2.5 py-1 rounded-lg bg-blue-100 text-sm font-semibold text-blue-700">
                         {bus.number || bus}
                       </span>
                     ))}
                   </div>
                   {location.bus[0]?.stop && (
-                    <p class="text-xs text-text-muted mt-1.5">정류장: {location.bus[0].stop}</p>
+                    <p class="text-xs text-muted mt-2">정류장: {location.bus[0].stop}</p>
                   )}
                 </div>
               </div>
             ) : (
-              <div class="flex gap-4 p-4 bg-white rounded-xl shadow-soft">
-                <div class="size-10 rounded-lg bg-[#3D5CFF]/10 flex items-center justify-center text-[#3D5CFF] flex-shrink-0">
-                  <span class="material-symbols-outlined" style="font-size: 24px;">directions_bus</span>
+              <div class="flex gap-4 p-6 bg-blue-50 rounded-2xl border border-blue-200/60">
+                <div class="size-14 rounded-2xl bg-blue-100 flex items-center justify-center text-blue-600 flex-shrink-0">
+                  <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">directions_bus</span>
                 </div>
                 <div>
-                  <p class="font-bold text-[#0d121b]">버스</p>
-                  <div class="flex flex-wrap gap-2 mt-1.5">
-                    <span class="px-2 py-0.5 rounded bg-gray-100 text-xs font-semibold text-gray-600">140</span>
-                    <span class="px-2 py-0.5 rounded bg-gray-100 text-xs font-semibold text-gray-600">402</span>
-                    <span class="px-2 py-0.5 rounded bg-gray-100 text-xs font-semibold text-gray-600">405</span>
+                  <p class="font-display text-lg font-semibold text-charcoal">버스</p>
+                  <div class="flex flex-wrap gap-2 mt-2">
+                    <span class="px-2.5 py-1 rounded-lg bg-blue-100 text-sm font-semibold text-blue-700">140</span>
+                    <span class="px-2.5 py-1 rounded-lg bg-blue-100 text-sm font-semibold text-blue-700">402</span>
+                    <span class="px-2.5 py-1 rounded-lg bg-blue-100 text-sm font-semibold text-blue-700">405</span>
                   </div>
-                  <p class="text-xs text-text-muted mt-1.5">정류장: 한강중학교</p>
+                  <p class="text-xs text-muted mt-2">정류장: 한강중학교</p>
                 </div>
               </div>
             )}
           </div>
         </section>
 
-        <!-- Parking Info -->
         <section>
-          <h3 class="text-lg font-bold text-[#0d121b] mb-4 flex items-center gap-2">
-            <span class="material-symbols-outlined text-text-muted" style="font-size: 20px;">local_parking</span>
+          <h3 class="font-display text-xl font-semibold text-charcoal mb-6 flex items-center gap-2">
+            <span class="material-symbols-outlined text-amber-dark text-2xl" style="font-variation-settings: 'FILL' 1;">local_parking</span>
             주차 안내
           </h3>
-          <div class="bg-white rounded-xl p-5 shadow-soft space-y-4">
-            <div class="flex items-start gap-3">
-              <div class="mt-1 size-2 rounded-full bg-primary flex-shrink-0"></div>
+          <div class="bg-amber-50 rounded-2xl p-6 border border-amber-200/60 space-y-6">
+            <div class="flex items-start gap-4">
+              <div class="mt-1.5 size-2.5 rounded-full bg-forest flex-shrink-0"></div>
               <div>
-                <p class="font-bold text-sm text-[#0d121b]">교회 주차장 (무료)</p>
-                <p class="text-sm text-text-muted mt-1 leading-relaxed">
+                <p class="font-semibold text-charcoal">교회 주차장 (무료)</p>
+                <p class="text-sm text-muted mt-1 leading-relaxed">
                   {location?.parking?.description || '처음 방문하시는 분과 어린 자녀가 있는 가정 우선. 약 50대 주차 가능.'}
                 </p>
               </div>
             </div>
-            <div class="h-px bg-gray-100"></div>
-            <div class="flex items-start gap-3">
-              <div class="mt-1 size-2 rounded-full bg-primary/40 flex-shrink-0"></div>
+            <div class="h-px bg-border"></div>
+            <div class="flex items-start gap-4">
+              <div class="mt-1.5 size-2.5 rounded-full bg-forest/50 flex-shrink-0"></div>
               <div>
-                <p class="font-bold text-sm text-[#0d121b]">추가 주차</p>
-                <p class="text-sm text-text-muted mt-1 leading-relaxed">
+                <p class="font-semibold text-charcoal">추가 주차</p>
+                <p class="text-sm text-muted mt-1 leading-relaxed">
                   {location?.parking?.overflow || '건너편 학교 주차장. 주일 오전 8시 - 오후 2시 무료 이용 가능.'}
                 </p>
               </div>
@@ -160,24 +172,23 @@ const church = getChurch();
           </div>
         </section>
 
-        <!-- Contact Section -->
         <section>
-          <div class="bg-primary/5 rounded-2xl p-6 text-center">
-            <h3 class="text-lg font-bold text-primary mb-2">도움이 필요하신가요?</h3>
-            <p class="text-sm text-text-muted mb-6">교통편이나 길 안내가 필요하시면 연락주세요.</p>
-            <div class="grid grid-cols-2 gap-3">
+          <div class="bg-gradient-to-br from-teal-50 to-amber-50 rounded-2xl p-8 text-center border border-teal-200/50">
+            <h3 class="font-display text-xl font-semibold text-teal mb-2">도움이 필요하신가요?</h3>
+            <p class="text-sm text-muted mb-6">교통편이나 길 안내가 필요하시면 연락주세요.</p>
+            <div class="grid grid-cols-2 gap-4 max-w-sm mx-auto">
               <a
-                class="flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-white border border-primary/20 text-primary font-bold text-sm hover:bg-gray-50 transition-colors shadow-sm"
+                class="flex items-center justify-center gap-2 py-4 px-6 rounded-xl bg-white border border-teal-200 text-teal font-bold hover:bg-teal-50 transition-colors shadow-soft"
                 href={contact?.phone?.main ? `tel:${contact.phone.main}` : '#'}
               >
-                <span class="material-symbols-outlined" style="font-size: 20px;">call</span>
+                <span class="material-symbols-outlined text-xl">call</span>
                 전화하기
               </a>
               <a
-                class="flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-primary text-white font-bold text-sm hover:bg-primary/90 transition-colors shadow-sm shadow-primary/20"
+                class="flex items-center justify-center gap-2 py-4 px-6 rounded-xl bg-white border border-teal-200 text-charcoal font-bold hover:bg-teal-50 transition-colors shadow-soft"
                 href={contact?.email?.main ? `mailto:${contact.email.main}` : '#'}
               >
-                <span class="material-symbols-outlined" style="font-size: 20px;">mail</span>
+                <span class="material-symbols-outlined text-xl">mail</span>
                 이메일
               </a>
             </div>
@@ -186,6 +197,7 @@ const church = getChurch();
       </div>
     </main>
 
+    <Footer church={church} contact={contact} location={location} worship={worship} />
     <BottomNav currentPath="/location" />
     <MenuDrawer />
   </div>

@@ -1,0 +1,11 @@
+{
+  "slides": [
+    { "src": "/images/hero/01-worship.png", "alt": "예배" },
+    { "src": "/images/hero/02-evangelism.png", "alt": "전도" },
+    { "src": "/images/hero/03-youth1.png", "alt": "청년부" },
+    { "src": "/images/hero/04-youth2.png", "alt": "청년부" },
+    { "src": "/images/hero/05-cambodia.png", "alt": "캄보디아 선교" },
+    { "src": "/images/hero/06-vietnam.png", "alt": "베트남 선교" },
+    { "src": "/images/hero/07-events.png", "alt": "교회 행사" }
+  ]
+}

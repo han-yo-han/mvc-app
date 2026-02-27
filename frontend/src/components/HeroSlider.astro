@@ -1,0 +1,48 @@
+---
+interface Props {
+  slides: { src: string; alt: string }[];
+}
+
+const { slides } = Astro.props;
+const id = 'hero-slider';
+---
+
+<div id={id} class="hero-slider absolute inset-0">
+  {slides.length > 0 ? (
+    slides.map((slide, i) => (
+      <div
+        class={`hero-slide absolute inset-0 bg-cover bg-center transition-opacity duration-700 ${i === 0 ? 'opacity-100 z-0' : 'opacity-0 z-0'}`}
+        style={`background-image: url('${slide.src}');`}
+        data-index={i}
+        aria-hidden={i !== 0}
+      ></div>
+    ))
+  ) : (
+    <div class="absolute inset-0 bg-gradient-to-br from-amber-100/80 via-peach to-rose-100/50"></div>
+  )}
+  <div class="absolute inset-0 bg-gradient-to-r from-charcoal/50 via-charcoal/30 to-transparent z-10"></div>
+</div>
+
+<script>
+  (function() {
+    const container = document.getElementById('hero-slider');
+    if (!container) return;
+    const slides = container.querySelectorAll('.hero-slide');
+    if (slides.length < 2) return;
+
+    let current = 0;
+    function show(i) {
+      slides.forEach((s, idx) => {
+        s.classList.toggle('opacity-100', idx === i);
+        s.classList.toggle('opacity-0', idx !== i);
+        s.setAttribute('aria-hidden', idx !== i);
+      });
+      current = i;
+    }
+    function next() {
+      show((current + 1) % slides.length);
+    }
+    const interval = setInterval(next, 5000);
+    container.addEventListener('mouseenter', () => clearInterval(interval));
+  })();
+</script>

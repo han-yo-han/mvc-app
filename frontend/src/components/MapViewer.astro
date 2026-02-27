@@ -1,0 +1,66 @@
+---
+interface Props {
+  lat: string;
+  lng: string;
+  title?: string;
+  height?: string;
+  zoom?: number;
+  address?: string;
+}
+
+const { lat, lng, title = '선교비전교회', height = '280px', zoom = 16, address } = Astro.props;
+const ncpKeyId = import.meta.env.PUBLIC_NCP_KEY_ID || '';
+---
+
+<div
+  id="church-map"
+  class="w-full rounded-2xl overflow-hidden shadow-elevated bg-sage/30"
+  style={`height: ${height}; min-height: 200px;`}
+  data-lat={lat}
+  data-lng={lng}
+  data-title={title}
+  data-zoom={zoom}
+  data-address={address || ''}
+  data-has-key={!!ncpKeyId}
+  aria-label="교회 위치 지도"
+></div>
+
+{ncpKeyId ? (
+  <>
+    <script is:inline src={`https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=${ncpKeyId}&callback=initNaverMap`}></script>
+    <script is:inline>
+      window.initNaverMap = function() {
+        const el = document.getElementById('church-map');
+        if (!el || el.dataset.hasKey !== 'true') return;
+        const lat = parseFloat(el.dataset.lat);
+        const lng = parseFloat(el.dataset.lng);
+        const title = el.dataset.title || '선교비전교회';
+        const zoom = parseInt(el.dataset.zoom || '16', 10);
+        if (isNaN(lat) || isNaN(lng) || typeof naver === 'undefined') return;
+
+        const map = new naver.maps.Map('church-map', {
+          center: new naver.maps.LatLng(lat, lng),
+          zoom: zoom,
+          zoomControl: true,
+          zoomControlOptions: { position: naver.maps.Position.TOP_RIGHT }
+        });
+
+        new naver.maps.Marker({
+          position: new naver.maps.LatLng(lat, lng),
+          map: map,
+          title: title
+        });
+      };
+    </script>
+  </>
+) : (
+    <script is:inline>
+      (function() {
+        const el = document.getElementById('church-map');
+        if (!el || el.dataset.hasKey === 'true') return;
+        const address = el.dataset.address || '서울 동대문구 사가정로 190';
+        const enc = encodeURIComponent(address);
+        el.innerHTML = '<a href="https://map.naver.com/p/search/' + enc + '" target="_blank" rel="noopener noreferrer" class="flex flex-col items-center justify-center w-full h-full gap-4 p-6 hover:bg-sage/50 transition-colors"><span class="material-symbols-outlined text-5xl text-forest/60" style="font-variation-settings: \'FILL\' 1;">map</span><span class="text-forest font-semibold">네이버 지도에서 보기</span><span class="text-sm text-muted text-center">클릭하면 네이버 지도가 열립니다</span></a>';
+      })();
+    </script>
+)

@@ -1,0 +1,37 @@
+---
+/**
+ * 스크롤 다운 시 서서히 보이는 애니메이션 (예수마을셀교회 스타일)
+ * Intersection Observer 사용 - 뷰포트에 들어올 때만 한 번 revealed 클래스 추가
+ * 스크롤 올릴 때는 효과 없음 (한 번 보이면 계속 보임)
+ */
+---
+<script>
+  const observerOptions = {
+    root: null,
+    rootMargin: '0px 0px -60px 0px',
+    threshold: 0.15, // 15% 보일 때 트리거 (너무 일찍 트리거 방지)
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  function initScrollReveal() {
+    document.querySelectorAll('.scroll-reveal').forEach((el) => {
+      if (!el.classList.contains('revealed')) {
+        observer.observe(el);
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initScrollReveal);
+  } else {
+    initScrollReveal();
+  }
+</script>

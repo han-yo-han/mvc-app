@@ -1,124 +1,107 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import PageHeader from '../components/PageHeader.astro';
+import Footer from '../components/Footer.astro';
 import BottomNav from '../components/BottomNav.astro';
 import MenuDrawer from '../components/MenuDrawer.astro';
-import { getChurch } from '../lib/content.js';
+import { getChurch, getContact, getLocation, getWorship } from '../lib/content.js';
 
 const church = getChurch();
+const contact = getContact();
+const location = getLocation();
+const worship = getWorship();
 ---
 
 <Layout title="교회소개 - 선교비전교회">
-  <div class="flex flex-col min-h-screen bg-white text-text-main antialiased">
+  <div class="flex flex-col min-h-screen bg-gradient-to-b from-cream to-sand text-charcoal antialiased">
     <PageHeader currentPath="/about" />
 
-    <main class="flex-1 w-full max-w-4xl mx-auto px-4 lg:px-8 pb-24 lg:pb-12">
-      <!-- Pastor's Greeting -->
+    <main class="flex-1 w-full max-w-page mx-auto px-4 lg:px-8 pt-6 lg:pt-8 pb-24 lg:pb-12">
       {church?.pastor && (
-        <section class="flex flex-col items-center px-6 pt-8 pb-10">
-          <div class="relative mb-6">
-            <div class="absolute -inset-1 rounded-full bg-gradient-to-tr from-primary/30 to-accent-gold/40 blur-sm"></div>
-            {church.pastor.photo ? (
-              <img src={church.pastor.photo} alt={church.pastor.name} class="relative h-32 w-32 overflow-hidden rounded-full border-4 border-white shadow-soft object-cover" />
-            ) : (
-              <div class="relative h-32 w-32 overflow-hidden rounded-full border-4 border-white shadow-soft bg-gray-200 flex items-center justify-center">
-                <span class="material-symbols-outlined text-4xl text-gray-400">person</span>
-              </div>
-            )}
+        <section class="flex flex-col items-center pt-12 lg:pt-16 pb-12">
+          <div class="relative mb-8">
+            <div class="absolute -inset-1 rounded-full bg-gradient-to-tr from-forest/20 to-amber/30 blur-sm"></div>
+            <img src={church.pastor.photo || '/images/pastor.png'} alt={church.pastor.name} class="relative h-36 w-36 overflow-hidden rounded-full border-4 border-cream shadow-elevated object-cover" />
           </div>
           <div class="text-center">
-            <p class="mb-2 text-sm font-semibold uppercase tracking-wider text-primary">{church.pastor.title} 인사말</p>
-            <h1 class="mb-4 text-3xl font-bold leading-tight tracking-tight text-[#0d121b]">{church.pastor.name}</h1>
-            {church.pastor.greeting ? (
-              <p class="mx-auto max-w-xs text-base leading-relaxed text-gray-600">
-                "{church.pastor.greeting}"
-              </p>
-            ) : (
-              <p class="mx-auto max-w-xs text-base leading-relaxed text-gray-600">
-                "교회는 건물이 아니라 가족입니다. 믿음을 탐색하든 공동체를 찾든, 여기가 여러분의 자리입니다."
-              </p>
-            )}
-            <div class="mt-6 h-1 w-12 rounded-full bg-accent-gold/40 mx-auto"></div>
+            <p class="mb-2 section-label">{church.pastor.title} 인사말</p>
+            <h1 class="mb-4 font-display text-4xl font-semibold leading-tight text-charcoal">{church.pastor.name}</h1>
+            <p class="mx-auto max-w-md text-lg leading-relaxed text-ink">
+              "{church.pastor.greeting || '교회는 건물이 아니라 가족입니다. 믿음을 탐색하든 공동체를 찾든, 여기가 여러분의 자리입니다.'}"
+            </p>
+            <div class="mt-8 h-0.5 w-12 rounded-full bg-amber/50 mx-auto"></div>
           </div>
         </section>
       )}
 
-      <!-- Vision & Mission Cards -->
       {(church?.vision || church?.mission) && (
-        <section class="space-y-4 px-4 pb-12">
+        <section class="space-y-6 pb-12 scroll-reveal">
           {church.vision && (
-            <div class="group relative overflow-hidden rounded-2xl bg-white p-6 shadow-soft transition-all hover:shadow-lg">
-              <div class="absolute right-0 top-0 -mr-6 -mt-6 h-24 w-24 rounded-full bg-primary/5 transition-transform group-hover:scale-150"></div>
-              <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
-                <span class="material-symbols-outlined">visibility</span>
+            <div class="group relative overflow-hidden rounded-2xl bg-white/90 p-8 border border-violet-200/50 hover:border-violet-300 shadow-soft">
+              <div class="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-violet-100 text-violet">
+                <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">visibility</span>
               </div>
-              <h2 class="mb-2 text-xl font-bold text-[#0d121b]">비전</h2>
-              <p class="text-gray-600 leading-relaxed">{church.vision}</p>
+              <h2 class="mb-3 font-display text-2xl font-semibold text-charcoal">비전</h2>
+              <p class="text-ink leading-relaxed">{church.vision}</p>
             </div>
           )}
           {church.mission && (
-            <div class="group relative overflow-hidden rounded-2xl bg-white p-6 shadow-soft transition-all hover:shadow-lg">
-              <div class="absolute right-0 top-0 -mr-6 -mt-6 h-24 w-24 rounded-full bg-accent-gold/10 transition-transform group-hover:scale-150"></div>
-              <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-accent-gold/20 text-[#b39226]">
-                <span class="material-symbols-outlined">volunteer_activism</span>
+            <div class="group relative overflow-hidden rounded-2xl bg-white/90 p-8 border border-amber-200/50 hover:border-amber-300 shadow-soft">
+              <div class="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-amber-100 text-amber-dark">
+                <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">volunteer_activism</span>
               </div>
-              <h2 class="mb-2 text-xl font-bold text-[#0d121b]">사명</h2>
-              <p class="text-gray-600 leading-relaxed">{church.mission}</p>
+              <h2 class="mb-3 font-display text-2xl font-semibold text-charcoal">사명</h2>
+              <p class="text-ink leading-relaxed">{church.mission}</p>
             </div>
           )}
         </section>
       )}
 
-      <!-- History Timeline -->
       {church?.history && church.history.length > 0 && (
-        <section class="bg-white px-6 py-10 mx-4 rounded-2xl shadow-soft mb-8">
+        <section class="bg-white/90 px-6 lg:px-8 py-10 rounded-2xl border border-teal-200/50 shadow-soft mb-8">
           <div class="mb-8 flex items-center justify-between">
-            <h2 class="text-2xl font-bold text-[#0d121b]">교회 연혁</h2>
-            <span class="text-xs font-medium text-gray-400">설립 {church.history[0]?.year || '2010'}</span>
+            <h2 class="font-display text-2xl font-semibold text-charcoal">교회 연혁</h2>
+            <span class="text-xs font-medium text-muted">설립 {church.history[0]?.year || '2010'}</span>
           </div>
-          <div class="relative border-l-2 border-dashed border-gray-200 ml-3 space-y-10 pb-4">
+          <div class="relative border-l-2 border-dashed border-border ml-3 space-y-10 pb-4">
             {church.history.map((item, index) => (
               <div class="relative pl-8">
-                <div class={`absolute -left-[9px] top-1 h-4 w-4 rounded-full border-2 border-white ${index === church.history.length - 1 ? 'bg-primary shadow-sm ring-4 ring-primary/10' : index === 0 ? 'bg-accent-gold shadow-sm' : 'bg-gray-300'}`}></div>
-                <span class={`mb-1 block text-sm font-bold ${index === church.history.length - 1 ? 'text-primary' : index === 0 ? 'text-accent-gold' : 'text-gray-500'}`}>{item.year}</span>
-                <h3 class="mb-1 text-lg font-bold text-[#0d121b]">{item.event}</h3>
-                {item.description && (
-                  <p class="text-sm text-gray-600">{item.description}</p>
-                )}
+                <div class={`absolute -left-[9px] top-1 h-4 w-4 rounded-full border-2 border-cream ${index === church.history.length - 1 ? 'bg-forest shadow-sm ring-4 ring-forest/10' : index === 0 ? 'bg-amber shadow-sm' : 'bg-muted-light'}`}></div>
+                <span class={`mb-1 block text-sm font-bold ${index === church.history.length - 1 ? 'text-forest' : index === 0 ? 'text-amber' : 'text-muted'}`}>{item.year}</span>
+                <h3 class="mb-1 font-display text-lg font-semibold text-charcoal">{item.event}</h3>
+                {item.description && <p class="text-sm text-ink">{item.description}</p>}
               </div>
             ))}
           </div>
         </section>
       )}
 
-      <!-- Denomination Info -->
       {church?.denomination && (
-        <section class="px-4 pb-6">
-          <div class="rounded-2xl bg-white p-5 shadow-soft border border-gray-100 flex items-center gap-4">
-            <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
-              <span class="material-symbols-outlined">verified</span>
+        <section class="pb-6">
+          <div class="rounded-2xl bg-white/90 p-6 border border-teal-200/50 shadow-soft flex items-center gap-4">
+            <div class="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-teal-100 text-teal">
+              <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">verified</span>
             </div>
             <div>
-              <p class="text-xs font-semibold text-text-muted uppercase tracking-wider mb-1">소속 교단</p>
-              <p class="font-bold text-[#0d121b]">{church.denomination}</p>
+              <p class="section-label mb-1">소속 교단</p>
+              <p class="font-display text-xl font-semibold text-charcoal">{church.denomination}</p>
             </div>
           </div>
         </section>
       )}
 
-      <!-- Mission Work -->
       {church?.missionWork && church.missionWork.length > 0 && (
-        <section class="px-4 pb-6">
-          <h2 class="text-lg font-bold text-[#0d121b] mb-4 px-1">선교 사역</h2>
-          <div class="space-y-3">
+        <section class="pb-6">
+          <h2 class="font-display text-xl font-semibold text-charcoal mb-4 px-1">선교 사역 지원</h2>
+          <div class="space-y-4">
             {church.missionWork.map((mission) => (
-              <div class="rounded-2xl bg-white p-5 shadow-soft flex items-center gap-4">
-                <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                  <span class="material-symbols-outlined">public</span>
+              <div class="rounded-2xl bg-white/90 p-6 border border-violet-200/50 shadow-soft flex items-center gap-4">
+                <div class="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-violet-100 text-violet">
+                  <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">public</span>
                 </div>
                 <div>
-                  <h3 class="font-bold text-[#0d121b]">{mission.country}</h3>
-                  <p class="text-sm text-text-muted">{mission.missionary}</p>
+                  <h3 class="font-display text-lg font-semibold text-charcoal">{mission.country}</h3>
+                  <p class="text-sm text-muted">{mission.missionary}</p>
                 </div>
               </div>
             ))}
@@ -126,31 +109,29 @@ const church = getChurch();
         </section>
       )}
 
-      <!-- Evangelism -->
       {church?.evangelism?.streetEvangelism && (
-        <section class="px-4 pb-6">
-          <div class="rounded-2xl bg-white p-5 shadow-soft flex items-center gap-4">
-            <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-accent-gold/20 text-[#b39226]">
-              <span class="material-symbols-outlined">directions_walk</span>
+        <section class="pb-6">
+          <div class="rounded-2xl bg-white/90 p-6 border border-amber-200/50 shadow-soft flex items-center gap-4">
+            <div class="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-amber-100 text-amber-dark">
+              <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">directions_walk</span>
             </div>
             <div>
-              <h3 class="font-bold text-[#0d121b]">노방전도</h3>
-              <p class="text-sm text-text-muted">{church.evangelism.streetEvangelism}</p>
+              <h3 class="font-display text-lg font-semibold text-charcoal">노방전도</h3>
+              <p class="text-sm text-muted">{church.evangelism.streetEvangelism}</p>
             </div>
           </div>
         </section>
       )}
 
-      <!-- Prayer Requests -->
       {church?.prayerRequests && church.prayerRequests.length > 0 && (
-        <section class="px-4 pb-8">
-          <h2 class="text-lg font-bold text-[#0d121b] mb-4 px-1">공동 기도제목</h2>
-          <div class="rounded-2xl bg-white p-6 shadow-soft">
-            <ul class="space-y-3">
+        <section class="pb-8">
+          <h2 class="font-display text-xl font-semibold text-charcoal mb-4 px-1">공동 기도제목</h2>
+          <div class="rounded-2xl bg-white/90 p-8 border border-rose-200/50 shadow-soft">
+            <ul class="space-y-4">
               {church.prayerRequests.map((prayer) => (
                 <li class="flex items-start gap-3">
-                  <span class="material-symbols-outlined text-primary text-[18px] mt-0.5 shrink-0">favorite</span>
-                  <p class="text-sm text-gray-600 leading-relaxed">{prayer}</p>
+                  <span class="material-symbols-outlined text-rose text-xl mt-0.5 shrink-0" style="font-variation-settings: 'FILL' 1;">favorite</span>
+                  <p class="text-sm text-ink leading-relaxed">{prayer}</p>
                 </li>
               ))}
             </ul>
@@ -158,18 +139,21 @@ const church = getChurch();
         </section>
       )}
 
-      <!-- Call to Action -->
-      <section class="px-4 pb-8">
-        <div class="rounded-2xl bg-primary p-8 text-center shadow-lg">
-          <h2 class="mb-3 text-2xl font-bold text-white font-serif">이번 주일, 함께해요</h2>
-          <p class="mb-6 text-blue-100">매주 함께 예배드려요</p>
-          <a href="/newcomer" class="inline-block rounded-xl bg-white px-8 py-3.5 text-sm font-bold text-primary shadow-md transition-transform active:scale-95 hover:bg-gray-50">
-            방문 안내
-          </a>
+      <section class="pb-8">
+        <div class="rounded-2xl bg-charcoal p-10 text-center overflow-hidden relative">
+          <div class="absolute top-0 right-0 w-64 h-64 bg-amber/10 rounded-full -mr-32 -mt-32 blur-2xl"></div>
+          <div class="relative">
+            <h2 class="mb-3 font-display text-3xl font-semibold text-cream">이번 주일, 함께해요</h2>
+            <p class="mb-6 text-cream/70">매주 함께 예배드려요</p>
+            <a href="/newcomer" class="inline-block rounded-lg bg-amber px-8 py-4 text-sm font-bold text-charcoal shadow-elevated transition-all hover:bg-amber-light">
+              방문 안내
+            </a>
+          </div>
         </div>
       </section>
     </main>
 
+    <Footer church={church} contact={contact} location={location} worship={worship} />
     <BottomNav currentPath="/about" />
     <MenuDrawer />
   </div>

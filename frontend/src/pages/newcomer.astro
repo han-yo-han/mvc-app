@@ -1,59 +1,57 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import PageHeader from '../components/PageHeader.astro';
+import Footer from '../components/Footer.astro';
 import BottomNav from '../components/BottomNav.astro';
 import MenuDrawer from '../components/MenuDrawer.astro';
-import { getNewcomer, getContact, getChurch } from '../lib/content.js';
+import { getNewcomer, getContact, getChurch, getLocation, getWorship } from '../lib/content.js';
 
 const newcomer = getNewcomer();
 const contact = getContact();
 const church = getChurch();
+const location = getLocation();
+const worship = getWorship();
 ---
 
 <Layout title="새가족 - 선교비전교회">
-  <div class="flex flex-col min-h-screen bg-white text-text-main antialiased">
+  <div class="flex flex-col min-h-screen bg-gradient-to-b from-cream to-sand text-charcoal antialiased">
     <PageHeader currentPath="/newcomer" />
 
-    <main class="flex-1 w-full max-w-4xl mx-auto px-4 lg:px-8 pb-24 lg:pb-12">
-      <!-- Hero Section -->
-      <section class="relative h-48 bg-gradient-to-br from-primary/20 to-accent-gold/20 flex items-center justify-center mx-4 mt-4 rounded-2xl overflow-hidden">
-        <div class="absolute inset-0 bg-cover bg-center opacity-20" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA5OCkllHeGe0OzntY3DRDwMAyJDjYbaTk_2OZ4cF3I7smAPCq-e3Nwt1XVYHYtkwbZ_oz5OcgHbhPpiSwfN-GsFwVKPm07ohtc5IvZwlB9nWd08BXE3Lw-0j-UTGIq_owH_UeazzugFyebRlGlcyD4xDWfAJGyflaNXgpqHLUOFVHxompxJ1r_YwKBdcxYxv7SmMJa4gSoz0HimgmD29XorDM0YY0jxIXJI9-99_zaCMx20In6UGniyfUjv6fGf3TkjumcjvXQHiQO');"></div>
-        <div class="relative z-10 text-center px-6">
-          <div class="h-14 w-14 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center mx-auto mb-3 shadow-lg">
-            <span class="material-symbols-outlined text-primary text-2xl">waving_hand</span>
+    <main class="flex-1 w-full max-w-page mx-auto px-4 lg:px-8 pt-6 lg:pt-8 pb-24 lg:pb-12">
+      <section class="mt-6 lg:mt-8 rounded-2xl overflow-hidden bg-gradient-to-br from-forest to-forest-light p-10 lg:p-14 shadow-elevated">
+        <div class="flex flex-col sm:flex-row items-center gap-8 text-center sm:text-left">
+          <div class="flex-shrink-0 w-20 h-20 rounded-2xl bg-cream/20 flex items-center justify-center">
+            <span class="material-symbols-outlined text-cream text-5xl" style="font-variation-settings: 'FILL' 1;">waving_hand</span>
           </div>
-          <h1 class="font-serif text-2xl font-bold text-[#0d121b] mb-1">환영합니다!</h1>
-          <p class="text-text-muted text-sm">
-            {newcomer?.welcomeMessage || church?.name + '에 오신 것을 환영합니다!'}
-          </p>
+          <div>
+            <h1 class="font-display text-3xl lg:text-4xl font-semibold text-cream mb-2">환영합니다!</h1>
+            <p class="text-cream/90 text-lg leading-relaxed">
+              {newcomer?.welcomeMessage || church?.name + '에 오신 것을 진심으로 환영합니다.'}
+            </p>
+          </div>
         </div>
       </section>
 
-      <!-- Welcome Message -->
       {newcomer?.welcomeMessage && (
-        <section class="px-4 pt-6 pb-4">
-          <div class="rounded-2xl bg-gradient-to-br from-primary/10 to-accent-gold/10 p-6 border border-primary/20 text-center">
-            <p class="text-lg text-[#0d121b] leading-relaxed">{newcomer.welcomeMessage}</p>
+        <section class="pt-8 pb-6">
+          <div class="rounded-2xl bg-white/90 p-8 border border-teal-200/50 shadow-soft text-center">
+            <p class="text-lg text-charcoal leading-relaxed">{newcomer.welcomeMessage}</p>
           </div>
         </section>
       )}
 
-      <!-- Registration Steps -->
       {newcomer?.registrationSteps && newcomer.registrationSteps.length > 0 && (
-        <section class="px-4 pb-4">
-          <h2 class="text-lg font-bold text-[#0d121b] mb-4 px-1">시작하기</h2>
-          <div class="space-y-3">
+        <section class="pb-6 scroll-reveal">
+          <h2 class="font-display text-xl font-semibold text-charcoal mb-6 px-1">시작하기</h2>
+          <div class="space-y-4">
             {newcomer.registrationSteps.map((step) => (
-              <div class="group relative overflow-hidden rounded-2xl bg-white p-5 shadow-soft transition-all hover:shadow-lg">
-                <div class="absolute right-0 top-0 -mr-6 -mt-6 h-24 w-24 rounded-full bg-primary/5 transition-transform group-hover:scale-150"></div>
-                <div class="relative z-10 flex items-start gap-4">
-                  <div class="flex-shrink-0 flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white font-bold shadow-md">
-                    {step.step}
-                  </div>
-                  <div class="flex-1">
-                    <h3 class="text-lg font-bold text-[#0d121b] mb-1">{step.title}</h3>
-                    <p class="text-sm text-gray-600 leading-relaxed">{step.description}</p>
-                  </div>
+              <div class="rounded-2xl bg-sand/50 p-6 border border-border/50 shadow-soft flex items-start gap-6">
+                <div class="flex-shrink-0 flex h-12 w-12 items-center justify-center rounded-xl bg-forest text-cream font-bold">
+                  {step.step}
+                </div>
+                <div class="flex-1">
+                  <h3 class="font-display text-xl font-semibold text-charcoal mb-2">{step.title}</h3>
+                  <p class="text-sm text-ink leading-relaxed">{step.description}</p>
                 </div>
               </div>
             ))}
@@ -61,11 +59,10 @@ const church = getChurch();
         </section>
       )}
 
-      <!-- Contact Channels -->
       {newcomer?.contactChannels && newcomer.contactChannels.length > 0 && (
-        <section class="px-4 pb-4">
-          <h2 class="text-lg font-bold text-[#0d121b] mb-4 px-1">연락하기</h2>
-          <div class="space-y-3">
+        <section class="pb-6">
+          <h2 class="font-display text-xl font-semibold text-charcoal mb-6 px-1">연락하기</h2>
+          <div class="space-y-4">
             {newcomer.contactChannels
               .filter(channel => channel.available)
               .map((channel) => (
@@ -77,21 +74,20 @@ const church = getChurch();
                   }
                   target={channel.type !== 'phone' && channel.type !== 'email' ? '_blank' : undefined}
                   rel={channel.type !== 'phone' && channel.type !== 'email' ? 'noopener noreferrer' : undefined}
-                  class="group relative overflow-hidden rounded-2xl bg-white p-5 shadow-soft transition-all hover:shadow-lg border border-gray-100 block"
+                  class="group rounded-2xl bg-white/90 p-6 border border-teal-200/50 shadow-soft hover:border-teal-300 transition-all block"
                 >
-                  <div class="absolute right-0 top-0 -mr-6 -mt-6 h-24 w-24 rounded-full bg-primary/5 transition-transform group-hover:scale-150"></div>
-                  <div class="relative z-10 flex items-center gap-4">
-                    <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                      {channel.type === 'phone' && <span class="material-symbols-outlined">phone</span>}
-                      {channel.type === 'email' && <span class="material-symbols-outlined">mail</span>}
-                      {channel.type === 'kakao' && <span class="material-symbols-outlined">chat</span>}
-                      {channel.type === 'other' && <span class="material-symbols-outlined">link</span>}
+                  <div class="flex items-center gap-4">
+                    <div class="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-teal-100 text-teal">
+                      {channel.type === 'phone' && <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">phone</span>}
+                      {channel.type === 'email' && <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">mail</span>}
+                      {channel.type === 'kakao' && <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">chat</span>}
+                      {channel.type === 'other' && <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">link</span>}
                     </div>
                     <div class="flex-1">
-                      <h3 class="font-bold text-[#0d121b] mb-1">{channel.label}</h3>
-                      <p class="text-sm text-text-muted">{channel.value}</p>
+                      <h3 class="font-display text-lg font-semibold text-charcoal mb-1">{channel.label}</h3>
+                      <p class="text-sm text-muted">{channel.value}</p>
                     </div>
-                    <span class="material-symbols-outlined text-text-muted">chevron_right</span>
+                    <span class="material-symbols-outlined text-2xl text-muted group-hover:text-teal transition-colors" style="font-variation-settings: 'FILL' 1;">chevron_right</span>
                   </div>
                 </a>
               ))}
@@ -99,31 +95,30 @@ const church = getChurch();
         </section>
       )}
 
-      <!-- Meeting Information -->
       {newcomer?.meetingInfo && newcomer.meetingInfo.hasMeeting && (
-        <section class="px-4 pb-6">
-          <div class="rounded-2xl bg-gradient-to-br from-green-50 to-green-100/50 p-6 border border-green-200">
-            <div class="flex items-center gap-3 mb-4">
-              <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-green-500 text-white">
-                <span class="material-symbols-outlined">groups</span>
+        <section class="pb-8">
+          <div class="rounded-2xl bg-gradient-to-br from-teal-50 to-emerald-50 p-8 border border-teal-200/60 shadow-soft">
+            <div class="flex items-center gap-4 mb-6">
+              <div class="flex h-16 w-16 items-center justify-center rounded-2xl bg-teal text-white">
+                <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">groups</span>
               </div>
-              <h2 class="text-xl font-bold text-[#0d121b]">새가족 모임</h2>
+              <h2 class="font-display text-2xl font-semibold text-charcoal">새가족 모임</h2>
             </div>
-            <div class="space-y-3">
+            <div class="space-y-4">
               {newcomer.meetingInfo.schedule && (
                 <div class="flex items-center gap-3">
-                  <span class="material-symbols-outlined text-green-600">schedule</span>
-                  <span class="text-sm font-medium text-[#0d121b]">{newcomer.meetingInfo.schedule}</span>
+                  <span class="material-symbols-outlined text-forest">schedule</span>
+                  <span class="text-sm font-medium text-charcoal">{newcomer.meetingInfo.schedule}</span>
                 </div>
               )}
               {newcomer.meetingInfo.location && (
                 <div class="flex items-center gap-3">
-                  <span class="material-symbols-outlined text-green-600">location_on</span>
-                  <span class="text-sm font-medium text-[#0d121b]">{newcomer.meetingInfo.location}</span>
+                  <span class="material-symbols-outlined text-forest">location_on</span>
+                  <span class="text-sm font-medium text-charcoal">{newcomer.meetingInfo.location}</span>
                 </div>
               )}
               {newcomer.meetingInfo.description && (
-                <p class="text-sm text-gray-700 mt-3 leading-relaxed">{newcomer.meetingInfo.description}</p>
+                <p class="text-sm text-ink mt-3 leading-relaxed">{newcomer.meetingInfo.description}</p>
               )}
             </div>
           </div>
@@ -131,6 +126,7 @@ const church = getChurch();
       )}
     </main>
 
+    <Footer church={church} contact={contact} location={location} worship={worship} />
     <BottomNav currentPath="/newcomer" />
     <MenuDrawer />
   </div>

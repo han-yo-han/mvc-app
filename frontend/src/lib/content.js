@@ -118,3 +118,11 @@ export function getContact() {
 export function getNewcomer() {
   return loadJSON('newcomer.json');
 }
+
+/**
+ * Get hero slider images
+ */
+export function getHeroSlides() {
+  const data = loadJSON('hero-slides.json');
+  return data?.slides ?? [];
+}

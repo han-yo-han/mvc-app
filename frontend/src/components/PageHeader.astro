@@ -9,53 +9,47 @@ const { churchName = '선교비전교회', currentPath = '' } = Astro.props;
 const navLinks = [
   { href: '/about', label: '교회소개' },
   { href: '/worship', label: '예배안내' },
-  { href: '/sermons', label: '설교' },
-  { href: '/news', label: '소식' },
+  { href: '/sermons', label: '설교', preventNav: true },
+  { href: '/news', label: '소식', preventNav: true },
   { href: '/location', label: '오시는길' },
+  { href: '/newcomer', label: '방문안내' },
 ];
 ---
 
-<header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-border">
-  <div class="flex items-center justify-between h-16 px-4 lg:px-8 max-w-page mx-auto">
-    <!-- Logo -->
-    <a href="/" class="flex items-center gap-2.5 group">
-      <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
-        <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">church</span>
-      </div>
-      <span class="text-lg font-bold tracking-tight text-text-main">{churchName}</span>
+<header class="sticky top-0 z-50 bg-cream/95 backdrop-blur-md border-b border-border/60 transition-all duration-300">
+  <div class="flex items-center justify-between h-16 lg:h-20 px-4 lg:px-8 max-w-page mx-auto">
+    <a href="/" class="flex items-center gap-3 group">
+      <img src="/images/logo.png" alt={churchName} class="h-11 w-11 object-contain" />
+      <span class="font-display text-xl font-semibold tracking-tight text-charcoal">{churchName}</span>
     </a>
 
-    <!-- Desktop Navigation -->
     <nav class="hidden lg:flex items-center gap-1">
       {navLinks.map((link) => {
         const isActive = link.href === '/' ? currentPath === '/' : currentPath.startsWith(link.href);
+        const preventNav = link.preventNav === true;
         return (
           <a
-            href={link.href}
+            href={preventNav ? '#' : link.href}
             class:list={[
-              "px-3 py-2 rounded-lg text-sm font-medium transition-colors",
-              isActive ? "text-primary bg-primary/5" : "text-text-secondary hover:text-text-main hover:bg-surface"
+              "px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200",
+              isActive ? "text-forest bg-forest/5" : "text-muted hover:text-charcoal hover:bg-cream-dark"
             ]}
+            onclick={preventNav ? "event.preventDefault(); alert('준비중입니다.');" : undefined}
           >
             {link.label}
           </a>
         );
       })}
-      <a
-        href="/newcomer"
-        class="ml-3 px-4 py-2 bg-primary hover:bg-primary-dark text-white text-sm font-semibold rounded-lg transition-colors"
-      >
-        방문안내
-      </a>
     </nav>
 
-    <!-- Mobile Hamburger -->
     <button
-      class="lg:hidden flex h-10 w-10 items-center justify-center rounded-lg hover:bg-surface transition-colors"
+      class="lg:hidden flex h-10 w-10 items-center justify-center rounded-lg text-charcoal hover:bg-cream-dark transition-colors"
       onclick="window.openMenu?.()"
       aria-label="메뉴 열기"
     >
-      <span class="material-symbols-outlined text-text-main">menu</span>
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
     </button>
   </div>
 </header>

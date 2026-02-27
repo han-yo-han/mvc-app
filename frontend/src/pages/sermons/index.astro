@@ -1,74 +1,78 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import PageHeader from '../../components/PageHeader.astro';
+import Footer from '../../components/Footer.astro';
 import BottomNav from '../../components/BottomNav.astro';
 import MenuDrawer from '../../components/MenuDrawer.astro';
-import { getAllSermons, getChurch } from '../../lib/content.js';
+import { getAllSermons, getChurch, getContact, getLocation, getWorship } from '../../lib/content.js';
 import SermonCard from '../../components/SermonCard.astro';
 
 const sermons = getAllSermons();
 const church = getChurch();
+const contact = getContact();
+const location = getLocation();
+const worship = getWorship();
 ---
 
 <Layout title="설교 - 선교비전교회">
-  <div class="flex flex-col min-h-screen bg-white text-text-main antialiased">
+  <script>
+    alert('준비중입니다.');
+    window.location.href = '/';
+  </script>
+  <div class="flex flex-col min-h-screen bg-gradient-to-b from-cream to-sand text-charcoal antialiased">
     <PageHeader currentPath="/sermons" />
 
-    <!-- Sticky Search & Filter (below header) -->
-    <div class="sticky top-16 z-40 bg-white/95 backdrop-blur-sm border-b border-border">
-      <div class="max-w-5xl mx-auto px-4 lg:px-8 py-3 flex flex-col gap-3">
+    <div class="sticky top-0 z-40 bg-cream/95 backdrop-blur-xl border-b border-border/80">
+      <div class="max-w-page mx-auto px-4 lg:px-8 py-4 flex flex-col gap-4">
         <div class="relative w-full">
-          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-[#4c669a]">
-            <span class="material-symbols-outlined text-[20px]">search</span>
+          <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-muted">
+            <span class="material-symbols-outlined text-xl">search</span>
           </div>
-          <input class="block w-full pl-10 pr-3 py-2.5 border-none rounded-xl bg-white text-sm ring-1 ring-black/5 focus:ring-2 focus:ring-primary placeholder:text-[#4c669a] shadow-sm" placeholder="설교, 성경 구절, 주제 검색" type="text"/>
+          <input class="block w-full pl-12 pr-4 py-3 border border-border/60 rounded-xl bg-surface text-charcoal text-sm focus:ring-2 focus:ring-forest/20 focus:border-forest/40 placeholder:text-muted transition-all" placeholder="설교, 성경 구절, 주제 검색" type="text"/>
         </div>
         <div class="flex gap-2 overflow-x-auto no-scrollbar pb-1 -mx-4 px-4">
-          <button class="whitespace-nowrap px-4 py-1.5 rounded-full bg-[#0d121b] text-white text-sm font-medium border border-[#0d121b]">
+          <button class="whitespace-nowrap px-5 py-2.5 rounded-full bg-charcoal text-cream text-sm font-medium">
             전체
           </button>
-          <button class="whitespace-nowrap px-4 py-1.5 rounded-full bg-white text-[#0d121b] text-sm font-medium border border-gray-200 hover:border-primary/50 transition-colors">
+          <button class="whitespace-nowrap px-5 py-2.5 rounded-full bg-surface text-charcoal text-sm font-medium border border-border/60 hover:border-forest/30 transition-colors">
+            2024
+          </button>
+          <button class="whitespace-nowrap px-5 py-2.5 rounded-full bg-surface text-charcoal text-sm font-medium border border-border/60 hover:border-forest/30 transition-colors">
             2023
           </button>
-          <button class="whitespace-nowrap px-4 py-1.5 rounded-full bg-white text-[#0d121b] text-sm font-medium border border-gray-200 hover:border-primary/50 transition-colors">
-            2022
-          </button>
-          <button class="whitespace-nowrap px-4 py-1.5 rounded-full bg-white text-[#0d121b] text-sm font-medium border border-gray-200 hover:border-primary/50 transition-colors">
-            창세기 시리즈
-          </button>
-          <button class="whitespace-nowrap px-4 py-1.5 rounded-full bg-white text-[#0d121b] text-sm font-medium border border-gray-200 hover:border-primary/50 transition-colors">
-            초청 강사
+          <button class="whitespace-nowrap px-5 py-2.5 rounded-full bg-surface text-charcoal text-sm font-medium border border-border/60 hover:border-forest/30 transition-colors">
+            시리즈
           </button>
         </div>
       </div>
     </div>
 
-    <!-- Sermon List -->
-    <main class="flex-1 w-full max-w-5xl mx-auto px-4 lg:px-8 py-6 pb-24 lg:pb-12">
-      <div class="flex items-end justify-between mb-6">
-        <h1 class="font-serif text-2xl font-bold text-[#0d121b]">최근 설교</h1>
-        <span class="text-sm text-[#4c669a] font-medium">{sermons?.length || 0}개</span>
+    <main class="flex-1 w-full max-w-page mx-auto px-4 lg:px-8 pt-6 lg:pt-8 pb-24 lg:pb-12">
+      <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10">
+        <h1 class="font-display text-4xl font-semibold text-charcoal">최근 설교</h1>
+        <span class="text-sm text-muted font-medium">{sermons?.length || 0}개</span>
       </div>
 
-      <div class="flex flex-col gap-6">
+      <div class="flex flex-col gap-8 scroll-reveal">
         {sermons && sermons.length > 0 ? (
           <>
             {sermons.map((sermon) => (
               <SermonCard sermon={sermon} />
             ))}
-            <button class="w-full py-3 rounded-xl border border-gray-200 text-sm font-bold text-[#4c669a] hover:bg-gray-100 transition-colors">
+            <button class="w-full py-4 rounded-xl border-2 border-border/60 text-sm font-bold text-muted hover:bg-surface hover:border-forest/20 transition-all">
               더 보기
             </button>
           </>
         ) : (
-          <div class="text-center py-16">
-            <span class="material-symbols-outlined text-6xl text-gray-300 mb-4">video_library</span>
-            <p class="text-[#4c669a] text-lg">아직 등록된 설교가 없습니다.</p>
+          <div class="text-center py-24">
+            <span class="material-symbols-outlined text-8xl text-muted-light/50 mb-6">video_library</span>
+            <p class="text-muted text-lg">아직 등록된 설교가 없습니다.</p>
           </div>
         )}
       </div>
     </main>
 
+    <Footer church={church} contact={contact} location={location} worship={worship} />
     <BottomNav currentPath="/sermons" />
     <MenuDrawer />
   </div>

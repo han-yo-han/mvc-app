@@ -1,32 +1,58 @@
 ---
-import { getContact } from '../lib/content.js';
+interface Props {
+  church?: { name?: string; intro?: string; denomination?: string };
+  contact?: { phone?: { display?: string; main?: string }; mobile?: { display?: string; main?: string } };
+  location?: { address?: { full?: string; detail?: string } };
+  worship?: { youtubeChannel?: string };
+}
 
-const contact = getContact();
+const { church, contact, location, worship } = Astro.props;
 ---
 
-<footer class="bg-gray-800 text-white py-8 mt-16">
-  <div class="container mx-auto px-4">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <div>
-        <h3 class="text-lg font-bold mb-4">선교비전교회</h3>
-        <p class="text-gray-400">하나님의 사랑을 세상에 전하는 교회</p>
-      </div>
-      <div>
-        <h3 class="text-lg font-bold mb-4">연락처</h3>
-        {contact && (
-          <div class="text-gray-400 space-y-2">
-            <p>전화: {contact.phone?.display || contact.phone?.main}</p>
-            <p>이메일: {contact.email?.display || contact.email?.main}</p>
+<footer class="bg-charcoal text-cream">
+  <div class="max-w-page mx-auto px-4 lg:px-8 py-16 lg:py-20">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-16">
+      <div class="sm:col-span-2 lg:col-span-1">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-amber-100 text-amber-dark">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+              <path d="M2 17l10 5 10-5"/>
+            </svg>
           </div>
-        )}
+          <span class="font-display text-xl font-semibold text-cream">{church?.name || '선교비전교회'}</span>
+        </div>
+        <p class="text-cream/70 text-sm leading-relaxed max-w-xs">
+          {church?.intro || '선교와 말씀 위에 세워진 공동체'}
+        </p>
       </div>
       <div>
-        <h3 class="text-lg font-bold mb-4">주소</h3>
-        <p class="text-gray-400">[NEEDS INPUT]</p>
+        <h4 class="font-sans text-xs font-semibold uppercase tracking-widest text-cream/50 mb-4">연락처</h4>
+        <div class="space-y-2 text-sm text-cream/80">
+          {contact?.phone && <a href={`tel:${contact.phone.main}`} class="block hover:text-amber transition-colors">{contact.phone.display}</a>}
+          {contact?.mobile && <a href={`tel:${contact.mobile.main}`} class="block hover:text-amber transition-colors">{contact.mobile.display}</a>}
+        </div>
+      </div>
+      <div>
+        <h4 class="font-sans text-xs font-semibold uppercase tracking-widest text-cream/50 mb-4">오시는 길</h4>
+        <p class="text-sm text-cream/80 leading-relaxed">
+          {location?.address?.full}<br/>{location?.address?.detail}
+        </p>
+      </div>
+      <div>
+        <h4 class="font-sans text-xs font-semibold uppercase tracking-widest text-cream/50 mb-4">바로가기</h4>
+        <div class="space-y-2 text-sm text-cream/80">
+          <a href="/about" class="block hover:text-amber transition-colors">교회소개</a>
+          <a href="/worship" class="block hover:text-amber transition-colors">예배안내</a>
+          <a href="/newcomer" class="block hover:text-amber transition-colors">새가족 안내</a>
+          {worship?.youtubeChannel && <a href={worship.youtubeChannel} target="_blank" rel="noopener noreferrer" class="block hover:text-amber transition-colors">YouTube</a>}
+        </div>
       </div>
     </div>
-    <div class="border-t border-gray-700 mt-8 pt-4 text-center text-gray-400">
-      <p>&copy; {new Date().getFullYear()} 선교비전교회. All rights reserved.</p>
+    <div class="border-t border-charcoal-soft mt-12 pt-8 text-center">
+      <p class="text-xs text-cream/50">
+        © {new Date().getFullYear()} {church?.name || '선교비전교회'}. {church?.denomination || '대한예수교 장로회 합동교단'}
+      </p>
     </div>
   </div>
 </footer>
