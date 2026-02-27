@@ -5,38 +5,29 @@ export default {
   theme: {
     extend: {
       colors: {
-        'primary': '#1152d4',
-        'primary-dark': '#0d42aa',
+        'primary': '#059669',
+        'primary-dark': '#047857',
+        'primary-light': '#ECFDF5',
         'primary-content': '#ffffff',
-        'accent-gold': '#D4AF37',
-        'background-light': '#ffffff',
-        'background-beige': '#F9F7F2',
-        'background-warm': '#f4f4f0',
-        'warm-neutral': '#f4f3ef',
-        'neutral-light': '#f6f6f8',
-        'neutral-dark': '#1a2230',
-        'background-dark': '#101622',
-        'text-main': '#0d121b',
-        'text-secondary': '#4c669a',
-        'text-muted': '#4c669a',
+        'accent': '#F59E0B',
+        'text-main': '#111827',
+        'text-secondary': '#6B7280',
+        'text-muted': '#9CA3AF',
+        'surface': '#F9FAFB',
+        'border': '#E5E7EB',
       },
       fontFamily: {
-        'display': ['Manrope', 'sans-serif'],
-        'serif': ['Playfair Display', 'serif'],
+        'sans': ['Manrope', 'system-ui', 'sans-serif'],
+        'display': ['Manrope', 'system-ui', 'sans-serif'],
       },
-      borderRadius: {
-        'DEFAULT': '0.5rem',
-        'lg': '0.75rem',
-        'xl': '1rem',
-        '2xl': '1rem',
-        'full': '9999px'
-      },
-      backgroundImage: {
-        'hero-gradient': 'linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.4) 100%)',
+      maxWidth: {
+        'page': '1152px',
       },
       boxShadow: {
-        'soft': '0 4px 20px -2px rgba(17, 82, 212, 0.08)',
-      }
+        'soft': '0 1px 3px 0 rgb(0 0 0 / 0.06), 0 1px 2px -1px rgb(0 0 0 / 0.06)',
+        'card': '0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05)',
+        'elevated': '0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.05)',
+      },
     },
   },
   plugins: [],

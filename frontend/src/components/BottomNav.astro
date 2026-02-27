@@ -13,8 +13,9 @@ const tabs = [
 ];
 ---
 
-<nav class="fixed bottom-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-t border-gray-200" aria-label="하단 네비게이션">
-  <div class="flex items-center justify-around h-14 max-w-3xl mx-auto" style="padding-bottom: env(safe-area-inset-bottom);">
+<!-- Mobile only bottom nav -->
+<nav class="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-t border-border" aria-label="하단 네비게이션">
+  <div class="flex items-center justify-around h-14" style="padding-bottom: env(safe-area-inset-bottom);">
     {tabs.map((tab) => {
       const active = tab.href === '/' ? currentPath === '/' : currentPath.startsWith(tab.href);
       return (
@@ -22,7 +23,7 @@ const tabs = [
           href={tab.href}
           class:list={[
             "flex flex-1 flex-col items-center justify-center gap-0.5 py-1 transition-colors",
-            active ? "text-primary" : "text-gray-400 hover:text-primary"
+            active ? "text-primary" : "text-text-muted hover:text-primary"
           ]}
           aria-current={active ? "page" : undefined}
         >
@@ -40,7 +41,7 @@ const tabs = [
     })}
     <button
       onclick="window.openMenu?.()"
-      class="flex flex-1 flex-col items-center justify-center gap-0.5 py-1 text-gray-400 hover:text-primary transition-colors"
+      class="flex flex-1 flex-col items-center justify-center gap-0.5 py-1 text-text-muted hover:text-primary transition-colors"
       aria-label="더보기 메뉴"
     >
       <span class="material-symbols-outlined text-[22px]">more_horiz</span>

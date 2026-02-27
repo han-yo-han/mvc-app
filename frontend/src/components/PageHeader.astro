@@ -1,25 +1,61 @@
 ---
 interface Props {
   churchName?: string;
+  currentPath?: string;
 }
 
-const { churchName = '선교비전교회' } = Astro.props;
+const { churchName = '선교비전교회', currentPath = '' } = Astro.props;
+
+const navLinks = [
+  { href: '/about', label: '교회소개' },
+  { href: '/worship', label: '예배안내' },
+  { href: '/sermons', label: '설교' },
+  { href: '/news', label: '소식' },
+  { href: '/location', label: '오시는길' },
+];
 ---
 
-<header class="sticky top-0 z-50 h-14 bg-white/95 backdrop-blur-md border-b border-gray-100">
-  <div class="flex items-center justify-between h-full px-4 max-w-3xl mx-auto">
-    <a href="/" class="flex items-center gap-2">
-      <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 text-primary">
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-border">
+  <div class="flex items-center justify-between h-16 px-4 lg:px-8 max-w-page mx-auto">
+    <!-- Logo -->
+    <a href="/" class="flex items-center gap-2.5 group">
+      <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
         <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">church</span>
       </div>
-      <span class="text-lg font-bold tracking-tight text-[#0d121b]">{churchName}</span>
+      <span class="text-lg font-bold tracking-tight text-text-main">{churchName}</span>
     </a>
+
+    <!-- Desktop Navigation -->
+    <nav class="hidden lg:flex items-center gap-1">
+      {navLinks.map((link) => {
+        const isActive = link.href === '/' ? currentPath === '/' : currentPath.startsWith(link.href);
+        return (
+          <a
+            href={link.href}
+            class:list={[
+              "px-3 py-2 rounded-lg text-sm font-medium transition-colors",
+              isActive ? "text-primary bg-primary/5" : "text-text-secondary hover:text-text-main hover:bg-surface"
+            ]}
+          >
+            {link.label}
+          </a>
+        );
+      })}
+      <a
+        href="/newcomer"
+        class="ml-3 px-4 py-2 bg-primary hover:bg-primary-dark text-white text-sm font-semibold rounded-lg transition-colors"
+      >
+        방문안내
+      </a>
+    </nav>
+
+    <!-- Mobile Hamburger -->
     <button
+      class="lg:hidden flex h-10 w-10 items-center justify-center rounded-lg hover:bg-surface transition-colors"
       onclick="window.openMenu?.()"
-      class="flex h-10 w-10 items-center justify-center rounded-full hover:bg-gray-100 transition-colors"
       aria-label="메뉴 열기"
     >
-      <span class="material-symbols-outlined text-[#0d121b]">menu</span>
+      <span class="material-symbols-outlined text-text-main">menu</span>
     </button>
   </div>
 </header>

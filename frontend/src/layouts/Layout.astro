@@ -6,7 +6,7 @@ interface Props {
   description?: string;
 }
 
-const { title, description = '선교비전교회 홈페이지' } = Astro.props;
+const { title, description = '선교비전교회 - 일어나 빛을 발하라' } = Astro.props;
 ---
 
 <!doctype html>
@@ -18,13 +18,8 @@ const { title, description = '선교비전교회 홈페이지' } = Astro.props;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
-    <style>
-      body {
-        min-height: max(884px, 100dvh);
-      }
-    </style>
   </head>
-  <body class="bg-background-light text-text-main antialiased selection:bg-primary selection:text-white">
+  <body class="bg-white text-text-main antialiased selection:bg-primary/20 selection:text-primary-dark">
     <slot />
   </body>
 </html>
