@@ -28,11 +28,11 @@ const day = dateObj.getDate();
 const htmlContent = await marked(news.content || '');
 
 const categoryColors: Record<string, { bg: string; text: string }> = {
-  'Youth': { bg: 'bg-amber/20', text: 'text-amber-dark' },
-  'Building': { bg: 'bg-amber/20', text: 'text-amber-dark' },
-  'Community': { bg: 'bg-forest/20', text: 'text-forest' },
-  'Service': { bg: 'bg-forest/20', text: 'text-forest' },
-  'Event': { bg: 'bg-forest', text: 'text-cream' },
+  'Youth': { bg: 'bg-forest/15', text: 'text-forest' },
+  'Building': { bg: 'bg-forest/15', text: 'text-forest' },
+  'Community': { bg: 'bg-forest/15', text: 'text-forest' },
+  'Service': { bg: 'bg-forest/15', text: 'text-forest' },
+  'Event': { bg: 'bg-forest/15', text: 'text-forest' },
 };
 
 const categoryColor = news.category ? categoryColors[news.category] || categoryColors['Event'] : categoryColors['Event'];
@@ -59,7 +59,7 @@ const defaultImage = 'https://lh3.googleusercontent.com/aida-public/AB6AXuDwVFwc
       <div class="prose prose-sm max-w-none text-ink text-sm leading-relaxed mb-6 line-clamp-3" set:html={htmlContent}></div>
       <a 
         href={`/news/${news.slug || '#'}`}
-        class="inline-flex items-center text-sm font-bold text-teal hover:text-teal/80 transition-colors"
+        class="inline-flex items-center text-sm font-bold text-forest hover:text-forest/80 transition-colors"
       >
         자세히 보기 
         <span class="material-symbols-outlined ml-1 text-lg">arrow_forward</span>
@@ -68,11 +68,7 @@ const defaultImage = 'https://lh3.googleusercontent.com/aida-public/AB6AXuDwVFwc
   </div>
 ) : (
   <a href={`/news/${news.slug || '#'}`} class="flex gap-6 p-6 rounded-2xl bg-cream border border-border/60 shadow-soft hover:shadow-card hover:border-forest/20 transition-all cursor-pointer block">
-    <div class={`shrink-0 flex flex-col items-center justify-center w-16 h-16 rounded-xl ${
-      news.category === 'Youth' || news.important 
-        ? 'bg-teal-100 text-teal border border-teal-200' 
-        : 'bg-violet-50 text-violet border border-violet-200'
-    }`}>
+    <div class="shrink-0 flex flex-col items-center justify-center w-16 h-16 rounded-xl bg-forest/10 text-forest border border-border">
       <span class="text-xs font-bold uppercase">{monthShort}</span>
       <span class="font-display text-2xl font-semibold leading-none">{day}</span>
     </div>

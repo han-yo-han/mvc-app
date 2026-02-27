@@ -39,7 +39,7 @@ const worship = getWorship();
               href={`https://map.naver.com/p/search/${encodeURIComponent(location.address?.full || '서울 동대문구 사가정로 190')}`}
               target="_blank"
               rel="noopener noreferrer"
-              class="absolute bottom-4 right-4 z-[1000] flex items-center gap-2 px-5 py-3 rounded-xl bg-teal text-white font-semibold shadow-elevated hover:bg-teal/90 transition-all"
+              class="absolute bottom-4 right-4 z-[1000] flex items-center gap-2 px-5 py-3 rounded-xl bg-forest text-cream font-semibold shadow-elevated hover:bg-forest-light transition-all"
             >
               <span class="material-symbols-outlined text-xl">directions</span>
               길찾기
@@ -54,9 +54,9 @@ const worship = getWorship();
             <h2 class="font-display text-3xl font-semibold text-charcoal tracking-tight">{church?.name || '선교비전교회'}</h2>
             <p class="text-sm text-muted mt-1">본당</p>
           </div>
-          <div class="mt-4 p-6 rounded-2xl bg-teal-50 flex items-center justify-between gap-4 border border-teal-200/60">
+          <div class="mt-4 p-6 rounded-2xl bg-white flex items-center justify-between gap-4 border border-border">
             <div class="flex items-start gap-4 flex-1">
-              <span class="material-symbols-outlined text-teal mt-0.5 text-3xl" style="font-variation-settings: 'FILL' 1;">location_on</span>
+              <span class="material-symbols-outlined text-forest mt-0.5 text-3xl" style="font-variation-settings: 'FILL' 1;">location_on</span>
               <div class="text-base font-medium text-charcoal leading-relaxed">
                 {location?.address?.full || '주소 정보 준비 중'}
                 {location?.address?.detail && (
@@ -66,7 +66,7 @@ const worship = getWorship();
             </div>
             <button
               aria-label="주소 복사"
-              class="p-3 text-teal hover:bg-teal/10 rounded-lg transition-colors flex-shrink-0"
+              class="p-3 text-forest hover:bg-forest/10 rounded-lg transition-colors flex-shrink-0"
               onclick={`navigator.clipboard.writeText('${location?.address?.full || ''} ${location?.address?.detail || ''}')`}
             >
               <span class="material-symbols-outlined text-xl">content_copy</span>
@@ -76,14 +76,14 @@ const worship = getWorship();
 
         <section>
           <h3 class="font-display text-xl font-semibold text-charcoal mb-6 flex items-center gap-2">
-            <span class="material-symbols-outlined text-teal text-2xl" style="font-variation-settings: 'FILL' 1;">commute</span>
+            <span class="material-symbols-outlined text-forest text-2xl" style="font-variation-settings: 'FILL' 1;">commute</span>
             대중교통
           </h3>
           <div class="space-y-4">
             {location?.subway && location.subway.length > 0 ? (
               location.subway.map((subway) => (
-                <div class="flex gap-4 p-6 bg-emerald-50 rounded-2xl border border-emerald-200/60">
-                  <div class="size-14 rounded-2xl bg-emerald-100 flex items-center justify-center text-emerald-600 flex-shrink-0">
+                <div class="flex gap-4 p-6 bg-white rounded-2xl border border-border">
+                  <div class="size-14 rounded-2xl bg-forest/10 flex items-center justify-center text-forest flex-shrink-0">
                     <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">subway</span>
                   </div>
                   <div>
@@ -95,8 +95,8 @@ const worship = getWorship();
                 </div>
               ))
             ) : (
-              <div class="flex gap-4 p-6 bg-emerald-50 rounded-2xl border border-emerald-200/60">
-                <div class="size-14 rounded-2xl bg-emerald-100 flex items-center justify-center text-emerald-600 flex-shrink-0">
+              <div class="flex gap-4 p-6 bg-white rounded-2xl border border-border">
+                <div class="size-14 rounded-2xl bg-forest/10 flex items-center justify-center text-forest flex-shrink-0">
                   <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">subway</span>
                 </div>
                 <div>
@@ -107,15 +107,15 @@ const worship = getWorship();
             )}
 
             {location?.bus && location.bus.length > 0 ? (
-              <div class="flex gap-4 p-6 bg-blue-50 rounded-2xl border border-blue-200/60">
-                <div class="size-14 rounded-2xl bg-blue-100 flex items-center justify-center text-blue-600 flex-shrink-0">
+              <div class="flex gap-4 p-6 bg-white rounded-2xl border border-border">
+                <div class="size-14 rounded-2xl bg-forest/10 flex items-center justify-center text-forest flex-shrink-0">
                   <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">directions_bus</span>
                 </div>
                 <div>
                   <p class="font-display text-lg font-semibold text-charcoal">버스</p>
                   <div class="flex flex-wrap gap-2 mt-2">
                     {location.bus.map((bus) => (
-                      <span class="px-2.5 py-1 rounded-lg bg-blue-100 text-sm font-semibold text-blue-700">
+                      <span class="px-2.5 py-1 rounded-lg bg-forest/10 text-sm font-semibold text-forest">
                         {bus.number || bus}
                       </span>
                     ))}
@@ -126,16 +126,16 @@ const worship = getWorship();
                 </div>
               </div>
             ) : (
-              <div class="flex gap-4 p-6 bg-blue-50 rounded-2xl border border-blue-200/60">
-                <div class="size-14 rounded-2xl bg-blue-100 flex items-center justify-center text-blue-600 flex-shrink-0">
+              <div class="flex gap-4 p-6 bg-white rounded-2xl border border-border">
+                <div class="size-14 rounded-2xl bg-forest/10 flex items-center justify-center text-forest flex-shrink-0">
                   <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">directions_bus</span>
                 </div>
                 <div>
                   <p class="font-display text-lg font-semibold text-charcoal">버스</p>
                   <div class="flex flex-wrap gap-2 mt-2">
-                    <span class="px-2.5 py-1 rounded-lg bg-blue-100 text-sm font-semibold text-blue-700">140</span>
-                    <span class="px-2.5 py-1 rounded-lg bg-blue-100 text-sm font-semibold text-blue-700">402</span>
-                    <span class="px-2.5 py-1 rounded-lg bg-blue-100 text-sm font-semibold text-blue-700">405</span>
+                    <span class="px-2.5 py-1 rounded-lg bg-forest/10 text-sm font-semibold text-forest">140</span>
+                    <span class="px-2.5 py-1 rounded-lg bg-forest/10 text-sm font-semibold text-forest">402</span>
+                    <span class="px-2.5 py-1 rounded-lg bg-forest/10 text-sm font-semibold text-forest">405</span>
                   </div>
                   <p class="text-xs text-muted mt-2">정류장: 한강중학교</p>
                 </div>
@@ -146,10 +146,10 @@ const worship = getWorship();
 
         <section>
           <h3 class="font-display text-xl font-semibold text-charcoal mb-6 flex items-center gap-2">
-            <span class="material-symbols-outlined text-amber-dark text-2xl" style="font-variation-settings: 'FILL' 1;">local_parking</span>
+            <span class="material-symbols-outlined text-forest text-2xl" style="font-variation-settings: 'FILL' 1;">local_parking</span>
             주차 안내
           </h3>
-          <div class="bg-amber-50 rounded-2xl p-6 border border-amber-200/60 space-y-6">
+          <div class="bg-white rounded-2xl p-6 border border-border space-y-6">
             <div class="flex items-start gap-4">
               <div class="mt-1.5 size-2.5 rounded-full bg-forest flex-shrink-0"></div>
               <div>
@@ -173,19 +173,19 @@ const worship = getWorship();
         </section>
 
         <section>
-          <div class="bg-gradient-to-br from-teal-50 to-amber-50 rounded-2xl p-8 text-center border border-teal-200/50">
-            <h3 class="font-display text-xl font-semibold text-teal mb-2">도움이 필요하신가요?</h3>
+          <div class="bg-white rounded-2xl p-8 text-center border border-border">
+            <h3 class="font-display text-xl font-semibold text-charcoal mb-2">도움이 필요하신가요?</h3>
             <p class="text-sm text-muted mb-6">교통편이나 길 안내가 필요하시면 연락주세요.</p>
             <div class="grid grid-cols-2 gap-4 max-w-sm mx-auto">
               <a
-                class="flex items-center justify-center gap-2 py-4 px-6 rounded-xl bg-white border border-teal-200 text-teal font-bold hover:bg-teal-50 transition-colors shadow-soft"
+                class="flex items-center justify-center gap-2 py-4 px-6 rounded-xl bg-forest text-cream font-bold hover:bg-forest-light transition-colors shadow-soft"
                 href={contact?.phone?.main ? `tel:${contact.phone.main}` : '#'}
               >
                 <span class="material-symbols-outlined text-xl">call</span>
                 전화하기
               </a>
               <a
-                class="flex items-center justify-center gap-2 py-4 px-6 rounded-xl bg-white border border-teal-200 text-charcoal font-bold hover:bg-teal-50 transition-colors shadow-soft"
+                class="flex items-center justify-center gap-2 py-4 px-6 rounded-xl bg-white border border-border text-charcoal font-bold hover:bg-cream/50 transition-colors shadow-soft"
                 href={contact?.email?.main ? `mailto:${contact.email.main}` : '#'}
               >
                 <span class="material-symbols-outlined text-xl">mail</span>

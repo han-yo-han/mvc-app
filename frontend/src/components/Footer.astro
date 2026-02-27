@@ -14,7 +14,7 @@ const { church, contact, location, worship } = Astro.props;
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-16">
       <div class="sm:col-span-2 lg:col-span-1">
         <div class="flex items-center gap-3 mb-6">
-          <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-amber-100 text-amber-dark">
+          <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-forest/20 text-cream">
             <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
               <path d="M12 2L2 7l10 5 10-5-10-5z"/>
               <path d="M2 17l10 5 10-5"/>
@@ -29,8 +29,8 @@ const { church, contact, location, worship } = Astro.props;
       <div>
         <h4 class="font-sans text-xs font-semibold uppercase tracking-widest text-cream/50 mb-4">연락처</h4>
         <div class="space-y-2 text-sm text-cream/80">
-          {contact?.phone && <a href={`tel:${contact.phone.main}`} class="block hover:text-amber transition-colors">{contact.phone.display}</a>}
-          {contact?.mobile && <a href={`tel:${contact.mobile.main}`} class="block hover:text-amber transition-colors">{contact.mobile.display}</a>}
+          {contact?.phone && <a href={`tel:${contact.phone.main}`} class="block hover:text-cream transition-colors">{contact.phone.display}</a>}
+          {contact?.mobile && <a href={`tel:${contact.mobile.main}`} class="block hover:text-cream transition-colors">{contact.mobile.display}</a>}
         </div>
       </div>
       <div>
@@ -42,10 +42,10 @@ const { church, contact, location, worship } = Astro.props;
       <div>
         <h4 class="font-sans text-xs font-semibold uppercase tracking-widest text-cream/50 mb-4">바로가기</h4>
         <div class="space-y-2 text-sm text-cream/80">
-          <a href="/about" class="block hover:text-amber transition-colors">교회소개</a>
-          <a href="/worship" class="block hover:text-amber transition-colors">예배안내</a>
-          <a href="/newcomer" class="block hover:text-amber transition-colors">새가족 안내</a>
-          {worship?.youtubeChannel && <a href={worship.youtubeChannel} target="_blank" rel="noopener noreferrer" class="block hover:text-amber transition-colors">YouTube</a>}
+          <a href="/about" class="block hover:text-cream transition-colors">교회소개</a>
+          <a href="/worship" class="block hover:text-cream transition-colors">예배안내</a>
+          <a href="/newcomer" class="block hover:text-cream transition-colors">새가족 안내</a>
+          {worship?.youtubeChannel && <a href={worship.youtubeChannel} target="_blank" rel="noopener noreferrer" class="block hover:text-cream transition-colors">YouTube</a>}
         </div>
       </div>
     </div>

@@ -20,7 +20,7 @@ const worship = getWorship();
       {church?.pastor && (
         <section class="flex flex-col items-center pt-12 lg:pt-16 pb-12">
           <div class="relative mb-8">
-            <div class="absolute -inset-1 rounded-full bg-gradient-to-tr from-forest/20 to-amber/30 blur-sm"></div>
+            <div class="absolute -inset-1 rounded-full bg-forest/10 blur-sm"></div>
             <img src={church.pastor.photo || '/images/pastor.png'} alt={church.pastor.name} class="relative h-36 w-36 overflow-hidden rounded-full border-4 border-cream shadow-elevated object-cover" />
           </div>
           <div class="text-center">
@@ -29,7 +29,7 @@ const worship = getWorship();
             <p class="mx-auto max-w-md text-lg leading-relaxed text-ink">
               "{church.pastor.greeting || '교회는 건물이 아니라 가족입니다. 믿음을 탐색하든 공동체를 찾든, 여기가 여러분의 자리입니다.'}"
             </p>
-            <div class="mt-8 h-0.5 w-12 rounded-full bg-amber/50 mx-auto"></div>
+            <div class="mt-8 h-0.5 w-12 rounded-full bg-forest/30 mx-auto"></div>
           </div>
         </section>
       )}
@@ -37,8 +37,8 @@ const worship = getWorship();
       {(church?.vision || church?.mission) && (
         <section class="space-y-6 pb-12 scroll-reveal">
           {church.vision && (
-            <div class="group relative overflow-hidden rounded-2xl bg-white/90 p-8 border border-violet-200/50 hover:border-violet-300 shadow-soft">
-              <div class="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-violet-100 text-violet">
+            <div class="group relative overflow-hidden rounded-2xl bg-white p-8 border border-border shadow-soft">
+              <div class="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-forest/10 text-forest">
                 <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">visibility</span>
               </div>
               <h2 class="mb-3 font-display text-2xl font-semibold text-charcoal">비전</h2>
@@ -46,8 +46,8 @@ const worship = getWorship();
             </div>
           )}
           {church.mission && (
-            <div class="group relative overflow-hidden rounded-2xl bg-white/90 p-8 border border-amber-200/50 hover:border-amber-300 shadow-soft">
-              <div class="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-amber-100 text-amber-dark">
+            <div class="group relative overflow-hidden rounded-2xl bg-white p-8 border border-border shadow-soft">
+              <div class="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-forest/10 text-forest">
                 <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">volunteer_activism</span>
               </div>
               <h2 class="mb-3 font-display text-2xl font-semibold text-charcoal">사명</h2>
@@ -58,7 +58,7 @@ const worship = getWorship();
       )}
 
       {church?.history && church.history.length > 0 && (
-        <section class="bg-white/90 px-6 lg:px-8 py-10 rounded-2xl border border-teal-200/50 shadow-soft mb-8">
+        <section class="bg-white px-6 lg:px-8 py-10 rounded-2xl border border-border shadow-soft mb-8">
           <div class="mb-8 flex items-center justify-between">
             <h2 class="font-display text-2xl font-semibold text-charcoal">교회 연혁</h2>
             <span class="text-xs font-medium text-muted">설립 {church.history[0]?.year || '2010'}</span>
@@ -66,8 +66,8 @@ const worship = getWorship();
           <div class="relative border-l-2 border-dashed border-border ml-3 space-y-10 pb-4">
             {church.history.map((item, index) => (
               <div class="relative pl-8">
-                <div class={`absolute -left-[9px] top-1 h-4 w-4 rounded-full border-2 border-cream ${index === church.history.length - 1 ? 'bg-forest shadow-sm ring-4 ring-forest/10' : index === 0 ? 'bg-amber shadow-sm' : 'bg-muted-light'}`}></div>
-                <span class={`mb-1 block text-sm font-bold ${index === church.history.length - 1 ? 'text-forest' : index === 0 ? 'text-amber' : 'text-muted'}`}>{item.year}</span>
+                <div class={`absolute -left-[9px] top-1 h-4 w-4 rounded-full border-2 border-cream ${index === church.history.length - 1 ? 'bg-forest shadow-sm ring-4 ring-forest/10' : 'bg-muted-light'}`}></div>
+                <span class={`mb-1 block text-sm font-bold ${index === church.history.length - 1 ? 'text-forest' : 'text-muted'}`}>{item.year}</span>
                 <h3 class="mb-1 font-display text-lg font-semibold text-charcoal">{item.event}</h3>
                 {item.description && <p class="text-sm text-ink">{item.description}</p>}
               </div>
@@ -78,8 +78,8 @@ const worship = getWorship();
 
       {church?.denomination && (
         <section class="pb-6">
-          <div class="rounded-2xl bg-white/90 p-6 border border-teal-200/50 shadow-soft flex items-center gap-4">
-            <div class="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-teal-100 text-teal">
+          <div class="rounded-2xl bg-white p-6 border border-border shadow-soft flex items-center gap-4">
+            <div class="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-forest/10 text-forest">
               <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">verified</span>
             </div>
             <div>
@@ -95,8 +95,8 @@ const worship = getWorship();
           <h2 class="font-display text-xl font-semibold text-charcoal mb-4 px-1">선교 사역 지원</h2>
           <div class="space-y-4">
             {church.missionWork.map((mission) => (
-              <div class="rounded-2xl bg-white/90 p-6 border border-violet-200/50 shadow-soft flex items-center gap-4">
-                <div class="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-violet-100 text-violet">
+              <div class="rounded-2xl bg-white p-6 border border-border shadow-soft flex items-center gap-4">
+                <div class="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-forest/10 text-forest">
                   <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">public</span>
                 </div>
                 <div>
@@ -111,8 +111,8 @@ const worship = getWorship();
 
       {church?.evangelism?.streetEvangelism && (
         <section class="pb-6">
-          <div class="rounded-2xl bg-white/90 p-6 border border-amber-200/50 shadow-soft flex items-center gap-4">
-            <div class="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-amber-100 text-amber-dark">
+          <div class="rounded-2xl bg-white p-6 border border-border shadow-soft flex items-center gap-4">
+            <div class="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-forest/10 text-forest">
               <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">directions_walk</span>
             </div>
             <div>
@@ -141,11 +141,10 @@ const worship = getWorship();
 
       <section class="pb-8">
         <div class="rounded-2xl bg-charcoal p-10 text-center overflow-hidden relative">
-          <div class="absolute top-0 right-0 w-64 h-64 bg-amber/10 rounded-full -mr-32 -mt-32 blur-2xl"></div>
           <div class="relative">
             <h2 class="mb-3 font-display text-3xl font-semibold text-cream">이번 주일, 함께해요</h2>
             <p class="mb-6 text-cream/70">매주 함께 예배드려요</p>
-            <a href="/newcomer" class="inline-block rounded-lg bg-amber px-8 py-4 text-sm font-bold text-charcoal shadow-elevated transition-all hover:bg-amber-light">
+            <a href="/newcomer" class="inline-block rounded-lg bg-forest px-8 py-4 text-sm font-bold text-cream shadow-elevated transition-all hover:bg-forest-light">
               방문 안내
             </a>
           </div>

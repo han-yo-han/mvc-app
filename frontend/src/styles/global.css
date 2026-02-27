@@ -111,7 +111,7 @@
     font-weight: 600;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--color-amber);
+    color: var(--color-forest-muted);
   }
 
   .deco-line {

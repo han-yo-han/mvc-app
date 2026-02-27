@@ -56,8 +56,7 @@ const heroSlides = getHeroSlides();
 
       <!-- 사역/예배 현장: 슬라이드 -->
       {heroSlides && heroSlides.length > 0 && (
-        <section class="relative py-16 lg:py-20 overflow-hidden">
-          <div class="absolute inset-0 bg-gradient-to-b from-sage/40 to-cream/60"></div>
+        <section class="relative py-16 lg:py-20 overflow-hidden bg-cream">
           <div class="relative max-w-page mx-auto px-4 lg:px-8 mb-10">
             <span class="section-label block mb-4">사역 소개</span>
             <h2 class="font-display text-3xl lg:text-4xl font-semibold text-charcoal tracking-tight mb-6">사역/예배 현장</h2>
@@ -69,9 +68,8 @@ const heroSlides = getHeroSlides();
         </section>
       )}
 
-      <!-- IDENTITY: 피치 + 담임목사 사진 배경 -->
-      <section class="relative py-24 lg:py-32 overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-b from-peach to-peach-strong"></div>
+      <!-- IDENTITY -->
+      <section class="relative py-24 lg:py-32 overflow-hidden bg-cream-dark">
         <div class="absolute right-0 top-1/2 -translate-y-1/2 w-[50%] max-w-[600px] h-[120%] opacity-15">
           <div class="absolute inset-0 bg-cover bg-center scale-110 blur-2xl" style="background-image: url('/images/pastor.png');"></div>
         </div>
@@ -92,15 +90,9 @@ const heroSlides = getHeroSlides();
               <div class="grid sm:grid-cols-2 gap-6">
                 {(church?.coreValues || []).map((value, index) => {
                   const icons = ['group', 'local_fire_department', 'public', 'menu_book'];
-                  const iconColors = [
-                    'bg-amber-100 text-amber-dark',
-                    'bg-rose-100 text-rose',
-                    'bg-teal-100 text-teal',
-                    'bg-violet-100 text-violet',
-                  ];
                   return (
-                    <div class="group bg-white/90 rounded-2xl p-8 border border-amber-200/50 hover:border-amber-300 shadow-soft hover:shadow-card transition-all duration-300">
-                      <div class={`w-16 h-16 rounded-2xl flex items-center justify-center mb-6 ${iconColors[index] || 'bg-forest/15 text-forest'} group-hover:scale-105 transition-transform`}>
+                    <div class="group bg-white rounded-2xl p-8 border border-border hover:border-forest/30 shadow-soft hover:shadow-card transition-all duration-300">
+                      <div class="w-16 h-16 rounded-2xl flex items-center justify-center mb-6 bg-forest/10 text-forest group-hover:scale-105 transition-transform">
                         <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">{icons[index] || 'favorite'}</span>
                       </div>
                       <h3 class="font-display text-xl font-semibold text-charcoal mb-2">{value.title}</h3>
@@ -114,32 +106,30 @@ const heroSlides = getHeroSlides();
         </div>
       </section>
 
-      <!-- WORSHIP: 세이지 + color.png 배경 -->
-      <section class="relative py-24 lg:py-32 overflow-hidden">
-        <div class="absolute inset-0 bg-cover bg-center opacity-20" style="background-image: url('/images/color.png');"></div>
-        <div class="absolute inset-0 bg-gradient-to-b from-sage/95 to-sage-strong/95"></div>
+      <!-- WORSHIP -->
+      <section class="relative py-24 lg:py-32 overflow-hidden bg-cream">
         <div class="relative max-w-page mx-auto px-4 lg:px-8 scroll-reveal">
           <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-16">
             <div>
               <span class="section-label block mb-4">예배 안내</span>
               <h2 class="font-display text-4xl lg:text-5xl font-semibold text-charcoal tracking-tight">함께 예배해요</h2>
             </div>
-            <a href="/worship" class="text-teal font-semibold hover:text-teal/80 transition-colors flex items-center gap-2">
+            <a href="/worship" class="text-forest font-semibold hover:text-forest/80 transition-colors flex items-center gap-2">
               전체 예배 안내 <span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">arrow_forward</span>
             </a>
           </div>
 
           <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {worship?.schedules && worship.schedules.slice(0, 6).map((schedule) => (
-              <div class="bg-white/90 rounded-2xl p-8 border border-forest/20 hover:border-forest/40 shadow-soft hover:shadow-card transition-all duration-300">
+              <div class="bg-white rounded-2xl p-8 border border-border hover:border-forest/30 shadow-soft hover:shadow-card transition-all duration-300">
                 <div class="flex items-center gap-4 mb-4">
-                  <div class="w-16 h-16 rounded-2xl bg-teal-100 text-teal flex items-center justify-center">
+                  <div class="w-16 h-16 rounded-2xl bg-forest/10 text-forest flex items-center justify-center">
                     <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">event</span>
                   </div>
                   <h3 class="font-display text-xl font-semibold text-charcoal">{schedule.type}</h3>
                 </div>
                 <div class="space-y-2 ml-16">
-                  <p class="text-forest font-semibold">{schedule.time}</p>
+                  <p class="text-charcoal font-semibold">{schedule.time}</p>
                   <p class="text-muted text-sm">{schedule.location}</p>
                   {schedule.description && <p class="text-ink/80 text-sm">{schedule.description}</p>}
                 </div>
@@ -150,13 +140,13 @@ const heroSlides = getHeroSlides();
           {worship?.training && worship.training.length > 0 && (
             <div class="mt-12 grid sm:grid-cols-2 gap-6">
               {worship.training.map((item) => (
-                <div class="bg-amber-50 rounded-2xl p-6 border border-amber-200/60 flex items-center gap-4 shadow-soft">
-                  <div class="w-16 h-16 rounded-2xl bg-amber-200/80 text-amber-dark flex items-center justify-center">
+                <div class="bg-white rounded-2xl p-6 border border-border flex items-center gap-4 shadow-soft">
+                  <div class="w-16 h-16 rounded-2xl bg-forest/10 text-forest flex items-center justify-center">
                     <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">school</span>
                   </div>
                   <div>
                     <h3 class="font-display text-lg font-semibold text-charcoal">{item.name}</h3>
-                    <p class="text-amber font-medium text-sm">{item.time}</p>
+                    <p class="text-muted font-medium text-sm">{item.time}</p>
                   </div>
                 </div>
               ))}
@@ -165,23 +155,19 @@ const heroSlides = getHeroSlides();
         </div>
       </section>
 
-      <!-- ONLINE WORSHIP: Bold CTA block + color 배경 -->
+      <!-- ONLINE WORSHIP: CTA -->
       {(worship?.onlineLink || worship?.youtubeChannel) && (
-        <section class="relative py-24 lg:py-32 overflow-hidden">
-          <div class="absolute inset-0 bg-cover bg-center opacity-15" style="background-image: url('/images/color.png');"></div>
-          <div class="absolute inset-0 bg-cream/90"></div>
+        <section class="relative py-24 lg:py-32 overflow-hidden bg-cream-dark">
           <div class="relative max-w-page mx-auto px-4 lg:px-8">
-            <div class="relative rounded-3xl overflow-hidden bg-charcoal text-cream">
-              <div class="absolute inset-0 bg-gradient-to-br from-forest/90 to-charcoal"></div>
-              <div class="absolute top-0 right-0 w-96 h-96 bg-amber/10 rounded-full -mr-48 -mt-48 blur-3xl"></div>
+            <div class="relative rounded-2xl overflow-hidden bg-charcoal text-cream">
               <div class="relative p-12 lg:p-20">
                 <div class="max-w-2xl">
-                  <span class="section-label text-amber/90 block mb-4">온라인 예배</span>
+                  <span class="section-label text-cream/70 block mb-4">온라인 예배</span>
                   <h2 class="font-display text-4xl lg:text-5xl font-semibold mb-4">언제 어디서든 함께해요</h2>
                   <p class="text-cream/80 text-lg mb-8">YouTube 채널에서 주일 예배를 실시간으로 시청하실 수 있습니다.</p>
                   <div class="flex flex-col sm:flex-row gap-4">
                     {worship.onlineLink && (
-                      <a href={worship.onlineLink} target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center bg-amber hover:bg-amber-light text-charcoal px-8 py-4 rounded-lg font-bold transition-all">
+                      <a href={worship.onlineLink} target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center bg-forest hover:bg-forest-light text-cream px-8 py-4 rounded-lg font-bold transition-all">
                         예배 실황(Live 시청)
                       </a>
                     )}
@@ -198,19 +184,17 @@ const heroSlides = getHeroSlides();
         </section>
       )}
 
-      <!-- MISSIONS: 라벤더 + color 배경 -->
+      <!-- MISSIONS -->
       {(church?.missionWork || church?.evangelism) && (
-        <section class="relative py-24 lg:py-32 overflow-hidden">
-          <div class="absolute inset-0 bg-cover bg-center opacity-15" style="background-image: url('/images/color.png');"></div>
-          <div class="absolute inset-0 bg-gradient-to-b from-lavender/95 to-lavender-strong/95"></div>
+        <section class="relative py-24 lg:py-32 overflow-hidden bg-cream">
           <div class="relative max-w-page mx-auto px-4 lg:px-8 scroll-reveal">
             <span class="section-label block mb-4">선교 & 전도</span>
             <h2 class="font-display text-4xl lg:text-5xl font-semibold text-charcoal tracking-tight mb-16">열방을 향해</h2>
 
             <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {church?.missionWork?.map((mission) => (
-                <div class="bg-white/90 rounded-2xl p-8 border border-violet-200/50 shadow-soft">
-                  <div class="w-16 h-16 rounded-2xl bg-violet-100 text-violet flex items-center justify-center mb-4">
+                <div class="bg-white rounded-2xl p-8 border border-border shadow-soft">
+                  <div class="w-16 h-16 rounded-2xl bg-forest/10 text-forest flex items-center justify-center mb-4">
                     <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">public</span>
                   </div>
                   <h3 class="font-display text-xl font-semibold text-charcoal">{mission.country}</h3>
@@ -218,8 +202,8 @@ const heroSlides = getHeroSlides();
                 </div>
               ))}
               {church?.evangelism?.streetEvangelism && (
-                <div class="bg-white/90 rounded-2xl p-8 border border-amber-200/50 shadow-soft">
-                  <div class="w-16 h-16 rounded-2xl bg-amber-100 text-amber-dark flex items-center justify-center mb-4">
+                <div class="bg-white rounded-2xl p-8 border border-border shadow-soft">
+                  <div class="w-16 h-16 rounded-2xl bg-forest/10 text-forest flex items-center justify-center mb-4">
                     <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">directions_walk</span>
                   </div>
                   <h3 class="font-display text-xl font-semibold text-charcoal">노방전도</h3>
@@ -231,10 +215,8 @@ const heroSlides = getHeroSlides();
         </section>
       )}
 
-      <!-- LOCATION: 샌드 + color 배경 -->
-      <section class="relative py-24 lg:py-32 overflow-hidden">
-        <div class="absolute inset-0 bg-cover bg-center opacity-15" style="background-image: url('/images/color.png');"></div>
-        <div class="absolute inset-0 bg-gradient-to-b from-sand/95 to-sand-strong/95"></div>
+      <!-- LOCATION -->
+      <section class="relative py-24 lg:py-32 overflow-hidden bg-cream-dark">
         <div class="relative max-w-page mx-auto px-4 lg:px-8 scroll-reveal">
           <div class="grid lg:grid-cols-5 gap-12 lg:gap-16">
             <div class="lg:col-span-3 relative">
@@ -268,18 +250,18 @@ const heroSlides = getHeroSlides();
                 <span class="section-label block mb-4">오시는 길</span>
                 <h2 class="font-display text-3xl font-semibold text-charcoal mb-6">교회 위치</h2>
               </div>
-              <div class="bg-white/90 rounded-2xl p-6 border border-teal-200/50 shadow-soft">
+              <div class="bg-white rounded-2xl p-6 border border-border shadow-soft">
                 <h3 class="font-semibold text-charcoal mb-3 flex items-center gap-2">
-                  <span class="material-symbols-outlined text-2xl text-teal" style="font-variation-settings: 'FILL' 1;">location_on</span>
+                  <span class="material-symbols-outlined text-2xl text-forest" style="font-variation-settings: 'FILL' 1;">location_on</span>
                   주소
                 </h3>
                 <p class="text-ink leading-relaxed">
                   {location?.address?.full || '서울 동대문구 사가정로 190'}<br/>{location?.address?.detail || '우성종합상가 4층(401호)'}
                 </p>
               </div>
-              <div class="bg-white/90 rounded-2xl p-6 border border-teal-200/50 shadow-soft">
+              <div class="bg-white rounded-2xl p-6 border border-border shadow-soft">
                 <h3 class="font-semibold text-charcoal mb-3 flex items-center gap-2">
-                  <span class="material-symbols-outlined text-2xl text-teal" style="font-variation-settings: 'FILL' 1;">commute</span>
+                  <span class="material-symbols-outlined text-2xl text-forest" style="font-variation-settings: 'FILL' 1;">commute</span>
                   대중교통
                 </h3>
                 <div class="space-y-2 text-sm text-ink">
@@ -296,7 +278,7 @@ const heroSlides = getHeroSlides();
                   )}
                 </div>
               </div>
-              <a href="/location" class="inline-flex items-center gap-2 text-teal font-semibold hover:text-teal/80 transition-colors">
+              <a href="/location" class="inline-flex items-center gap-2 text-forest font-semibold hover:text-forest/80 transition-colors">
                 자세히 보기 <span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">arrow_forward</span>
               </a>
             </div>
@@ -304,11 +286,9 @@ const heroSlides = getHeroSlides();
         </div>
       </section>
 
-      <!-- OFFERING: 민트 + color 배경 -->
+      <!-- OFFERING -->
       {contact?.offering && (
-        <section class="relative py-24 lg:py-32 overflow-hidden">
-          <div class="absolute inset-0 bg-cover bg-center opacity-15" style="background-image: url('/images/color.png');"></div>
-          <div class="absolute inset-0 bg-gradient-to-b from-mint/95 to-mint-strong/95"></div>
+        <section class="relative py-24 lg:py-32 overflow-hidden bg-cream">
           <div class="relative max-w-page mx-auto px-4 lg:px-8 scroll-reveal">
             <span class="section-label block mb-4">헌금 안내</span>
             <h2 class="font-display text-4xl font-semibold text-charcoal mb-6">감사의 마음으로</h2>

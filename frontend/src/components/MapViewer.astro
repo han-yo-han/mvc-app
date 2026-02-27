@@ -10,24 +10,30 @@ interface Props {
 
 const { lat, lng, title = '선교비전교회', height = '280px', zoom = 16, address } = Astro.props;
 const ncpKeyId = import.meta.env.PUBLIC_NCP_KEY_ID || '';
+const ncpClientId = import.meta.env.PUBLIC_NCP_CLIENT_ID || '';
+const mapCred = ncpKeyId || ncpClientId;
+const mapParam = ncpKeyId ? 'ncpKeyId' : 'ncpClientId';
 ---
 
 <div
   id="church-map"
-  class="w-full rounded-2xl overflow-hidden shadow-elevated bg-sage/30"
+  class="w-full rounded-2xl overflow-hidden shadow-elevated bg-cream"
   style={`height: ${height}; min-height: 200px;`}
   data-lat={lat}
   data-lng={lng}
   data-title={title}
   data-zoom={zoom}
   data-address={address || ''}
-  data-has-key={!!ncpKeyId}
+  data-has-key={!!mapCred}
   aria-label="교회 위치 지도"
 ></div>
 
-{ncpKeyId ? (
+{mapCred ? (
   <>
-    <script is:inline src={`https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=${ncpKeyId}&callback=initNaverMap`}></script>
+    <script is:inline src={`https://oapi.map.naver.com/openapi/v3/maps.js?${mapParam}=${mapCred}&callback=initNaverMap`}></script>
+    <script is:inline>
+      window.navermap_authFailure = function() { console.warn('네이버 지도 API 인증 실패. ncpKeyId 또는 Dynamic Map 설정을 확인하세요.'); };
+    </script>
     <script is:inline>
       window.initNaverMap = function() {
         const el = document.getElementById('church-map');
@@ -60,7 +66,7 @@ const ncpKeyId = import.meta.env.PUBLIC_NCP_KEY_ID || '';
         if (!el || el.dataset.hasKey === 'true') return;
         const address = el.dataset.address || '서울 동대문구 사가정로 190';
         const enc = encodeURIComponent(address);
-        el.innerHTML = '<a href="https://map.naver.com/p/search/' + enc + '" target="_blank" rel="noopener noreferrer" class="flex flex-col items-center justify-center w-full h-full gap-4 p-6 hover:bg-sage/50 transition-colors"><span class="material-symbols-outlined text-5xl text-forest/60" style="font-variation-settings: \'FILL\' 1;">map</span><span class="text-forest font-semibold">네이버 지도에서 보기</span><span class="text-sm text-muted text-center">클릭하면 네이버 지도가 열립니다</span></a>';
+        el.innerHTML = '<a href="https://map.naver.com/p/search/' + enc + '" target="_blank" rel="noopener noreferrer" class="flex flex-col items-center justify-center w-full h-full gap-4 p-6 hover:bg-cream-dark transition-colors"><span class="material-symbols-outlined text-5xl text-forest/50" style="font-variation-settings: \'FILL\' 1;">map</span><span class="text-forest font-semibold">네이버 지도에서 보기</span><span class="text-sm text-muted text-center">클릭하면 네이버 지도가 열립니다</span></a>';
       })();
     </script>
 )

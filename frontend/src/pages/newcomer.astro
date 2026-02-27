@@ -34,7 +34,7 @@ const worship = getWorship();
 
       {newcomer?.welcomeMessage && (
         <section class="pt-8 pb-6">
-          <div class="rounded-2xl bg-white/90 p-8 border border-teal-200/50 shadow-soft text-center">
+          <div class="rounded-2xl bg-white p-8 border border-border shadow-soft text-center">
             <p class="text-lg text-charcoal leading-relaxed">{newcomer.welcomeMessage}</p>
           </div>
         </section>
@@ -74,10 +74,10 @@ const worship = getWorship();
                   }
                   target={channel.type !== 'phone' && channel.type !== 'email' ? '_blank' : undefined}
                   rel={channel.type !== 'phone' && channel.type !== 'email' ? 'noopener noreferrer' : undefined}
-                  class="group rounded-2xl bg-white/90 p-6 border border-teal-200/50 shadow-soft hover:border-teal-300 transition-all block"
+                  class="group rounded-2xl bg-white p-6 border border-border shadow-soft hover:border-forest/30 transition-all block"
                 >
                   <div class="flex items-center gap-4">
-                    <div class="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-teal-100 text-teal">
+                    <div class="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-forest/10 text-forest">
                       {channel.type === 'phone' && <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">phone</span>}
                       {channel.type === 'email' && <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">mail</span>}
                       {channel.type === 'kakao' && <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">chat</span>}
@@ -87,7 +87,7 @@ const worship = getWorship();
                       <h3 class="font-display text-lg font-semibold text-charcoal mb-1">{channel.label}</h3>
                       <p class="text-sm text-muted">{channel.value}</p>
                     </div>
-                    <span class="material-symbols-outlined text-2xl text-muted group-hover:text-teal transition-colors" style="font-variation-settings: 'FILL' 1;">chevron_right</span>
+                    <span class="material-symbols-outlined text-2xl text-muted group-hover:text-forest transition-colors" style="font-variation-settings: 'FILL' 1;">chevron_right</span>
                   </div>
                 </a>
               ))}
@@ -97,9 +97,9 @@ const worship = getWorship();
 
       {newcomer?.meetingInfo && newcomer.meetingInfo.hasMeeting && (
         <section class="pb-8">
-          <div class="rounded-2xl bg-gradient-to-br from-teal-50 to-emerald-50 p-8 border border-teal-200/60 shadow-soft">
+          <div class="rounded-2xl bg-white p-8 border border-border shadow-soft">
             <div class="flex items-center gap-4 mb-6">
-              <div class="flex h-16 w-16 items-center justify-center rounded-2xl bg-teal text-white">
+              <div class="flex h-16 w-16 items-center justify-center rounded-2xl bg-forest text-cream">
                 <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">groups</span>
               </div>
               <h2 class="font-display text-2xl font-semibold text-charcoal">새가족 모임</h2>
