@@ -157,26 +157,24 @@ const heroSlides = getHeroSlides();
 
       <!-- ONLINE WORSHIP: CTA -->
       {(worship?.onlineLink || worship?.youtubeChannel) && (
-        <section class="relative py-24 lg:py-32 overflow-hidden bg-cream-dark">
+        <section class="relative py-24 lg:py-32 overflow-hidden bg-cream">
           <div class="relative max-w-page mx-auto px-4 lg:px-8">
-            <div class="relative rounded-2xl overflow-hidden bg-charcoal text-cream">
-              <div class="relative p-12 lg:p-20">
-                <div class="max-w-2xl">
-                  <span class="section-label text-cream/70 block mb-4">온라인 예배</span>
-                  <h2 class="font-display text-4xl lg:text-5xl font-semibold mb-4">언제 어디서든 함께해요</h2>
-                  <p class="text-cream/80 text-lg mb-8">YouTube 채널에서 주일 예배를 실시간으로 시청하실 수 있습니다.</p>
-                  <div class="flex flex-col sm:flex-row gap-4">
-                    {worship.onlineLink && (
-                      <a href={worship.onlineLink} target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center bg-forest hover:bg-forest-light text-cream px-8 py-4 rounded-lg font-bold transition-all">
-                        예배 실황(Live 시청)
-                      </a>
-                    )}
-                    {worship.youtubeChannel && (
-                      <a href={worship.youtubeChannel} target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center border-2 border-cream/30 hover:bg-cream/10 text-cream px-8 py-4 rounded-lg font-bold transition-all">
-                        YouTube 채널
-                      </a>
-                    )}
-                  </div>
+            <div class="relative rounded-2xl overflow-hidden bg-white border border-border shadow-soft p-12 lg:p-20">
+              <div class="max-w-2xl">
+                <span class="section-label block mb-4">온라인 예배</span>
+                <h2 class="font-display text-4xl lg:text-5xl font-semibold text-charcoal mb-4">언제 어디서든 함께해요</h2>
+                <p class="text-muted text-lg mb-8">YouTube 채널에서 주일 예배를 실시간으로 시청하실 수 있습니다.</p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                  {worship.onlineLink && (
+                    <a href={worship.onlineLink} target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center bg-forest/90 hover:bg-forest text-cream px-8 py-4 rounded-lg font-bold transition-all">
+                      예배 실황(Live 시청)
+                    </a>
+                  )}
+                  {worship.youtubeChannel && (
+                    <a href={worship.youtubeChannel} target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center border-2 border-forest/40 hover:bg-forest/5 text-forest px-8 py-4 rounded-lg font-bold transition-all">
+                      YouTube 채널
+                    </a>
+                  )}
                 </div>
               </div>
             </div>
