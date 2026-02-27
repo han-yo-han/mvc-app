@@ -1,0 +1,146 @@
+---
+interface Props {
+  popup?: {
+    enabled?: boolean;
+    title?: string;
+    subtitle?: string;
+    description?: string;
+    intro?: string;
+    questions?: string[];
+    benefits?: string[];
+    tagline?: string;
+    link?: string;
+    linkText?: string;
+    image?: string;
+    hideForDays?: number;
+  };
+}
+
+const { popup } = Astro.props;
+const showPopup = popup?.enabled !== false && (popup?.title || popup?.image);
+const storageKey = 'popup-ad-closed';
+const hideForDays = popup?.hideForDays ?? 1;
+const hasRichContent = popup?.questions?.length || popup?.benefits?.length;
+---
+
+{showPopup && (
+  <div id="popup-ad" class="fixed inset-0 z-[200] hidden" aria-hidden="true">
+    <div id="popup-backdrop" class="absolute inset-0 bg-charcoal/50 backdrop-blur-sm transition-opacity"></div>
+    <div class="absolute inset-0 flex items-center justify-center p-4 overflow-y-auto">
+      <div class="relative w-full max-w-md rounded-2xl overflow-hidden bg-white shadow-elevated border border-border animate-fade-in my-auto">
+        <button
+          id="popup-close"
+          type="button"
+          class="absolute top-4 right-4 z-10 p-2 rounded-full bg-white/90 hover:bg-white text-charcoal transition-colors shadow-soft"
+          aria-label="닫기"
+        >
+          <span class="material-symbols-outlined text-xl">close</span>
+        </button>
+
+        {popup?.image && (
+          <div class="aspect-[16/10] w-full bg-cream-dark overflow-hidden">
+            <img src={popup.image} alt="" class="w-full h-full object-cover" />
+          </div>
+        )}
+
+        <div class="p-6">
+          {popup?.title && (
+            <h3 class="font-display text-xl font-semibold text-charcoal mb-1 text-center">{popup.title}</h3>
+          )}
+          {popup?.subtitle && (
+            <p class="text-accent font-medium text-sm mb-4 text-center italic">"{popup.subtitle}"</p>
+          )}
+
+          {hasRichContent ? (
+            <div class="space-y-4">
+              {popup?.intro && (
+                <p class="text-muted text-sm">{popup.intro}</p>
+              )}
+              {popup?.questions?.length ? (
+                <ul class="space-y-1.5 text-sm text-charcoal">
+                  {popup.questions.map((q) => (
+                    <li class="flex items-start gap-2">
+                      <span class="text-accent mt-0.5 shrink-0">✔</span>
+                      <span>{q}</span>
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
+              {popup?.benefits?.length ? (
+                <div>
+                  <p class="text-muted text-xs mb-2">이번 힐링캠프에서</p>
+                  <ul class="space-y-1.5 text-sm text-charcoal">
+                    {popup.benefits.map((b) => (
+                      <li class="flex items-start gap-2">
+                        <span class="text-accent mt-0.5 shrink-0">✔</span>
+                        <span>{b}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
+              {popup?.tagline && (
+                <p class="text-center text-accent font-semibold text-sm py-2">✨ {popup.tagline} ✨</p>
+              )}
+            </div>
+          ) : (
+            popup?.description && <p class="text-muted text-sm mb-4">{popup.description}</p>
+          )}
+
+          {popup?.link && (
+            <a
+              href={popup.link}
+              class="mt-6 inline-flex items-center justify-center w-full py-3.5 rounded-lg bg-accent text-charcoal font-bold text-sm hover:bg-accent/90 transition-colors shadow-soft"
+            >
+              {popup.linkText || '자세히 보기'}
+            </a>
+          )}
+        </div>
+      </div>
+    </div>
+  </div>
+)}
+
+<script define:vars={{ storageKey, hideForDays }}>
+  (function() {
+    const container = document.getElementById('popup-ad');
+    if (!container) return;
+
+    const closeBtn = document.getElementById('popup-close');
+    const backdrop = document.getElementById('popup-backdrop');
+
+    function shouldShow() {
+      try {
+        const stored = localStorage.getItem(storageKey);
+        if (!stored) return true;
+        const { date } = JSON.parse(stored);
+        const days = (Date.now() - new Date(date).getTime()) / (1000 * 60 * 60 * 24);
+        return days >= hideForDays;
+      } catch {
+        return true;
+      }
+    }
+
+    function close() {
+      container.classList.add('hidden');
+      container.setAttribute('aria-hidden', 'true');
+      try {
+        localStorage.setItem(storageKey, JSON.stringify({ date: new Date().toISOString() }));
+      } catch (_) {}
+    }
+
+    function show() {
+      if (!shouldShow()) return;
+      container.classList.remove('hidden');
+      container.setAttribute('aria-hidden', 'false');
+    }
+
+    setTimeout(show, 1500);
+
+    closeBtn?.addEventListener('click', close);
+    backdrop?.addEventListener('click', close);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !container.classList.contains('hidden')) close();
+    });
+  })();
+</script>

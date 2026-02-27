@@ -9,48 +9,43 @@ interface Props {
 const { church, contact, location, worship } = Astro.props;
 ---
 
-<footer class="bg-charcoal text-cream">
+<footer class="bg-cream-dark text-charcoal border-t border-border">
   <div class="max-w-page mx-auto px-4 lg:px-8 py-16 lg:py-20">
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-16">
       <div class="sm:col-span-2 lg:col-span-1">
         <div class="flex items-center gap-3 mb-6">
-          <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-forest/20 text-cream">
-            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-              <path d="M2 17l10 5 10-5"/>
-            </svg>
-          </div>
-          <span class="font-display text-xl font-semibold text-cream">{church?.name || '선교비전교회'}</span>
+          <img src="/images/logo.png" alt="선교비전교회" class="h-12 w-12 object-contain" />
+          <span class="font-display text-xl font-semibold text-charcoal">{church?.name || '선교비전교회'}</span>
         </div>
-        <p class="text-cream/70 text-sm leading-relaxed max-w-xs">
+        <p class="text-muted text-sm leading-relaxed max-w-xs">
           {church?.intro || '선교와 말씀 위에 세워진 공동체'}
         </p>
       </div>
       <div>
-        <h4 class="font-sans text-xs font-semibold uppercase tracking-widest text-cream/50 mb-4">연락처</h4>
-        <div class="space-y-2 text-sm text-cream/80">
-          {contact?.phone && <a href={`tel:${contact.phone.main}`} class="block hover:text-cream transition-colors">{contact.phone.display}</a>}
-          {contact?.mobile && <a href={`tel:${contact.mobile.main}`} class="block hover:text-cream transition-colors">{contact.mobile.display}</a>}
+        <h4 class="font-sans text-xs font-semibold uppercase tracking-widest text-muted mb-4">연락처</h4>
+        <div class="space-y-2 text-sm text-ink">
+          {contact?.phone && <a href={`tel:${contact.phone.main}`} class="block hover:text-accent transition-colors">{contact.phone.display}</a>}
+          {contact?.mobile && <a href={`tel:${contact.mobile.main}`} class="block hover:text-accent transition-colors">{contact.mobile.display}</a>}
         </div>
       </div>
       <div>
-        <h4 class="font-sans text-xs font-semibold uppercase tracking-widest text-cream/50 mb-4">오시는 길</h4>
-        <p class="text-sm text-cream/80 leading-relaxed">
+        <h4 class="font-sans text-xs font-semibold uppercase tracking-widest text-muted mb-4">오시는 길</h4>
+        <p class="text-sm text-ink leading-relaxed">
           {location?.address?.full}<br/>{location?.address?.detail}
         </p>
       </div>
       <div>
-        <h4 class="font-sans text-xs font-semibold uppercase tracking-widest text-cream/50 mb-4">바로가기</h4>
-        <div class="space-y-2 text-sm text-cream/80">
-          <a href="/about" class="block hover:text-cream transition-colors">교회소개</a>
-          <a href="/worship" class="block hover:text-cream transition-colors">예배안내</a>
-          <a href="/newcomer" class="block hover:text-cream transition-colors">새가족 안내</a>
-          {worship?.youtubeChannel && <a href={worship.youtubeChannel} target="_blank" rel="noopener noreferrer" class="block hover:text-cream transition-colors">YouTube</a>}
+        <h4 class="font-sans text-xs font-semibold uppercase tracking-widest text-muted mb-4">바로가기</h4>
+        <div class="space-y-2 text-sm text-ink">
+          <a href="/about" class="block hover:text-accent transition-colors">교회소개</a>
+          <a href="/worship" class="block hover:text-accent transition-colors">예배안내</a>
+          <a href="/newcomer" class="block hover:text-accent transition-colors">새가족 안내</a>
+          {worship?.youtubeChannel && <a href={worship.youtubeChannel} target="_blank" rel="noopener noreferrer" class="block hover:text-accent transition-colors">YouTube</a>}
         </div>
       </div>
     </div>
-    <div class="border-t border-charcoal-soft mt-12 pt-8 text-center">
-      <p class="text-xs text-cream/50">
+    <div class="border-t border-border mt-12 pt-8 text-center">
+      <p class="text-xs text-muted">
         © {new Date().getFullYear()} {church?.name || '선교비전교회'}. {church?.denomination || '대한예수교 장로회 합동교단'}
       </p>
     </div>

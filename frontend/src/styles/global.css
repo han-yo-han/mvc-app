@@ -8,37 +8,30 @@
 
 @layer base {
   :root {
-    /* Warm pastel palette - 섹션별 배경용 */
-    --color-cream: #faf8f5;
-    --color-cream-dark: #f2efe8;
-    --color-peach: #fce8e0;
-    --color-sage: #e8f0e0;
-    --color-lavender: #efe5f5;
-    --color-sky: #e0eaf5;
-    --color-sand: #f5ebe0;
-    --color-mint: #d8efe4;
-    --color-charcoal: #1a1614;
-    --color-charcoal-soft: #2c2826;
+    /* 산뜻한 노란·주황 연한 파스텔톤 */
+    --color-cream: #fefdf9;
+    --color-cream-dark: #faf6ef;
+    --color-pastel-yellow: #faf0d4;
+    --color-pastel-orange: #fce8d4;
+    --color-pastel-peach: #fef3e8;
+    --color-sand: #f8f2e8;
+    --color-charcoal: #2c2824;
     --color-ink: #3d3935;
     --color-muted: #6b6358;
     --color-muted-light: #9a9288;
-    --color-amber: #b8860b;
-    --color-amber-light: #d4a84b;
-    --color-amber-dark: #8b6914;
-    --color-forest: #2d4a3e;
-    --color-forest-light: #3d5f50;
-    --color-forest-muted: #4a6b5c;
+    --color-accent: #e8c88a;
+    --color-accent-light: #f5e6c8;
+    --color-accent-soft: #faf0dc;
     /* Semantic */
-    --color-primary: var(--color-forest);
-    --color-accent: var(--color-amber);
+    --color-primary: var(--color-accent);
     --color-bg: var(--color-cream);
     --color-text: var(--color-charcoal);
     --color-text-muted: var(--color-muted);
-    --color-border: #e5e2dc;
+    --color-border: #ebe5dc;
     /* Typography - Pretendard */
     --font-display: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
     --font-body: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-    --grain-opacity: 0.025;
+    --grain-opacity: 0.02;
   }
 
   html {
@@ -86,6 +79,18 @@
     transform: translateY(0);
   }
 
+  /* 섹션 단위 순차 reveal - 지연시간 적용 */
+  .reveal-stagger {
+    opacity: 0;
+    transform: translateY(1rem);
+    transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .scroll-reveal.revealed .reveal-stagger-1 { opacity: 1; transform: translateY(0); transition-delay: 0.3s; }
+  .scroll-reveal.revealed .reveal-stagger-2 { opacity: 1; transform: translateY(0); transition-delay: 0.7s; }
+  .scroll-reveal.revealed .reveal-stagger-3 { opacity: 1; transform: translateY(0); transition-delay: 1.1s; }
+  .scroll-reveal.revealed .reveal-stagger-4 { opacity: 1; transform: translateY(0); transition-delay: 1.5s; }
+
   /* Hero용 즉시 reveal (페이지 로드 시) */
   .reveal {
     opacity: 0;
@@ -111,13 +116,13 @@
     font-weight: 600;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--color-forest-muted);
+    color: var(--color-muted);
   }
 
   .deco-line {
     width: 2.5rem;
     height: 2px;
-    background: linear-gradient(90deg, var(--color-amber), transparent);
+    background: linear-gradient(90deg, var(--color-accent), transparent);
   }
 }
 

@@ -32,7 +32,7 @@ const navLinks = [
             href={preventNav ? '#' : link.href}
             class:list={[
               "px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200",
-              isActive ? "text-forest bg-forest/5" : "text-muted hover:text-charcoal hover:bg-cream-dark"
+              isActive ? "text-accent bg-accent/10" : "text-muted hover:text-charcoal hover:bg-cream-dark"
             ]}
             onclick={preventNav ? "event.preventDefault(); alert('준비중입니다.');" : undefined}
           >

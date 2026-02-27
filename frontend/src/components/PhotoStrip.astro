@@ -17,7 +17,7 @@ const trackImages = n > 1 ? [displayImages[n - 1], ...displayImages, displayImag
       <div class="carousel-track flex items-center transition-transform duration-600 ease-out" data-carousel-track>
         {trackImages.map((img, i) => (
           <div class="slide flex-[0_0_33.333%] flex justify-center transition-transform duration-600 ease-out transition-opacity duration-600" data-slide-index={i}>
-            <div class="w-[80%] rounded-2xl overflow-hidden border-2 border-forest/10 shadow-soft">
+            <div class="w-[80%] rounded-2xl overflow-hidden border-2 border-accent/10 shadow-soft">
               <img src={img.src} alt={img.alt} class="w-full aspect-[4/3] object-cover" loading={i < 4 ? 'eager' : 'lazy'} decoding="async" />
             </div>
           </div>
@@ -43,7 +43,7 @@ const trackImages = n > 1 ? [displayImages[n - 1], ...displayImages, displayImag
       {n > 1 && (
         <div class="flex gap-1.5" data-carousel-dots>
           {displayImages.map((_, i) => (
-            <button type="button" class={`w-2 h-2 rounded-full transition-colors ${i === 0 ? 'bg-forest' : 'bg-forest/30 hover:bg-forest/50'}`} aria-label={`${i + 1}번째`} data-dot-index={i}></button>
+            <button type="button" class={`w-2 h-2 rounded-full transition-colors ${i === 0 ? 'bg-accent' : 'bg-accent/30 hover:bg-accent/50'}`} aria-label={`${i + 1}번째`} data-dot-index={i}></button>
           ))}
         </div>
       )}
@@ -107,8 +107,8 @@ const trackImages = n > 1 ? [displayImages[n - 1], ...displayImages, displayImag
         const idx = current - 1;
         if (captionEl && captions[idx] !== undefined) captionEl.textContent = captions[idx];
         dots.forEach((d, i) => {
-          d.classList.toggle('bg-forest', i === idx);
-          d.classList.toggle('bg-forest/30', i !== idx);
+          d.classList.toggle('bg-accent', i === idx);
+          d.classList.toggle('bg-accent/30', i !== idx);
         });
       }
 

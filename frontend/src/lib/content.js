@@ -126,3 +126,10 @@ export function getHeroSlides() {
   const data = loadJSON('hero-slides.json');
   return data?.slides ?? [];
 }
+
+/**
+ * Get popup ad config
+ */
+export function getPopupAd() {
+  return loadJSON('popup-ad.json');
+}

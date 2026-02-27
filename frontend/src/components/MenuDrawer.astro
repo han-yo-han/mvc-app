@@ -32,7 +32,7 @@ const navItems = [
                 class="flex items-center gap-4 p-4 rounded-xl hover:bg-surface transition-colors group"
                 onclick={item.preventNav ? "event.preventDefault(); alert('준비중입니다.');" : undefined}
               >
-                <span class="material-symbols-outlined text-2xl text-muted group-hover:text-teal transition-colors">
+                <span class="material-symbols-outlined text-2xl text-muted group-hover:text-accent transition-colors">
                   {item.icon}
                 </span>
                 <span class="font-medium text-charcoal">{item.label}</span>

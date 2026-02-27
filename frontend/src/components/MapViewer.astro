@@ -66,7 +66,7 @@ const mapParam = ncpKeyId ? 'ncpKeyId' : 'ncpClientId';
         if (!el || el.dataset.hasKey === 'true') return;
         const address = el.dataset.address || '서울 동대문구 사가정로 190';
         const enc = encodeURIComponent(address);
-        el.innerHTML = '<a href="https://map.naver.com/p/search/' + enc + '" target="_blank" rel="noopener noreferrer" class="flex flex-col items-center justify-center w-full h-full gap-4 p-6 hover:bg-cream-dark transition-colors"><span class="material-symbols-outlined text-5xl text-forest/50" style="font-variation-settings: \'FILL\' 1;">map</span><span class="text-forest font-semibold">네이버 지도에서 보기</span><span class="text-sm text-muted text-center">클릭하면 네이버 지도가 열립니다</span></a>';
+        el.innerHTML = '<a href="https://map.naver.com/p/search/' + enc + '" target="_blank" rel="noopener noreferrer" class="flex flex-col items-center justify-center w-full h-full gap-4 p-6 hover:bg-cream-dark transition-colors"><span class="material-symbols-outlined text-5xl text-accent/50" style="font-variation-settings: \'FILL\' 1;">map</span><span class="text-accent font-semibold">네이버 지도에서 보기</span><span class="text-sm text-muted text-center">클릭하면 네이버 지도가 열립니다</span></a>';
       })();
     </script>
 )

@@ -23,7 +23,7 @@ const tabs = [
           onclick={tab.preventNav ? "event.preventDefault(); alert('준비중입니다.');" : undefined}
           class:list={[
             "flex flex-1 flex-col items-center justify-center gap-0.5 py-2 transition-colors",
-            active ? "text-teal" : "text-muted hover:text-teal"
+            active ? "text-accent" : "text-muted hover:text-accent"
           ]}
           aria-current={active ? "page" : undefined}
         >
@@ -41,7 +41,7 @@ const tabs = [
     })}
     <button
       onclick="window.openMenu?.()"
-      class="flex flex-1 flex-col items-center justify-center gap-0.5 py-2 text-muted hover:text-teal transition-colors"
+      class="flex flex-1 flex-col items-center justify-center gap-0.5 py-2 text-muted hover:text-accent transition-colors"
       aria-label="더보기 메뉴"
     >
       <span class="material-symbols-outlined text-[28px]">more_horiz</span>
